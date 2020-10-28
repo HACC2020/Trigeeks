@@ -14,7 +14,6 @@ struct ScannerLayoutView: View {
     @State var checkMarkRotation: Double = 100
     @Binding var isShowScanner: Bool
     var body: some View {
-        
         NavigationView {
             ZStack {
                 VStack {
@@ -42,8 +41,8 @@ struct ScannerLayoutView: View {
                 
                 
             }
-            //CodeScannerView here
         }
+
     }
     
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
@@ -75,11 +74,8 @@ struct ScannerLayoutView: View {
     }
 }
 
-
-
 struct ScannerLayoutView_Previews: PreviewProvider {
     static var previews: some View {
         ScannerLayoutView(isShowScanner: .constant(true))
     }
 }
-

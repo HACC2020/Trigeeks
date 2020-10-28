@@ -16,9 +16,9 @@ struct MainView: View {
             if presentViewIndex == 0 {
                 HomeView()
             } else {
+                // TODO: change to actual View
                 AddEventView().transition(.slide)
             }
-           
             
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], content: {
                 Button(action: {calendarButton()}, label: {
@@ -33,11 +33,8 @@ struct MainView: View {
             })
             .frame(height: 60)
             .background(Color(#colorLiteral(red: 0.9197699428, green: 0.9240266681, blue: 0.9344311953, alpha: 1)))
-            
         }.ignoresSafeArea(edges: .bottom)
-        
     }
-    
     
     //MARK: - Button Function
     func homeButton() {

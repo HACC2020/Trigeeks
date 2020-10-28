@@ -104,8 +104,6 @@ struct HomeView: View {
             ScannerLayoutView(isShowScanner: $isShowScanner)
         })
     }
-    
-    
 }
 
 struct HomeView_Previews: PreviewProvider {

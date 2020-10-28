@@ -11,6 +11,7 @@ struct HomeView: View {
     @Namespace private var animation
     @State var isCardExpand = false
     @State var isShowScanner = false
+    @Binding var isShowAddEventView: Bool
     var body: some View {
         ZStack {
             VStack(spacing: 80) {
@@ -50,6 +51,12 @@ struct HomeView: View {
                                 .frame(width: UIScreen.main.bounds.width*0.9, height: 80)
                                 .shadow(color: Color(#colorLiteral(red: 0.7798802257, green: 0.7924112678, blue: 0.8005585074, alpha: 1)), radius: 10, x: 5.0, y: 5.0)
                 )
+                .onTapGesture(count: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/, perform: {
+                    
+                    withAnimation {
+                        isShowAddEventView = true
+                    }
+                })
                 
                 HStack {
                     Image(systemName: "qrcode.viewfinder").font(.system(size: 35))
@@ -108,6 +115,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(isShowAddEventView: .constant(false))
     }
 }

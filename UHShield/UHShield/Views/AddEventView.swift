@@ -13,6 +13,7 @@ struct AddEventView: View {
     @State private var date = ""
     @State private var location = ""
     @State private var sponsor = ""
+    @Binding var isShowAddEventView: Bool
     
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
@@ -43,7 +44,18 @@ struct AddEventView: View {
                     .scaledToFit()
                     .frame(width: 200, height: 200)
                     
-            }
+            }.navigationBarItems(leading: Button(action: {handleBackButton()}, label: {
+                HStack {
+                    Image(systemName: "chevron.backward")
+                    Text("Back")
+                }.font(.system(size: 20))
+            }))
+        }
+    }
+    
+    func handleBackButton() {
+        withAnimation(.linear) {
+            isShowAddEventView = false
         }
     }
     
@@ -63,6 +75,6 @@ struct AddEventView: View {
 
 struct AddEventView_Previews: PreviewProvider {
     static var previews: some View {
-        AddEventView()
+        AddEventView(isShowAddEventView: .constant(true))
     }
 }

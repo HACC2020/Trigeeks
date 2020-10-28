@@ -10,26 +10,40 @@ import SwiftUI
 struct ScannerLayoutView: View {
     @State var scanerLineOffset: CGFloat = 0
     @State var circleSize: CGFloat = 0
-    @State var checkMarkSize: CGFloat = 0
+    @State var checkMarkSize: CGFloat = 0.1
+    @State var checkMarkOpacity: Double = 0.01
     @State var checkMarkRotation: Double = 100
     @Binding var isShowScanner: Bool
     var body: some View {
-        NavigationView {
+
             ZStack {
                 VStack {
                     CodeScannerView(codeTypes: [.qr], simulatedData: "ABC\nabc", completion: handleScan)
-                }.navigationBarItems(leading:Button(action: {
-                    isShowScanner = false
-                }, label: {
-                    
-                    Image(systemName: "chevron.backward").font(.system(size: 30)).foregroundColor(.black)
-                }))
+                }
                 
+                VStack {
+                    HStack {
+                        Button(action: {
+                            isShowScanner = false
+                        }, label: {
+                            HStack {
+                                Image(systemName: "chevron.backward")
+                                Text("Back")
+                            }.font(.system(size: 20))
+                            
+                    })
+                        Spacer()
+                    }.padding()
+                    
+                    Spacer()
+                }
+                // scanning lines with animation
                 Rectangle().fill(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.5), Color.white.opacity(0.1)]), startPoint: .bottom, endPoint: .top)).frame(height: 20)
                     .offset(y: scanerLineOffset)
                 
+                // success image with animation
                 Circle().fill(Color.green).frame(width: circleSize)
-                Image(systemName: "checkmark").foregroundColor(.white).font(.system(size: checkMarkSize, weight: .bold)).rotationEffect(Angle(degrees: checkMarkRotation))
+                Image(systemName: "checkmark").foregroundColor(Color.white.opacity(checkMarkOpacity)).font(.system(size: checkMarkSize, weight: .bold)).rotationEffect(Angle(degrees: checkMarkRotation))
 
             }.onAppear {
                 Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
@@ -43,7 +57,7 @@ struct ScannerLayoutView: View {
             }
         }
 
-    }
+    
     
     func handleScan(result: Result<String, CodeScannerView.ScanError>) {
 
@@ -54,6 +68,7 @@ struct ScannerLayoutView: View {
                 
                 withAnimation(.linear(duration: 0.1)) {
                     self.circleSize = 100
+                    self.checkMarkOpacity = 1
                 }
                 withAnimation(.linear(duration: 0.3)) {
                     self.checkMarkSize = 60

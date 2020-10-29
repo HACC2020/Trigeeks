@@ -8,8 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var session: SessionStore
     var body: some View {
-        MainView()
+        Group{
+            
+            if session.session != nil {
+                //user already logged in
+                MainView()
+            } else {
+                // no available loggin state
+                SignInView()
+            }
+        }.onAppear {
+            self.getUser()
+        }
+    }
+    
+    func getUser(){
+        session.listen()
     }
 }
 

@@ -15,6 +15,7 @@ struct Event: Codable, Identifiable {
     var guests: [String]
     var arrivedGuests: [String]
     var location: Location
+    var date: Date
     var startTime: String
     var endTime: String
     
@@ -24,6 +25,7 @@ struct Event: Codable, Identifiable {
         case guests
         case arrivedGuests
         case location
+        case date
         case startTime
         case endTime
     }

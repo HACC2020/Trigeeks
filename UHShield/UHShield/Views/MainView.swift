@@ -18,7 +18,7 @@ struct MainView: View {
                     HomeView(isShowAddEventView: $isShowAddEventView)
                 } else {
                     // TODO: change to actual View
-                    AddEventView(isShowAddEventView: $isShowAddEventView).transition(.slide)
+//                    AddEventView(isShowAddEventView: $isShowAddEventView).transition(.slide)
                 }
                 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], content: {
@@ -36,7 +36,7 @@ struct MainView: View {
                 .background(Color(#colorLiteral(red: 0.9197699428, green: 0.9240266681, blue: 0.9344311953, alpha: 1)))
             }.ignoresSafeArea(edges: .bottom)
             if isShowAddEventView {
-                AddEventView(isShowAddEventView: $isShowAddEventView).transition(.slide)
+//                AddEventView(isShowAddEventView: $isShowAddEventView).transition(.slide)
             }
         }
     }

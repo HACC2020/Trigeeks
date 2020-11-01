@@ -34,5 +34,5 @@ struct Event: Codable, Identifiable {
 
 struct Location: Codable {
     var building: String
-    var roomID: Int
+    var roomID: String
 }

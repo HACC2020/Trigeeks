@@ -32,6 +32,13 @@ struct ReceptionistView: View {
                         }
                 }.tag(1)
             
+                UserView()
+                    .tabItem {
+                        VStack {
+                            Image(systemName: "person.fill")
+                            Text("Me")
+                        }
+                }.tag(2)
                 
             }.background(Color(.gray))
         }
@@ -59,7 +66,7 @@ struct TopBar: View {
                 }.padding(.trailing, 20)
                 
                 Button(action: {
-                    self.selection = 2
+                    self.selection = 11
                 }) {
                     Image(systemName: "camera.viewfinder")
                         .font(.system(size: 22))

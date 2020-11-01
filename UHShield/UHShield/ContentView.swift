@@ -31,7 +31,8 @@ struct ContentView: View {
         }
             } else {
                 ZStack{
-                    Image("logo").rotation3DEffect(.degrees(angle), axis: (x: 0.0, y: 1.0, z: 0.0)).opacity(opacity).scaleEffect(scale)
+                    Color("color1").edgesIgnoringSafeArea(.all)
+                    Image("logo1_modi").rotation3DEffect(.degrees(angle), axis: (x: 0.0, y: 1.0, z: 0.0)).opacity(opacity).scaleEffect(scale)
                 }.onAppear{
                     withAnimation(.linear(duration: 2)){
                         angle = 0

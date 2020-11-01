@@ -14,7 +14,8 @@ struct ContentView: View {
             
             if session.session != nil {
                 //user already logged in
-                MainView()
+//                MainView()
+                ReceptionistView()
             } else {
                 // no available loggin state
                 SignInView()

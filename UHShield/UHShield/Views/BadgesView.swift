@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BadgesView: View {
-    @ObservedObject var badges = BadgeViewModel()
+    @StateObject var badges = BadgeViewModel()
     
     var body: some View {
         ZStack{
@@ -16,16 +16,22 @@ struct BadgesView: View {
                 LazyVStack{
                     ForEach(self.badges.badges){ badge in
                         Text("hihihihih")
+                    }.onAppear {
+                        self.test()
                     }
+                    
                 }.onAppear{
                     self.badges.fetchData()
+                    
                 }
             }
         }
     }
     func test(){
-        print(self.badges)
+        let a = self.badges.badges.count
+        
         print("test")
+        print(a)
     }
 }
 

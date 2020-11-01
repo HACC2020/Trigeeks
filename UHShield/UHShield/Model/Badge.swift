@@ -8,7 +8,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestoreSwift
-import FirebaseFirestore
+
 struct Badge: Codable, Identifiable, Hashable {
     
     @DocumentID var id: String? = UUID().uuidString

@@ -34,12 +34,12 @@ struct ContentView: View {
                     Color("color1").edgesIgnoringSafeArea(.all)
                     Image("logo1_modi").rotation3DEffect(.degrees(angle), axis: (x: 0.0, y: 1.0, z: 0.0)).opacity(opacity).scaleEffect(scale)
                 }.onAppear{
-                    withAnimation(.linear(duration: 2)){
+                    withAnimation(.linear(duration: 1)){
                         angle = 0
                         scale = 1
                         opacity = 0
                     }
-                    withAnimation(Animation.linear.delay(1.5)){
+                    withAnimation(Animation.linear.delay(1.2)){
                         showView = true
                     }
                 }

@@ -29,6 +29,7 @@
 		45B8C632254A8C16003A8511 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B8C631254A8C16003A8511 /* AlertView.swift */; };
 		45B8C635254A8DB4003A8511 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B8C634254A8DB4003A8511 /* SignUpView.swift */; };
 		901C8B17254E8A04005B147B /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901C8B16254E8A04005B147B /* Badge.swift */; };
+		901C8B35254E90BC005B147B /* BadgeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901C8B34254E90BC005B147B /* BadgeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		45B8C631254A8C16003A8511 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		45B8C634254A8DB4003A8511 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		901C8B16254E8A04005B147B /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
+		901C8B34254E90BC005B147B /* BadgeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeViewModel.swift; sourceTree = "<group>"; };
 		9779873E92E10EB8324AD16F /* Pods_UHShield.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UHShield.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3F6EC8C25AF38B707829FB9 /* Pods-UHShield.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UHShield.debug.xcconfig"; path = "Target Support Files/Pods-UHShield/Pods-UHShield.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +166,7 @@
 		901C8B15254E89D8005B147B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				901C8B34254E90BC005B147B /* BadgeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				45B8C632254A8C16003A8511 /* AlertView.swift in Sources */,
 				39410AC9254E4CB500DEF4CB /* ReceptionistView.swift in Sources */,
 				901C8B17254E8A04005B147B /* Badge.swift in Sources */,
+				901C8B35254E90BC005B147B /* BadgeViewModel.swift in Sources */,
 				45B8C635254A8DB4003A8511 /* SignUpView.swift in Sources */,
 				4590CC2F2548F4460096C728 /* MainView.swift in Sources */,
 				45B8C62F254A8774003A8511 /* Modifiers.swift in Sources */,

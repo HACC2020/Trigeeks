@@ -9,10 +9,11 @@ import SwiftUI
 
 struct ReceptionistView: View {
     @EnvironmentObject var session: SessionStore
+    @Binding var selection: Int
     
     var body: some View {
         VStack {
-            TopBar()
+            TopBar(selection: $selection)
             TabView {
                 
                 EventsView()
@@ -40,6 +41,7 @@ struct ReceptionistView: View {
 }
 
 struct TopBar: View {
+    @Binding var selection: Int
     var body: some View {
         VStack (spacing: 20){
             HStack {
@@ -50,7 +52,7 @@ struct TopBar: View {
                 Spacer()
                 
                 Button(action: {
-                    // button action
+                    self.selection = 1
                 }) {
                     Image(systemName: "magnifyingglass")
                         .font(.system(size: 20))
@@ -58,6 +60,7 @@ struct TopBar: View {
                 }.padding(.trailing, 20)
                 
                 Button(action: {
+                    self.selection = 2
                 }) {
                     Image(systemName: "camera.viewfinder")
                         .font(.system(size: 22))
@@ -79,7 +82,7 @@ struct ReceptionistView_Previews: PreviewProvider {
     struct PreviewWrapper: View {
         @State(initialValue: 0) var selection: Int
         var body: some View {
-            ReceptionistView().environmentObject(SessionStore())
+            ReceptionistView(selection: $selection).environmentObject(SessionStore())
       }
     }
 }

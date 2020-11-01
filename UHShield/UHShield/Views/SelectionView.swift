@@ -13,7 +13,7 @@ struct SelectionView: View {
     var body: some View {
         Group {
             if selection == 0 {
-                ReceptionistView()
+                ReceptionistView(selection: $selection)
             } else if selection == 1{
                 SearchView()
             } else if selection == 2{

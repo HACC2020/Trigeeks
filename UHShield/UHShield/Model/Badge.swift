@@ -13,7 +13,7 @@ struct Badge: Codable, Identifiable, Hashable {
     
     @DocumentID var id: String? = UUID().uuidString
     var guestID: String
-    var assignedTime: String
+    var assignedTime: Date
     var isAvailable: Bool
     
     enum CodingKeys: String, CodingKey{

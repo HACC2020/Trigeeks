@@ -15,7 +15,8 @@ struct BadgesView: View {
             ScrollView{
                 LazyVStack{
                     ForEach(self.badges.badges){ badge in
-                        Text("hihihihih")
+                        BadgeRowView(badge: badge).padding(.horizontal)
+                        Spacer().frame(height: 12).background(Color("bg7"))
                     }.onAppear {
                         self.test()
                     }

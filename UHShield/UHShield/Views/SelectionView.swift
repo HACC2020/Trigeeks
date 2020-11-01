@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SelectionView: View {
     @EnvironmentObject var session: SessionStore
-    @State var selection: Int = 0
+    @State var selection: Int = 10
     var body: some View {
         Group {
             if selection == 0 {
@@ -19,6 +19,13 @@ struct SelectionView: View {
             } else if selection == 2{
                 // change to scanner view
                 SearchView()
+            } else if selection == 10 {
+                SponsorView(selection: $selection)
+            } else if selection == 11 {
+                // change to add event view
+                EditEventView()
+            } else if selection == 12 {
+                EditEventView()
             }
         }
     }

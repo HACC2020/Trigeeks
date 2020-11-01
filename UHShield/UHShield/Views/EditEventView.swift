@@ -1,5 +1,5 @@
 //
-//  EventsView.swift
+//  EditEventView.swift
 //  UHShield
 //
 //  Created by Yuhan Jiang on 2020/10/31.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct EventsView: View {
+struct EditEventView: View {
     var body: some View {
-        Text("List of all the events")
+        Text("Edit Event View")
     }
 }
 
-struct EventsView_Previews: PreviewProvider {
+struct EditEventView_Previews: PreviewProvider {
     static var previews: some View {
-        EventsView()
+        EditEventView()
     }
 }

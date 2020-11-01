@@ -34,6 +34,7 @@
 		45B8C635254A8DB4003A8511 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45B8C634254A8DB4003A8511 /* SignUpView.swift */; };
 		901C8B17254E8A04005B147B /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901C8B16254E8A04005B147B /* Badge.swift */; };
 		901C8B35254E90BC005B147B /* BadgeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901C8B34254E90BC005B147B /* BadgeViewModel.swift */; };
+		901C8B73254E9D38005B147B /* BadgeRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901C8B72254E9D38005B147B /* BadgeRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		45B8C634254A8DB4003A8511 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		901C8B16254E8A04005B147B /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		901C8B34254E90BC005B147B /* BadgeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeViewModel.swift; sourceTree = "<group>"; };
+		901C8B72254E9D38005B147B /* BadgeRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeRowView.swift; sourceTree = "<group>"; };
 		9779873E92E10EB8324AD16F /* Pods_UHShield.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UHShield.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3F6EC8C25AF38B707829FB9 /* Pods-UHShield.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UHShield.debug.xcconfig"; path = "Target Support Files/Pods-UHShield/Pods-UHShield.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,6 +146,7 @@
 				39410ACB254E4D9900DEF4CB /* EventsView.swift */,
 				39410ACE254E4E5900DEF4CB /* SearchView.swift */,
 				39410AE5254E871700DEF4CB /* MyEventsView.swift */,
+				901C8B71254E9C17005B147B /* SubView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,6 +184,14 @@
 				901C8B34254E90BC005B147B /* BadgeViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		901C8B71254E9C17005B147B /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				901C8B72254E9D38005B147B /* BadgeRowView.swift */,
+			);
+			path = SubView;
 			sourceTree = "<group>";
 		};
 		CBA71602E5DAF30542F6270B /* Frameworks */ = {
@@ -316,6 +327,7 @@
 				901C8B17254E8A04005B147B /* Badge.swift in Sources */,
 				901C8B35254E90BC005B147B /* BadgeViewModel.swift in Sources */,
 				45B8C635254A8DB4003A8511 /* SignUpView.swift in Sources */,
+				901C8B73254E9D38005B147B /* BadgeRowView.swift in Sources */,
 				4590CC2F2548F4460096C728 /* MainView.swift in Sources */,
 				45B8C62F254A8774003A8511 /* Modifiers.swift in Sources */,
 				4590CC0E2548ECB60096C728 /* ContentView.swift in Sources */,

@@ -16,8 +16,8 @@ struct Event: Codable, Identifiable {
     var arrivedGuests: [String]
     var location: Location
     var date: Date
-    var startTime: String
-    var endTime: String
+    var startTime: Date
+    var endTime: Date
     
     enum CodingKeys: String, CodingKey {
         case id

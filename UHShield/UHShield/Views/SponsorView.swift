@@ -32,6 +32,13 @@ struct SponsorView: View {
                         }
                 }.tag(1)
             
+                UserView()
+                    .tabItem {
+                        VStack {
+                            Image(systemName: "person.fill")
+                            Text("Me")
+                        }
+                }.tag(2)
                 
             }.background(Color(.gray))
         }
@@ -59,7 +66,7 @@ struct TopBar2: View {
                 }.padding(.trailing, 20)
                 
                 Button(action: {
-                    self.selection = 11
+                    self.selection = 21
                 }) {
                     Image(systemName: "plus.circle")
                         .font(.system(size: 22))

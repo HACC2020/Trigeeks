@@ -8,13 +8,24 @@
 import SwiftUI
 
 struct BadgeRowView: View {
+    
+    var badge: Badge
+    @EnvironmentObject var badges: BadgeViewModel
+    
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack{
+            Text("hihasdhasjkdhda")
+            Text(self.badge.assignedTime)
+                            .font(.system(size: 20, weight: .bold))
+        }.onAppear{
+            print("asas")
+        }
     }
 }
 
-struct BadgeRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        BadgeRowView()
-    }
-}
+//struct BadgeRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BadgeRowView()
+//    }
+//}

@@ -29,7 +29,7 @@ struct AlertView: View {
                     self.showAlert.toggle()
                 }) {
                     Text("OK").padding(.vertical).frame(width: UIScreen.main.bounds.width - 120).foregroundColor(Color.white)
-                    }.background(Color(#colorLiteral(red: 0.4928489327, green: 0.5647422075, blue: 0.6939288378, alpha: 1))).cornerRadius(20)
+                    }.background(Color("bg1")).cornerRadius(20)
                 }.padding().background(Color.white).cornerRadius(20)
             .animation(.interpolatingSpring(mass: 1, stiffness: 90, damping: 10, initialVelocity: 0))
             

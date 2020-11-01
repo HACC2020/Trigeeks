@@ -15,7 +15,7 @@ struct SignInView: View {
     @State var showAlert = false
     
     @EnvironmentObject var session: SessionStore
-    var TextColor = Color(#colorLiteral(red: 0, green: 0.4056527019, blue: 1, alpha: 1))
+    var TextColor = Color("bg1")
     
     var body: some View {
         NavigationView {

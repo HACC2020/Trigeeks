@@ -18,4 +18,5 @@ target 'UHShield' do
   # Pods for UHShield
 pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
+pod 'FirebaseFirestoreSwift'
 end

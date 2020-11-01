@@ -17,6 +17,8 @@
 		39410AE6254E871700DEF4CB /* MyEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AE5254E871700DEF4CB /* MyEventsView.swift */; };
 		39410AE9254E882A00DEF4CB /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AE8254E882A00DEF4CB /* EditEventView.swift */; };
 		39410AEE254E8A3B00DEF4CB /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AED254E8A3B00DEF4CB /* UserView.swift */; };
+		4567D172254EA04A00C9DBCB /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567D171254EA04A00C9DBCB /* Event.swift */; };
+		4567D175254EA43100C9DBCB /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567D174254EA43100C9DBCB /* EventViewModel.swift */; };
 		4590CC0C2548ECB60096C728 /* UHShieldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590CC0B2548ECB60096C728 /* UHShieldApp.swift */; };
 		4590CC0E2548ECB60096C728 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590CC0D2548ECB60096C728 /* ContentView.swift */; };
 		4590CC102548ECB90096C728 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4590CC0F2548ECB90096C728 /* Assets.xcassets */; };
@@ -47,6 +49,8 @@
 		39410AE8254E882A00DEF4CB /* EditEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventView.swift; sourceTree = "<group>"; };
 		39410AED254E8A3B00DEF4CB /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		430F3808FC1F511B4A751145 /* Pods-UHShield.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UHShield.release.xcconfig"; path = "Target Support Files/Pods-UHShield/Pods-UHShield.release.xcconfig"; sourceTree = "<group>"; };
+		4567D171254EA04A00C9DBCB /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		4567D174254EA43100C9DBCB /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		4590CC082548ECB60096C728 /* UHShield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UHShield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4590CC0B2548ECB60096C728 /* UHShieldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UHShieldApp.swift; sourceTree = "<group>"; };
 		4590CC0D2548ECB60096C728 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				901C8B16254E8A04005B147B /* Badge.swift */,
+				4567D171254EA04A00C9DBCB /* Event.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -179,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				901C8B34254E90BC005B147B /* BadgeViewModel.swift */,
+				4567D174254EA43100C9DBCB /* EventViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -321,7 +327,9 @@
 				4590CC0E2548ECB60096C728 /* ContentView.swift in Sources */,
 				39410AE6254E871700DEF4CB /* MyEventsView.swift in Sources */,
 				39410AEE254E8A3B00DEF4CB /* UserView.swift in Sources */,
+				4567D172254EA04A00C9DBCB /* Event.swift in Sources */,
 				39410AE9254E882A00DEF4CB /* EditEventView.swift in Sources */,
+				4567D175254EA43100C9DBCB /* EventViewModel.swift in Sources */,
 				39410ACF254E4E5900DEF4CB /* SearchView.swift in Sources */,
 				45B8C62C254A85EC003A8511 /* SessionStore.swift in Sources */,
 				39410AD2254E4E7300DEF4CB /* BadgesView.swift in Sources */,

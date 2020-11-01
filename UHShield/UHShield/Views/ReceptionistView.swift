@@ -35,7 +35,6 @@ struct ReceptionistView: View {
                 
             }.background(Color(.gray))
         }
-        .edgesIgnoringSafeArea(.top)
     }
     
 }
@@ -69,8 +68,7 @@ struct TopBar: View {
             }
         }
         .padding()
-        .padding(.top, (UIApplication.shared.windows.last?.safeAreaInsets.top)! + 10)
-        .background(Color("bg1"))
+        .background(Color("bg1").edgesIgnoringSafeArea(.top))
     }
 }
 

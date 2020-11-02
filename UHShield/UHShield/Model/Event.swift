@@ -8,18 +8,20 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct Event: Codable, Identifiable {
+struct Event: Codable, Identifiable, Hashable {
 
     @DocumentID var id: String? = UUID().uuidString
+    var eventName: String
     var sponsor: String
-    var guests: [String]
+    var guests: [Guest]
     var arrivedGuests: [String]
     var location: Location
-    var startTime: String
-    var endTime: String
+    var startTime: Date
+    var endTime: Date
     
     enum CodingKeys: String, CodingKey {
         case id
+        case eventName
         case sponsor
         case guests
         case arrivedGuests
@@ -30,7 +32,12 @@ struct Event: Codable, Identifiable {
     
 }
 
-struct Location: Codable {
+struct Location: Codable, Hashable {
     var building: String
-    var roomID: Int
+    var roomID: String
+}
+
+struct Guest: Codable, Hashable {
+    var name: String
+    var email: String
 }

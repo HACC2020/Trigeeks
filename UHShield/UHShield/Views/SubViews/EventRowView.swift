@@ -12,22 +12,15 @@ struct EventRowView: View {
     var body: some View {
         VStack{
             HStack{
-                Text("Room")
-                    .font(.system(size: 20, weight: .bold))
-                Text("222")
+                Text("Room\(String(event.location.roomID))")
                     .font(.system(size: 20, weight: .bold))
                 Spacer()
-                Text("13:00")
-                Text(" to ")
-                Text("14:30")
+                Text("\(event.startTime, style: .time) to \(event.endTime, style: .time)")
             }
             HStack{
-                Text("johnson@hawaii.edu")
+                Text(event.sponsor)
                 Spacer()
-                Text("10")
-                Text("/")
-                Text("12")
-                Text(" Participants")
+                Text("\(String(event.arrivedGuests.count)) / \(String(event.guests.count)) Guests Arrived")
             }
         }.padding(.vertical, 10)
     }

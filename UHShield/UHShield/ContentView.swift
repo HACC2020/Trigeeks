@@ -23,7 +23,7 @@ struct ContentView: View {
             if session.session != nil {
                 //user already logged in
 //                MainView()
-                SelectionView().environmentObject(eventVM)
+                SelectionView()
             } else {
                 // no available loggin state
                 SignInView()

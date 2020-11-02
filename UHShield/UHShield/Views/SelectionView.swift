@@ -16,7 +16,7 @@ struct SelectionView: View {
                 UserView()
                 
             } else if selection == 1 {
-                SearchView()
+                BadgesView()
             } else if selection == 10 {
                 ReceptionistView(selection: $selection)
             } else if selection == 11{

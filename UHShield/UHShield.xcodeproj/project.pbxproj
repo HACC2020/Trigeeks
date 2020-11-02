@@ -96,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				39410B09254FA1CB00DEF4CB /* EventRowView.swift */,
+				901C8B72254E9D38005B147B /* BadgeRowView.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -163,7 +164,6 @@
 				39410ACB254E4D9900DEF4CB /* EventsView.swift */,
 				39410ACE254E4E5900DEF4CB /* SearchView.swift */,
 				39410AE5254E871700DEF4CB /* MyEventsView.swift */,
-				901C8B71254E9C17005B147B /* SubView */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -204,14 +204,6 @@
 				4567D174254EA43100C9DBCB /* EventViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		901C8B71254E9C17005B147B /* SubView */ = {
-			isa = PBXGroup;
-			children = (
-				901C8B72254E9D38005B147B /* BadgeRowView.swift */,
-			);
-			path = SubView;
 			sourceTree = "<group>";
 		};
 		CBA71602E5DAF30542F6270B /* Frameworks */ = {

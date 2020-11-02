@@ -14,6 +14,7 @@ struct SelectionView: View {
         Group {
             if selection == 0{
                 UserView()
+                
             } else if selection == 1 {
                 SearchView()
             } else if selection == 10 {
@@ -25,7 +26,9 @@ struct SelectionView: View {
                 SponsorView(selection: $selection)
             } else if selection == 21 {
                 // change to add event view
+
                 AddEventView(selection: $selection).transition(.slide)
+
             }
         }
     }

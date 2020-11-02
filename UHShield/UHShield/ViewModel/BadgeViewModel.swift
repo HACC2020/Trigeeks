@@ -12,6 +12,7 @@ import FirebaseFirestoreSwift
 class BadgeViewModel: ObservableObject {
     
     @Published var badges = [Badge]()
+    
     private var db = Firestore.firestore()
     
     //fetching data for all badge
@@ -28,6 +29,7 @@ class BadgeViewModel: ObservableObject {
             }
             print(self.badges)
             print("Done for fetching profile data")
+            
         }
     }
     

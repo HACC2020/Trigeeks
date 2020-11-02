@@ -13,11 +13,19 @@ struct BadgeRowView: View {
     
     var body: some View {
         VStack{
-            Text("hihasdhasjkdhda")
+        HStack{
+            Image("check-mark-badge")
+                .resizable().cornerRadius(10).frame(width:60, height: 60)
             Text(self.badge.guestID)
-                            .font(.system(size: 20, weight: .bold))
-        }.onAppear{
-            print("asas")
+                .font(.system(size: 20, weight: .bold))
+            Spacer()
+            VStack{
+    
+                Text(self.badge.assignedTime, style: .time)
+                Text(self.badge.assignedTime, style: .date)
+            }
+        }
+            Divider().background(Color("bg7"))
         }
     }
 }

@@ -14,10 +14,13 @@ struct AddEventView: View {
     @StateObject var eventViewModel = EventViewModel()
     
     @State var isOpenGuestTextField =  false
+    @State var guestEmail: String = ""
+    @State var guestName: String = ""
+    
+    @State var isShowingSendView = false
     @State var isShowingMailView = false
     @State var result: Result<MFMailComposeResult, Error>? = nil
-    @State private var guestEmail = ""
-    @State private var guestName = ""
+    @State var guestHoder = Guest(name: "", email: "")
     
     @State private var eventName = ""
     @State private var sponsor = ""
@@ -40,32 +43,37 @@ struct AddEventView: View {
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
     var body: some View {
+        ZStack {
         NavigationView {
             
-            ZStack {
+            
                 VStack {
                     Form {
                         
+                        // event section
                         Section(header: Text("Event")) {
                         
                         TextField("describe event", text: $eventName)
                             .padding(.horizontal)
+                            .disableAutocorrection(true)
                         TextField("sponsor(should auto get):", text: $sponsor)
                             .textContentType(.name)
                             .padding(.horizontal)
+                            .disableAutocorrection(true)
                         }
                         
+                        // Location section
                         Section(header: Text("Location")) {
                             
                             TextField("Building:", text: $building)
                                 .textContentType(.location)
-                                .padding(.horizontal)
+                                .padding(.horizontal).disableAutocorrection(true)
                             TextField("Room:", text: $room)
                                 //.keyboardType(.decimalPad)
-                                .padding(.horizontal)
+                                .padding(.horizontal).disableAutocorrection(true)
                         }
                         
-                        
+                        // time section
                         Section(header: Text("Time")) {
                             
                             DatePicker("Start Time", selection: $startTime, in: tempTime...).padding(.horizontal).datePickerStyle(CompactDatePickerStyle())
@@ -74,9 +82,9 @@ struct AddEventView: View {
                             
                         }
                         
-                        
+                        // guest section
                         Section(header: Text("Guest")) {
-                            
+                            // guest section label
                             HStack {
                                 Text("Guests").padding(.horizontal)
                                 Image(systemName: "plus.circle").onTapGesture(perform: {
@@ -90,7 +98,7 @@ struct AddEventView: View {
                                 HStack {
                                     TextField("name", text: $guestName, onCommit: {
                                         if guestEmail != "" {
-                                            guests.append(Guest(name: guestName, email: guestEmail))
+                                            guests.append(Guest(name: guestName.trimmingCharacters(in: .whitespaces), email: guestEmail.trimmingCharacters(in: .whitespaces)))
                                             guestName = ""
                                             guestEmail = ""
                                             isOpenGuestTextField = false
@@ -98,7 +106,7 @@ struct AddEventView: View {
                                     }).disableAutocorrection(true)
                                     TextField("email", text: $guestEmail, onCommit: {
                                         if guestName != "" {
-                                            guests.append(Guest(name: guestName, email: guestEmail))
+                                            guests.append(Guest(name: guestName.trimmingCharacters(in: .whitespaces), email: guestEmail.trimmingCharacters(in: .whitespaces)))
                                             guestName = ""
                                             guestEmail = ""
                                             isOpenGuestTextField = false
@@ -121,7 +129,7 @@ struct AddEventView: View {
      
                         } // end of Guest section
                         
-                        
+                        // generate qr code for each guest
                         ForEach(guests, id: \.self) { guest in
                             Image(uiImage: generateQRCode(from: "\(eventName)\n\(sponsor)\n\(building)\n\(room)\n\(formatter.string(from: startTime))\n\(formatter.string(from: endTime))\n\(guest.name)\n\(guest.email)"))
                                 .interpolation(.none)
@@ -133,6 +141,8 @@ struct AddEventView: View {
                         
                         
                     }
+                    
+                    // Back Button and Done Button
                     .navigationBarItems(
                         leading: Button(action: { handleBackButton() }, label: {
                             HStack {
@@ -150,32 +160,65 @@ struct AddEventView: View {
                                         endTime == tempTime ||
                                         endTime < startTime ||
                                         guests.isEmpty
-                                    
                         )
                         
                     ).navigationTitle("Create Event")
-                    
-                    Button(action: {isShowingMailView = true}, label: {
-                        Text("Email")
-                    }).disabled(!MFMailComposeViewController.canSendMail())
-                    .sheet(isPresented: $isShowingMailView) {
-                        EmailComposer(result: self.$result, isShowing: $isShowingMailView ,eventName: eventName, guests: getGuestsEmail(), location: Location(building: building, roomID: room), sponsor: sponsor, startTime: startTime, endTime: endTime)
-                    }
                 }.onAppear {
                     eventViewModel.fetchData()
                     formatter.dateFormat = "yyyy-MM-dd HH:mm"
                 }
-                
-                VStack {
-                    Text("EmailView")
-                }.background(Color.gray.opacity(0.4).ignoresSafeArea())
-                
-            }
-            
            
+        }
+            // MARK: - sending email View
+            if isShowingSendView {
+                if MFMailComposeViewController.canSendMail() {
+                    VStack {
+                        
+                        VStack {
+                            HStack {
+                                Text("Send Invitation").font(.largeTitle).fontWeight(.bold)
+                                Spacer()
+                                Image(systemName: "xmark.circle").font(.title)
+                            }
+                            
+                            ScrollView {
+                                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
+                                    Text("Guests").font(.title2).fontWeight(.bold)
+                                    Text("")
+                                    ForEach(guests, id: \.self) { guest in
+                                        Text("\(guest.email)")
+                                        Button(action: {
+                                            guestHoder = guest
+                                            isShowingMailView = true
+                                            print("guestHoder: \(guestHoder)")
+                                            print("guest: \(guest)")
+                                        }, label: {
+                                            HStack {
+                                                Image(systemName: "paperplane")
+                                                Text("Send")
+                                            }.padding().background(Color("bg1")).foregroundColor(.white).cornerRadius(25)
+                                        })
+                                    }
+                                }.sheet(isPresented: $isShowingMailView) {
+                                    EmailComposer(result: self.$result, isShowing: $isShowingMailView ,eventName: eventName, guest: guestHoder, location: Location(building: building, roomID: room), sponsor: sponsor, startTime: startTime, endTime: endTime)
+                                }
+                            }
+                            
+                        }.padding()
+                        .background(Color.white)
+                    }.background(Color.white.ignoresSafeArea())
+                    
+                } else {
+                    AlertView(showAlert: $isShowingSendView, alertMessage: .constant("Event created Successful! But this device is simulator or it does not have Mail App, so we skip that step.")).onDisappear {
+                        selection = 20
+                    }
+                }
+            }
         }
     }
     
+    
+    // MARK: -Button functions
     func handleBackButton() {
         withAnimation(.spring()) {
             selection = 20
@@ -184,11 +227,16 @@ struct AddEventView: View {
     
     func handleDoneButton() {
         // code here
-        event = Event(eventName: eventName, sponsor: sponsor, guests: guests, arrivedGuests: [], location: Location(building: building, roomID: room), startTime: startTime, endTime: endTime)
+        event = Event(eventName: eventName.trimmingCharacters(in: .whitespaces), sponsor: sponsor.trimmingCharacters(in: .whitespaces), guests: guests, arrivedGuests: [], location: Location(building: building.trimmingCharacters(in: .whitespaces), roomID: room.trimmingCharacters(in: .whitespaces)), startTime: startTime, endTime: endTime)
         eventViewModel.addEvent(event: event)
         withAnimation(.spring()) {
-            selection = 20
+            isShowingSendView = true
         }
+    }
+    
+    func handleSendButton(guest: Guest) {
+        guestHoder = guest
+        self.isShowingMailView = true
     }
     
     func generateQRCode(from string: String) -> UIImage {
@@ -206,14 +254,7 @@ struct AddEventView: View {
     func removeGuest(at offsets: IndexSet) {
         guests.remove(atOffsets: offsets)
     }
-    
-    func getGuestsEmail() -> [String] {
-        var emails: [String] = []
-        for guest in guests {
-            emails.append(guest.email)
-        }
-        return emails
-    }
+
 
 }
 

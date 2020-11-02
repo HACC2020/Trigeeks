@@ -15,7 +15,7 @@ public struct EmailComposer: UIViewControllerRepresentable {
     @Binding var isShowing: Bool
     
     let eventName: String
-    let guests: [String]
+    let guest: Guest
     let location: Location
     let sponsor: String
     let startTime: Date
@@ -55,9 +55,13 @@ public struct EmailComposer: UIViewControllerRepresentable {
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
         let vc = MFMailComposeViewController()
         
+        print("\(guest)")
+        print("\(guest.email)")
+        print("\(guest.name)")
+        
         vc.setSubject(eventName)
-        vc.setToRecipients(guests)
-        vc.setMessageBody("Aloha!\nThis is an invatation of \(eventName).\nLocation: \(location.building) \(location.roomID)\nTime: \(formatter.string(from: startTime)). Please come in time. Mahalo!\n\(sponsor)", isHTML: false)
+        vc.setToRecipients([guest.email])
+        vc.setMessageBody("Aloha \(guest.name)!\nThis is an invatation of \(eventName).\nLocation: \(location.building) \(location.roomID)\nTime: \(formatter.string(from: startTime)). Please come in time. Mahalo!\n\(sponsor)", isHTML: false)
         vc.mailComposeDelegate = context.coordinator
         
         return vc

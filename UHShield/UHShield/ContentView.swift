@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var session: SessionStore
+    @EnvironmentObject var eventVM: EventViewModel
     @State private var showView = false
     @State private var angle: Double = 720
     @State private var opacity: Double = 1
@@ -22,7 +23,7 @@ struct ContentView: View {
             if session.session != nil {
                 //user already logged in
 //                MainView()
-                SelectionView()
+                SelectionView().environmentObject(eventVM)
             } else {
                 // no available loggin state
                 SignInView()

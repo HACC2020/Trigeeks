@@ -17,6 +17,7 @@
 		39410AE6254E871700DEF4CB /* MyEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AE5254E871700DEF4CB /* MyEventsView.swift */; };
 		39410AE9254E882A00DEF4CB /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AE8254E882A00DEF4CB /* EditEventView.swift */; };
 		39410AEE254E8A3B00DEF4CB /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AED254E8A3B00DEF4CB /* UserView.swift */; };
+		39410B0A254FA1CB00DEF4CB /* EventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B09254FA1CB00DEF4CB /* EventRowView.swift */; };
 		4567D172254EA04A00C9DBCB /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567D171254EA04A00C9DBCB /* Event.swift */; };
 		4567D175254EA43100C9DBCB /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567D174254EA43100C9DBCB /* EventViewModel.swift */; };
 		4590CC0C2548ECB60096C728 /* UHShieldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590CC0B2548ECB60096C728 /* UHShieldApp.swift */; };
@@ -48,6 +49,7 @@
 		39410AE5254E871700DEF4CB /* MyEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventsView.swift; sourceTree = "<group>"; };
 		39410AE8254E882A00DEF4CB /* EditEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventView.swift; sourceTree = "<group>"; };
 		39410AED254E8A3B00DEF4CB /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		39410B09254FA1CB00DEF4CB /* EventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRowView.swift; sourceTree = "<group>"; };
 		430F3808FC1F511B4A751145 /* Pods-UHShield.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UHShield.release.xcconfig"; path = "Target Support Files/Pods-UHShield/Pods-UHShield.release.xcconfig"; sourceTree = "<group>"; };
 		4567D171254EA04A00C9DBCB /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		4567D174254EA43100C9DBCB /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
@@ -86,6 +88,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		39410B08254FA17100DEF4CB /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				39410B09254FA1CB00DEF4CB /* EventRowView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
 		4590CBFF2548ECB60096C728 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +142,7 @@
 		4590CC2A2548F0D20096C728 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				39410B08254FA17100DEF4CB /* SubViews */,
 				4590CC2E2548F4460096C728 /* MainView.swift */,
 				4590CC322548F5D10096C728 /* HomeView.swift */,
 				4590CC362548F68C0096C728 /* ScannerLayoutView.swift */,
@@ -317,6 +328,7 @@
 				4590CC3B2548F7240096C728 /* AddEventView.swift in Sources */,
 				4590CC372548F68C0096C728 /* ScannerLayoutView.swift in Sources */,
 				39410AE3254E82EB00DEF4CB /* SponsorView.swift in Sources */,
+				39410B0A254FA1CB00DEF4CB /* EventRowView.swift in Sources */,
 				45B8C632254A8C16003A8511 /* AlertView.swift in Sources */,
 				39410AC9254E4CB500DEF4CB /* ReceptionistView.swift in Sources */,
 				901C8B17254E8A04005B147B /* Badge.swift in Sources */,

@@ -27,7 +27,7 @@ class EventViewModel: ObservableObject {
                     return try? queryDocumentSnapshot.data(as: Event.self)
                 }
                 print(self.events)
-                print("Done for fetching data")
+                print("Done for fetching events data")
             }
     }
     

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ReceptionistView: View {
     @EnvironmentObject var session: SessionStore
+    @EnvironmentObject var eventVM: EventViewModel
     @Binding var selection: Int
     
     var body: some View {
@@ -16,7 +17,7 @@ struct ReceptionistView: View {
             TopBar(selection: $selection)
             TabView {
                 
-                EventsView()
+                EventsView().environmentObject(eventVM)
                     .tabItem {
                         VStack {
                             Image(systemName: "calendar")

@@ -14,7 +14,7 @@ struct UHShieldApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(SessionStore())
+            ContentView().environmentObject(SessionStore()).environmentObject(EventViewModel())
         }
     }
 }

@@ -67,7 +67,9 @@ struct TopBar2: View {
                 }.padding(.trailing, 20)
                 
                 Button(action: {
+                    withAnimation(.spring()) {
                     self.selection = 21
+                    }
                 }) {
                     Image(systemName: "plus.circle")
                         .font(.system(size: 22))

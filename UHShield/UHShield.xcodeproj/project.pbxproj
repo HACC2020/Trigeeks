@@ -35,6 +35,7 @@
 		901C8B17254E8A04005B147B /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901C8B16254E8A04005B147B /* Badge.swift */; };
 		901C8B35254E90BC005B147B /* BadgeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901C8B34254E90BC005B147B /* BadgeViewModel.swift */; };
 		901C8B73254E9D38005B147B /* BadgeRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901C8B72254E9D38005B147B /* BadgeRowView.swift */; };
+		90AF2C232550017A008F2B26 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AF2C222550017A008F2B26 /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		901C8B16254E8A04005B147B /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		901C8B34254E90BC005B147B /* BadgeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeViewModel.swift; sourceTree = "<group>"; };
 		901C8B72254E9D38005B147B /* BadgeRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeRowView.swift; sourceTree = "<group>"; };
+		90AF2C222550017A008F2B26 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		9779873E92E10EB8324AD16F /* Pods_UHShield.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UHShield.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3F6EC8C25AF38B707829FB9 /* Pods-UHShield.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UHShield.debug.xcconfig"; path = "Target Support Files/Pods-UHShield/Pods-UHShield.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -157,6 +159,7 @@
 				4590CC242548EE760096C728 /* CodeScanner.swift */,
 				45B8C62B254A85EC003A8511 /* SessionStore.swift */,
 				45B8C62E254A8774003A8511 /* Modifiers.swift */,
+				90AF2C222550017A008F2B26 /* SearchBar.swift */,
 			);
 			path = HelperClass;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				4590CC372548F68C0096C728 /* ScannerLayoutView.swift in Sources */,
 				39410AE3254E82EB00DEF4CB /* SponsorView.swift in Sources */,
 				45B8C632254A8C16003A8511 /* AlertView.swift in Sources */,
+				90AF2C232550017A008F2B26 /* SearchBar.swift in Sources */,
 				39410AC9254E4CB500DEF4CB /* ReceptionistView.swift in Sources */,
 				901C8B17254E8A04005B147B /* Badge.swift in Sources */,
 				901C8B35254E90BC005B147B /* BadgeViewModel.swift in Sources */,

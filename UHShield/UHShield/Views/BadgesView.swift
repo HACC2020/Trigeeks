@@ -6,33 +6,38 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct BadgesView: View {
     @StateObject var badges = BadgeViewModel()
+    @State private var search = ""
     
     var body: some View {
-        ZStack{
-            ScrollView{
-                LazyVStack{
-                    ForEach(self.badges.badges){ badge in
-                        BadgeRowView(badge: badge).padding(.horizontal)
-                        Spacer().frame(height: 12).background(Color("bg7"))
-                    }.onAppear {
-                        self.test()
+        NavigationView{
+            VStack{
+                SearchBar(text: $search)
+                ScrollView{
+                    LazyVStack{
+                        ForEach(self.badges.badges.filter{self.search.isEmpty ? true : $0.guestID.localizedCaseInsensitiveContains(self.search)})
+                        { badge in
+                            
+                            BadgeRowView(badge: badge).padding(.horizontal).onTapGesture {
+                                print("Tap me!")
+                            }
+                            
+                        }
+                        
+                    }.onAppear{
+                        self.badges.fetchData()
+                        
                     }
-                    
-                }.onAppear{
-                    self.badges.fetchData()
-                    
                 }
-            }
+            }.navigationBarTitle("Processing Badges", displayMode: .inline).navigationBarItems(trailing: EditButton())
+            
         }
     }
-    func test(){
-        let a = self.badges.badges.count
-        
-        print("test")
-        print(a)
+    func deleteItem(at offsets: IndexSet){
+        self.badges.badges.remove(atOffsets: offsets)
     }
 }
 

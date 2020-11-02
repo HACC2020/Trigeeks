@@ -18,7 +18,8 @@ struct MainView: View {
                     HomeView(isShowAddEventView: $isShowAddEventView)
                 } else {
                     // TODO: change to actual View
-//                    AddEventView(isShowAddEventView: $isShowAddEventView).transition(.slide)
+
+                    SignInView().transition(.slide)
                 }
                 
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], content: {

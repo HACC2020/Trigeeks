@@ -25,7 +25,7 @@ struct SelectionView: View {
                 SponsorView(selection: $selection)
             } else if selection == 21 {
                 // change to add event view
-                AddEventView(selection: $selection)
+                AddEventView(selection: $selection).transition(.slide)
             }
         }
     }

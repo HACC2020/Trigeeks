@@ -41,4 +41,15 @@ class BadgeViewModel: ObservableObject {
             print(error)
         }
     }
+    
+    //deleting a badge from processing list
+    func deleteBadge(badge: Badge){
+        db.collection("Badges").document(badge.id!).delete{ (error) in
+            if error != nil {
+                print("Error! cannot delete the badge")
+            } else {
+                print("Successfully delete!")
+            }
+        }
+    }
 }

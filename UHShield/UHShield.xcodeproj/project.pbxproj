@@ -44,6 +44,7 @@
 		901C8B73254E9D38005B147B /* BadgeRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901C8B72254E9D38005B147B /* BadgeRowView.swift */; };
 		90AF2C232550017A008F2B26 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AF2C222550017A008F2B26 /* SearchBar.swift */; };
 		90DDD7A12551651F00A0DDF0 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DDD7A02551651F00A0DDF0 /* Profile.swift */; };
+		90DDD7A4255169DE00A0DDF0 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DDD7A3255169DE00A0DDF0 /* ProfileViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,7 @@
 		901C8B72254E9D38005B147B /* BadgeRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeRowView.swift; sourceTree = "<group>"; };
 		90AF2C222550017A008F2B26 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		90DDD7A02551651F00A0DDF0 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		90DDD7A3255169DE00A0DDF0 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		9779873E92E10EB8324AD16F /* Pods_UHShield.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UHShield.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3F6EC8C25AF38B707829FB9 /* Pods-UHShield.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UHShield.debug.xcconfig"; path = "Target Support Files/Pods-UHShield/Pods-UHShield.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -217,6 +219,7 @@
 			children = (
 				901C8B34254E90BC005B147B /* BadgeViewModel.swift */,
 				4567D174254EA43100C9DBCB /* EventViewModel.swift */,
+				90DDD7A3255169DE00A0DDF0 /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				39410ACF254E4E5900DEF4CB /* SearchView.swift in Sources */,
 				45B8C62C254A85EC003A8511 /* SessionStore.swift in Sources */,
 				39410AD2254E4E7300DEF4CB /* BadgesView.swift in Sources */,
+				90DDD7A4255169DE00A0DDF0 /* ProfileViewModel.swift in Sources */,
 				4590CC252548EE760096C728 /* CodeScanner.swift in Sources */,
 				45B8C629254A8593003A8511 /* SignInView.swift in Sources */,
 				4590CC0C2548ECB60096C728 /* UHShieldApp.swift in Sources */,

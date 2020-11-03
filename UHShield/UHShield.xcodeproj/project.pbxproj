@@ -20,6 +20,7 @@
 		39410B0A254FA1CB00DEF4CB /* EventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B09254FA1CB00DEF4CB /* EventRowView.swift */; };
 		4567D172254EA04A00C9DBCB /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567D171254EA04A00C9DBCB /* Event.swift */; };
 		4567D175254EA43100C9DBCB /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567D174254EA43100C9DBCB /* EventViewModel.swift */; };
+		456ED979254FE1A7003C32E4 /* EmailComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456ED978254FE1A7003C32E4 /* EmailComposer.swift */; };
 		4590CC0C2548ECB60096C728 /* UHShieldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590CC0B2548ECB60096C728 /* UHShieldApp.swift */; };
 		4590CC0E2548ECB60096C728 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590CC0D2548ECB60096C728 /* ContentView.swift */; };
 		4590CC102548ECB90096C728 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4590CC0F2548ECB90096C728 /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		430F3808FC1F511B4A751145 /* Pods-UHShield.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UHShield.release.xcconfig"; path = "Target Support Files/Pods-UHShield/Pods-UHShield.release.xcconfig"; sourceTree = "<group>"; };
 		4567D171254EA04A00C9DBCB /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		4567D174254EA43100C9DBCB /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
+		456ED978254FE1A7003C32E4 /* EmailComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailComposer.swift; sourceTree = "<group>"; };
 		4590CC082548ECB60096C728 /* UHShield.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UHShield.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4590CC0B2548ECB60096C728 /* UHShieldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UHShieldApp.swift; sourceTree = "<group>"; };
 		4590CC0D2548ECB60096C728 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				4590CC242548EE760096C728 /* CodeScanner.swift */,
+				456ED978254FE1A7003C32E4 /* EmailComposer.swift */,
 				45B8C62B254A85EC003A8511 /* SessionStore.swift */,
 				45B8C62E254A8774003A8511 /* Modifiers.swift */,
 				90AF2C222550017A008F2B26 /* SearchBar.swift */,
@@ -343,6 +346,7 @@
 				45B8C635254A8DB4003A8511 /* SignUpView.swift in Sources */,
 				901C8B73254E9D38005B147B /* BadgeRowView.swift in Sources */,
 				4590CC2F2548F4460096C728 /* MainView.swift in Sources */,
+				456ED979254FE1A7003C32E4 /* EmailComposer.swift in Sources */,
 				45B8C62F254A8774003A8511 /* Modifiers.swift in Sources */,
 				4590CC0E2548ECB60096C728 /* ContentView.swift in Sources */,
 				39410AE6254E871700DEF4CB /* MyEventsView.swift in Sources */,

@@ -14,14 +14,12 @@ struct Badge: Codable, Identifiable, Hashable {
     @DocumentID var id: String? = UUID().uuidString
     var guestID: String?
     var assignedTime: Date?
-    var isAvailable: Bool?
     var badgeID: String?
     enum CodingKeys: String, CodingKey{
         
         case id
         case guestID
         case assignedTime
-        case isAvailable
         case badgeID
     }
 }

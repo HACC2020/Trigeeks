@@ -61,6 +61,10 @@ struct ConfirmWindow: View {
                 Image("check-mark-badge").resizable().cornerRadius(10).frame(width:100, height: 100)
                 
                 Text("Recycle Badge").font(.title).foregroundColor(.black)
+                Divider()
+                Text("Badge ID: \(badge.badgeID!)")
+                Text("Guest ID: \(badge.guestID!)")
+                Divider()
                 Text("Are you sure you the information is correct?")
                 HStack{
                     Button(action: {

@@ -8,6 +8,9 @@
 import CoreImage.CIFilterBuiltins
 import SwiftUI
 import MessageUI
+import FirebaseFirestore
+import Firebase
+import FirebaseFirestoreSwift
 
 
 struct AddEventView: View {
@@ -55,7 +58,7 @@ struct AddEventView: View {
                         TextField("describe event", text: $eventName)
                             .padding(.horizontal)
                             .disableAutocorrection(true)
-                        TextField("sponsor(should auto get):", text: $sponsor)
+                        TextField(getCurrentUser(), text: $sponsor)
                             .textContentType(.name)
                             .padding(.horizontal)
                             .disableAutocorrection(true)
@@ -206,7 +209,7 @@ struct AddEventView: View {
             
             //MARK: - Mail Composer View
             if(isShowingMailView) {
-                EmailComposer(result: self.$result, isShowing: $isShowingMailView ,eventName: eventName, guest: guestHolder, location: Location(building: building, roomID: room), sponsor: sponsor, startTime: startTime, endTime: endTime, qrCode: resizeImage(image: generateQRCode(from: "\(eventName)\n\(sponsor)\n\(building)\n\(room)\n\(startTime)\n\(endTime)\n\(guestHolder.name)\n\(guestHolder.email)"), targetSize: CGSize(width: 200.0, height: 200.0))
+                EmailComposer(result: self.$result, isShowing: $isShowingMailView ,eventName: eventName, guest: guestHolder, location: Location(building: building, roomID: room), sponsor: getCurrentUser(), startTime: startTime, endTime: endTime, qrCode: resizeImage(image: generateQRCode(from: "\(eventName)\n\(getCurrentUser())\n\(building)\n\(room)\n\(startTime)\n\(endTime)\n\(guestHolder.name)\n\(guestHolder.email)"), targetSize: CGSize(width: 200.0, height: 200.0))
 
                 )
                     .transition(.move(edge: .bottom)).animation(.linear)
@@ -224,7 +227,7 @@ struct AddEventView: View {
     
     func handleDoneButton() {
         // code here
-        event = Event(eventName: eventName.trimmingCharacters(in: .whitespaces), sponsor: sponsor.trimmingCharacters(in: .whitespaces), guests: guests, arrivedGuests: [], location: Location(building: building.trimmingCharacters(in: .whitespaces), roomID: room.trimmingCharacters(in: .whitespaces)), startTime: startTime, endTime: endTime)
+        event = Event(eventName: eventName.trimmingCharacters(in: .whitespaces), sponsor: getCurrentUser(), guests: guests, arrivedGuests: [], location: Location(building: building.trimmingCharacters(in: .whitespaces), roomID: room.trimmingCharacters(in: .whitespaces)), startTime: startTime, endTime: endTime)
         eventViewModel.addEvent(event: event)
             isShowingSendView = true
     }
@@ -279,6 +282,11 @@ struct AddEventView: View {
     
     func removeGuest(at offsets: IndexSet) {
         guests.remove(atOffsets: offsets)
+    }
+    
+    func getCurrentUser() -> String {
+        let userEmail : String = (Auth.auth().currentUser?.email)!
+        return userEmail
     }
 
 

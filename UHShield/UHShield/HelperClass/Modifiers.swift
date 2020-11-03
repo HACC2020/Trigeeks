@@ -16,7 +16,7 @@ struct Modifiers: View {
                     .font(.title2)
                     .foregroundColor(Color(#colorLiteral(red: 0.8864660859, green: 0.8863860965, blue: 0.9189570546, alpha: 1)))
             })
-            .buttonStyle(LongButtonStyle())
+            .buttonStyle(RedLongButtonStyle())
         }
     }
 }
@@ -75,6 +75,28 @@ struct SectionModifier: ViewModifier {
 
 struct LongButtonStyle: ButtonStyle {
     var buttonColor = Color("bg1")
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(
+                Group {
+                    if configuration.isPressed {
+                    RoundedRectangle(cornerRadius: 15).fill(buttonColor)
+                        .shadow(color: Color(#colorLiteral(red: 0.2986346781, green: 0.2874504924, blue: 0.3008843064, alpha: 1)), radius: 5, x: 0, y: 0)
+                        .shadow(color: Color.white.opacity(0.7), radius: 10, x: 5, y: 5)
+                    } else {
+                        RoundedRectangle(cornerRadius: 15).foregroundColor(buttonColor)
+                            .shadow(color: Color(#colorLiteral(red: 0.4459395409, green: 0.4322124422, blue: 0.4563130736, alpha: 1)), radius: 5, x: 5, y: 8)
+                            .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+                    }
+                }
+            )
+    }
+}
+
+struct RedLongButtonStyle: ButtonStyle {
+    var buttonColor = Color("button2")
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .padding()

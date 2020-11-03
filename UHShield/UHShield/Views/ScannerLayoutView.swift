@@ -13,6 +13,8 @@ struct ScannerLayoutView: View {
     @State var checkMarkSize: CGFloat = 0.1
     @State var checkMarkOpacity: Double = 0.01
     @State var checkMarkRotation: Double = 100
+    @State var codeDetails: [String] = []
+    @State var isShowCheckInView = false
     @Binding var selection: Int
     var body: some View {
 
@@ -46,6 +48,9 @@ struct ScannerLayoutView: View {
                 Circle().fill(Color.green).frame(width: circleSize)
                 Image(systemName: "checkmark").foregroundColor(Color.white.opacity(checkMarkOpacity)).font(.system(size: checkMarkSize, weight: .bold)).rotationEffect(Angle(degrees: checkMarkRotation))
 
+                if isShowCheckInView {
+                    CheckInView(details: codeDetails, isShowCheckInView: $isShowCheckInView).onDisappear {selection = 10}
+                }
             }.onAppear {
                 Timer.scheduledTimer(withTimeInterval: 1.8, repeats: true) { _ in
                     self.scanerLineOffset = 0
@@ -79,9 +84,11 @@ struct ScannerLayoutView: View {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
                 // change to guest information View
-                selection = 10
+                isShowCheckInView = true
             })
             let details = code.components(separatedBy: "\n")
+            codeDetails = details
+            
             print(details[0])
             print(details[1])
         case .failure(let error):

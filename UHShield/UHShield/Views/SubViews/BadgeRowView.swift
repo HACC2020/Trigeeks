@@ -20,17 +20,21 @@ struct BadgeRowView: View {
                 
         HStack{
             Image(systemName: "person.circle.fill").font(.largeTitle).padding(.leading, 10)
-            Text(self.badge.guestID)
-                .font(.system(size: 20, weight: .bold))
+            VStack{
+                Text(self.badge.badgeID!)
+                    .font(.system(size: 20, weight: .bold))
+                Text(self.badge.guestID!)
+                    .font(.system(size: 16, weight: .bold))
+            }
             Spacer()
             VStack{
     
-                Text(self.badge.assignedTime, style: .time)
-                Text(self.badge.assignedTime, style: .date)
+                Text(self.badge.assignedTime!, style: .time)
+                Text(self.badge.assignedTime!, style: .date)
             }
             
             Image("check-mark-badge")
-                .resizable().cornerRadius(10).frame(width:60, height: 60)
+                .resizable().cornerRadius(10).frame(width:65, height: 65)
         }
                 
             }

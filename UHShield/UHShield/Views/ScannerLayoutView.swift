@@ -13,18 +13,18 @@ struct ScannerLayoutView: View {
     @State var checkMarkSize: CGFloat = 0.1
     @State var checkMarkOpacity: Double = 0.01
     @State var checkMarkRotation: Double = 100
-    @Binding var isShowScanner: Bool
+    @Binding var selection: Int
     var body: some View {
 
             ZStack {
                 VStack {
-                    CodeScannerView(codeTypes: [.qr], simulatedData: "ABC\nabc", completion: handleScan)
+                    CodeScannerView(codeTypes: [.qr], simulatedData: "Test\nJohn\nPOST\n101\n2020-11-03 02:39:18 +0000\n2020-11-03 02:39:18 +0000\nWeir\nheweiron@hawaii.edu", completion: handleScan)
                 }
                 
                 VStack {
                     HStack {
                         Button(action: {
-                            isShowScanner = false
+                            selection = 10
                         }, label: {
                             HStack {
                                 Image(systemName: "chevron.backward")
@@ -39,6 +39,7 @@ struct ScannerLayoutView: View {
                 }
                 // scanning lines with animation
                 Rectangle().fill(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.5), Color.white.opacity(0.1)]), startPoint: .bottom, endPoint: .top)).frame(height: 20)
+                    .offset(y:  -UIScreen.main.bounds.height/4)
                     .offset(y: scanerLineOffset)
                 
                 // success image with animation
@@ -46,10 +47,10 @@ struct ScannerLayoutView: View {
                 Image(systemName: "checkmark").foregroundColor(Color.white.opacity(checkMarkOpacity)).font(.system(size: checkMarkSize, weight: .bold)).rotationEffect(Angle(degrees: checkMarkRotation))
 
             }.onAppear {
-                Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { _ in
-                    self.scanerLineOffset = -UIScreen.main.bounds.height/3
+                Timer.scheduledTimer(withTimeInterval: 1.8, repeats: true) { _ in
+                    self.scanerLineOffset = 0
                     withAnimation(.linear(duration: 1.8)) {
-                        self.scanerLineOffset = UIScreen.main.bounds.height/5
+                        self.scanerLineOffset = UIScreen.main.bounds.height/2
                     }
                 }
                 
@@ -77,20 +78,21 @@ struct ScannerLayoutView: View {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-                isShowScanner = false
+                // change to guest information View
+                selection = 10
             })
             let details = code.components(separatedBy: "\n")
             print(details[0])
             print(details[1])
         case .failure(let error):
             print(error)
-            isShowScanner = false
+            selection = 10
         }
     }
 }
 
 struct ScannerLayoutView_Previews: PreviewProvider {
     static var previews: some View {
-        ScannerLayoutView(isShowScanner: .constant(true))
+        ScannerLayoutView( selection: .constant(11))
     }
 }

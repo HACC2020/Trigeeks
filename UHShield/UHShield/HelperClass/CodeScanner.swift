@@ -59,26 +59,18 @@ public struct CodeScannerView: UIViewControllerRepresentable {
             label.translatesAutoresizingMaskIntoConstraints = false
             label.numberOfLines = 0
 
-            label.text = "You're running in the simulator, which means the camera isn't available. Tap anywhere to send back some simulated data."
-            label.textAlignment = .center
-            let button = UIButton()
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.setTitle("Or tap here to select a custom image", for: .normal)
-            button.setTitleColor(UIColor.systemBlue, for: .normal)
-            button.setTitleColor(UIColor.gray, for: .highlighted)
-            button.addTarget(self, action: #selector(self.openGallery), for: .touchUpInside)
+            label.text = "You're running in the simulator, which means the camera isn't available. Tap anywhere to send back some simulated data:\n Test\nJohn\nPOST\n101\n2020-11-03 02:39:18 +0000\n2020-11-03 02:39:18 +0000\nWeir\nheweiron@hawaii.edu"
+            label.textAlignment = .left
 
             let stackView = UIStackView()
             stackView.translatesAutoresizingMaskIntoConstraints = false
             stackView.axis = .vertical
             stackView.spacing = 50
             stackView.addArrangedSubview(label)
-            stackView.addArrangedSubview(button)
 
             view.addSubview(stackView)
 
             NSLayoutConstraint.activate([
-                button.heightAnchor.constraint(equalToConstant: 50),
                 stackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
                 stackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
                 stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
@@ -94,34 +86,6 @@ public struct CodeScannerView: UIViewControllerRepresentable {
             delegate?.found(code: simulatedData)
         }
 
-        @objc func openGallery(_ sender: UIButton){
-            let imagePicker = UIImagePickerController()
-            imagePicker.delegate = self
-            self.present(imagePicker, animated: true, completion: nil)
-        }
-
-        public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-            if let qrcodeImg = info[.originalImage] as? UIImage {
-                let detector:CIDetector=CIDetector(ofType: CIDetectorTypeQRCode, context: nil, options: [CIDetectorAccuracy:CIDetectorAccuracyHigh])!
-                let ciImage:CIImage=CIImage(image:qrcodeImg)!
-                var qrCodeLink=""
-
-                let features=detector.features(in: ciImage)
-                for feature in features as! [CIQRCodeFeature] {
-                    qrCodeLink += feature.messageString!
-                }
-
-                if qrCodeLink=="" {
-                    delegate?.didFail(reason: .badOutput)
-                }else{
-                    delegate?.found(code: qrCodeLink)
-                }
-            }
-            else{
-                print("Something went wrong")
-            }
-            self.dismiss(animated: true, completion: nil)
-        }
     }
     #else
     public class ScannerViewController: UIViewController {

@@ -7,6 +7,9 @@
 
 import CoreImage.CIFilterBuiltins
 import SwiftUI
+import FirebaseFirestore
+import Firebase
+import FirebaseFirestoreSwift
 
 
 
@@ -44,7 +47,7 @@ struct AddEventView: View {
                     
                     TextField("describe event", text: $eventName)
                         .padding(.horizontal)
-                    TextField("sponsor(should auto get):", text: $sponsor)
+                    TextField(getCurrentUser(), text: $sponsor)
                         .textContentType(.name)
                         .padding(.horizontal)
                     }
@@ -117,7 +120,7 @@ struct AddEventView: View {
                     
                     
                     ForEach(guests, id: \.self) { guest in
-                        Image(uiImage: generateQRCode(from: "\(eventName)\n\(sponsor)\n\(building)\n\(room)\n\(startTime)\n\(endTime)\n\(guest.name)\n\(guest.email)"))
+                        Image(uiImage: generateQRCode(from: "\(eventName)\n\(getCurrentUser())\n\(building)\n\(room)\n\(startTime)\n\(endTime)\n\(guest.name)\n\(guest.email)"))
                             .interpolation(.none)
                             .resizable()
                             .scaledToFit()
@@ -164,7 +167,7 @@ struct AddEventView: View {
     
     func handleDoneButton() {
         // code here
-        event = Event(eventName: eventName, sponsor: sponsor, guests: guests, arrivedGuests: [], location: Location(building: building, roomID: room), startTime: startTime, endTime: endTime)
+        event = Event(eventName: eventName, sponsor: getCurrentUser(), guests: guests, arrivedGuests: [], location: Location(building: building, roomID: room), startTime: startTime, endTime: endTime)
         eventViewModel.addEvent(event: event)
         withAnimation(.spring()) {
             selection = 20
@@ -185,6 +188,11 @@ struct AddEventView: View {
     
     func removeGuest(at offsets: IndexSet) {
         guests.remove(atOffsets: offsets)
+    }
+    
+    func getCurrentUser() -> String {
+        let userEmail : String = (Auth.auth().currentUser?.email)!
+        return userEmail
     }
     
 

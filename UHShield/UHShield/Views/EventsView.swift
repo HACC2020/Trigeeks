@@ -15,7 +15,7 @@ struct EventsView: View {
                 LazyVStack{
                     ForEach(self.eventVM.events) { event in 
                         EventRowView(event: event).padding(.horizontal)
-                        Spacer().frame(height: 12).background(Color("bg2"))
+                        Spacer().frame(height: 1).background(Color("bg2"))
                     }
                 }
             }

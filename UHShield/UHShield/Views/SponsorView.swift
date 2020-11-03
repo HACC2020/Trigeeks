@@ -32,7 +32,7 @@ struct SponsorView: View {
                         }
                 }.tag(1)
             
-                UserView()
+                MeView()
                     .tabItem {
                         VStack {
                             Image(systemName: "person.fill")

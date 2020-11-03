@@ -16,7 +16,7 @@ struct ReceptionistView: View {
             TopBar(selection: $selection)
             TabView {
                 
-                EventsView()
+                UpcomingEventsView()
                     .tabItem {
                         VStack {
                             Image(systemName: "calendar")
@@ -32,7 +32,7 @@ struct ReceptionistView: View {
                         }
                 }.tag(1)
             
-                UserView()
+                MeView()
                     .tabItem {
                         VStack {
                             Image(systemName: "person.fill")

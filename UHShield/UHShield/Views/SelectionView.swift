@@ -13,8 +13,7 @@ struct SelectionView: View {
     var body: some View {
         Group {
             if selection == 0{
-                UserView()
-                
+                MeView()
             } else if selection == 1 {
                 BadgesView()
             } else if selection == 10 {

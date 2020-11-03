@@ -108,7 +108,7 @@ struct HomeView: View {
 
         }.onDisappear {self.isCardExpand = false}
         .fullScreenCover(isPresented: $isShowScanner, content: {
-            ScannerLayoutView(isShowScanner: $isShowScanner)
+           // ScannerLayoutView(isShowScanner: $isShowScanner)
         })
     }
 }

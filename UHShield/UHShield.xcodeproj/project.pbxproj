@@ -18,6 +18,8 @@
 		39410AE9254E882A00DEF4CB /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AE8254E882A00DEF4CB /* EditEventView.swift */; };
 		39410AEE254E8A3B00DEF4CB /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AED254E8A3B00DEF4CB /* UserView.swift */; };
 		39410B0A254FA1CB00DEF4CB /* EventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B09254FA1CB00DEF4CB /* EventRowView.swift */; };
+		453CF8E525511E8C004BBA40 /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E425511E8C004BBA40 /* CheckInView.swift */; };
+		453CF8E825515B5B004BBA40 /* AddBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E725515B5A004BBA40 /* AddBadgeView.swift */; };
 		39410B24255109ED00DEF4CB /* UpcomingEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */; };
 		39410B292551243300DEF4CB /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B282551243300DEF4CB /* MeView.swift */; };
 		39410B2C255126AB00DEF4CB /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B2B255126AB00DEF4CB /* EditProfileView.swift */; };
@@ -62,6 +64,8 @@
 		39410B282551243300DEF4CB /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		39410B2B255126AB00DEF4CB /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		430F3808FC1F511B4A751145 /* Pods-UHShield.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UHShield.release.xcconfig"; path = "Target Support Files/Pods-UHShield/Pods-UHShield.release.xcconfig"; sourceTree = "<group>"; };
+		453CF8E425511E8C004BBA40 /* CheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInView.swift; sourceTree = "<group>"; };
+		453CF8E725515B5A004BBA40 /* AddBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBadgeView.swift; sourceTree = "<group>"; };
 		4567D171254EA04A00C9DBCB /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		4567D174254EA43100C9DBCB /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
 		456ED978254FE1A7003C32E4 /* EmailComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailComposer.swift; sourceTree = "<group>"; };
@@ -178,6 +182,8 @@
 				39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */,
 				39410ACE254E4E5900DEF4CB /* SearchView.swift */,
 				39410AE5254E871700DEF4CB /* MyEventsView.swift */,
+				453CF8E425511E8C004BBA40 /* CheckInView.swift */,
+				453CF8E725515B5A004BBA40 /* AddBadgeView.swift */,
 				39410B282551243300DEF4CB /* MeView.swift */,
 			);
 			path = Views;
@@ -348,9 +354,11 @@
 			files = (
 				39410ADE254E55CE00DEF4CB /* SelectionView.swift in Sources */,
 				4590CC332548F5D10096C728 /* HomeView.swift in Sources */,
+				453CF8E525511E8C004BBA40 /* CheckInView.swift in Sources */,
 				39410B2C255126AB00DEF4CB /* EditProfileView.swift in Sources */,
 				39410ACC254E4D9900DEF4CB /* EventsView.swift in Sources */,
 				4590CC3B2548F7240096C728 /* AddEventView.swift in Sources */,
+				453CF8E825515B5B004BBA40 /* AddBadgeView.swift in Sources */,
 				4590CC372548F68C0096C728 /* ScannerLayoutView.swift in Sources */,
 				39410AE3254E82EB00DEF4CB /* SponsorView.swift in Sources */,
 				39410B0A254FA1CB00DEF4CB /* EventRowView.swift in Sources */,

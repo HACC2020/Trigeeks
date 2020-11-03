@@ -20,7 +20,7 @@ struct SelectionView: View {
                 ReceptionistView(selection: $selection)
             } else if selection == 11{
                 // change to QR code scanner view
-                SearchView()
+                ScannerLayoutView(selection: $selection)
             } else if selection == 20 {
                 SponsorView(selection: $selection)
             } else if selection == 21 {

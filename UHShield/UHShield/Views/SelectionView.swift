@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SelectionView: View {
     @EnvironmentObject var session: SessionStore
-    @State var selection: Int = 20
+    @State var selection: Int = 10
     var body: some View {
         Group {
             if selection == 0{

@@ -52,4 +52,12 @@ class BadgeViewModel: ObservableObject {
             }
         }
     }
+    
+    func addBadge(badge: Badge) {
+        do {
+            let _ = try db.collection("Badges").document(badge.id!).setData(from: badge)
+        } catch {
+            print(error)
+        }
+    }
 }

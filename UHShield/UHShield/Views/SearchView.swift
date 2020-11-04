@@ -62,7 +62,7 @@ struct SearchView: View {
                                     Text("Search by: ")
                                     Text("event name").foregroundColor(.blue)
                                 }
-                                ForEach(self.eventViewModel.events.filter{$0.eventName.localizedCaseInsensitiveContains(self.search)}) { event in
+                                ForEach(self.eventViewModel.events.filter{$0.eventName!.localizedCaseInsensitiveContains(self.search)}) { event in
                                     EventRowView(event: event)
                                 }
                             }
@@ -75,7 +75,7 @@ struct SearchView: View {
                                     Text("Search by: ")
                                     Text("sponsor").foregroundColor(.blue)
                                 }
-                                ForEach(self.eventViewModel.events.filter{$0.sponsor.localizedCaseInsensitiveContains(self.search)}) { event in
+                                ForEach(self.eventViewModel.events.filter{$0.sponsor!.localizedCaseInsensitiveContains(self.search)}) { event in
                                     EventRowView(event: event)
                                 }
                             }
@@ -88,7 +88,7 @@ struct SearchView: View {
                                     Text("Search by: ")
                                     Text("location").foregroundColor(.blue)
                                 }
-                                ForEach(self.eventViewModel.events.filter{$0.location.building.localizedCaseInsensitiveContains(self.search) || $0.location.roomID.localizedCaseInsensitiveContains(self.search)}) { event in
+                                ForEach(self.eventViewModel.events.filter{$0.location!.building.localizedCaseInsensitiveContains(self.search) || $0.location!.roomID.localizedCaseInsensitiveContains(self.search)}) { event in
                                     EventRowView(event: event)
                                 }
                             }

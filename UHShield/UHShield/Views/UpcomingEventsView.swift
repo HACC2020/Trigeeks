@@ -21,14 +21,14 @@ struct UpcomingEventsView: View {
                         LazyVStack{
                             
                             ForEach(self.eventVM.events) { event in
-                                //if (isTheDateToday(event: event)){
+                                if (isTheDateToday(event: event)){
                                 EventRowView(event: event).padding(.horizontal).onTapGesture {
                                     print("An event is tapped!")
                                     self.showGuestList = true
                                     self.tappedEvent = event
                                 }
                                 
-                                // }
+                                 }
                             }
                         }
                     }
@@ -37,13 +37,13 @@ struct UpcomingEventsView: View {
                     self.eventVM.fetchData()
                     print("Fetching data in Events View")
                 }
-//                if(showGuestList) {
-//                    GuestListView(showGuestList: $showGuestList, events: eventVM, event: tappedEvent)
-//                }
+
                 NavigationLink(destination: GuestListView(guests: self.tappedEvent.guests ?? [Guest](), event: tappedEvent), isActive: self.$showGuestList) {
                     Text("")
                 }
-            }
+            }.navigationBarHidden(true)
+                
+            
         }
     }
     
@@ -52,39 +52,68 @@ struct UpcomingEventsView: View {
         let currentTime = Date()
         print("Current time is: \(currentTime)")
         print("data time is: \(event.startTime!)")
-        if (event.startTime! < currentTime + 3600 && event.endTime! > currentTime - 3600) {
+        if (event.startTime! < currentTime + 36000 && event.endTime! > currentTime - 36000) {
             return true
         }
         return false
+    }
+    
+    func test(){
+        print("The passing data:")
+        print(self.tappedEvent)
     }
 }
 
 struct GuestListView: View {
     
-    // @Binding var showGuestList: Bool
+    
     var guests: [Guest]
-    var event: Event
+    @State var event: Event
     @State var guestName = ""
     @State var guestEmail = ""
     @State var showCheckin = false
+    @StateObject var eventVM = EventViewModel()
+    @State var theEve = Event()
+    
     var body: some View {
         ZStack{
-            List(guests.indices, id: \.self){ index in
+            List{
+            ForEach(guests.indices, id: \.self){ index in
                 HStack{
                     Image(systemName: "person.circle.fill").font(.largeTitle).padding(.vertical, 10)
                     Text("\(guests[index].name!)")
+                    Spacer()
+                    ForEach(self.eventVM.events){ eventV in
+                        if(eventV.id == event.id){
+                            if(eventV.arrivedGuests!.contains(guests[index].email!)){
+                        Image(systemName: "checkmark.shield.fill").font(.system(size: 30, weight: .regular)).foregroundColor(.green)
+                    }
+                        }
+                    }
+                    
                 }.onTapGesture {
                     self.showCheckin = true
                     self.guestName = guests[index].name!
                     self.guestEmail = guests[index].email!
-                    
+
                 }
+
+            }
+            }.onAppear {
                 
             }
-            if(showCheckin){
-                CheckInView(details: [event.eventName!, event.sponsor!, event.location!.building, event.location!.roomID, "\(event.startTime!)", "\(event.endTime!)", guestName, guestEmail], isShowCheckInView: $showCheckin)
+
+            NavigationLink(destination: CheckInView(details: [event.eventName!, event.sponsor!, event.location!.building, event.location!.roomID, "\(event.startTime!)", "\(event.endTime!)", guestName, guestEmail], isShowCheckInView: $showCheckin), isActive: self.$showCheckin) {
+                Text("")
             }
+            
+        }.navigationBarTitle("\(event.eventName!)", displayMode: .inline)
+        .onAppear {
+           // self.test()
+            self.eventVM.fetchData()
+            
         }
     }
+    
     
 }

@@ -23,10 +23,13 @@ struct EventRowView: View {
                         Text(self.event.sponsor!).font(.system(size: 16, weight: .regular))
                     }//Vstack 2
                     Spacer()
+                    VStack{
                     HStack{
-                        Text(event.location!.building)
-                        Text(event.location!.roomID)
+                        Text(event.location!.building).font(.system(size: 20, weight: .semibold))
+                        Text(event.location!.roomID).font(.system(size: 18, weight: .regular))
                     }
+                        Text("\(String(event.arrivedGuests!.count)) / \(String(event.guests!.count)) Guests Arrived")
+                    }.padding(.trailing, 10)
                 }//Hstack1
                     Divider().background(Color("bg7"))
                     Text("Time: \(event.startTime!, style: .time) ~ \(event.endTime!, style: .time)").font(.system(size: 15, weight: .regular)).foregroundColor(.gray)

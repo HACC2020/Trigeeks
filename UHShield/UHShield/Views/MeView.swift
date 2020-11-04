@@ -12,8 +12,23 @@ import FirebaseFirestoreSwift
 
 struct MeView: View {
     @EnvironmentObject var session: SessionStore
+    @StateObject var profileVM = ProfileViewModel()
+    @State var profile = Profile(email: "", firstName: "User", lastName: "User", role: "guest")
     
-    func getCurrentUser() -> String {
+    func getCurrentUserProfile(){
+        if self.session.session != nil && self.profileVM.profiles.count != 0 {
+            let i = self.profileVM.profiles.firstIndex(where: {$0.email == self.session.session?.email ?? "nil@nil.com"}) ?? -1
+            if (i == -1) {
+                // if no such a profile in the database
+                self.profile.email = self.session.session?.email ?? "nil@nil.com"
+            } else {
+                self.profile =  self.profileVM.profiles[i]
+            }
+        }
+    }
+    
+    func getCurrentUserName() -> String {
+        print("The current user profile is: \(self.profile)")
         var userEmail = ""
         if self.session.session != nil {
             userEmail = (Auth.auth().currentUser?.email)!
@@ -26,9 +41,10 @@ struct MeView: View {
             VStack(spacing: 20) {
                 VStack (spacing: 20){
                     Spacer()
-                    Text("Hello, \(getCurrentUser())!")
+                    Text("Hello, \(self.profile.firstName)!")
+                        .font(.system(size: 18, weight: .medium))
                     
-                    NavigationLink(destination: EditProfileView()) {
+                    NavigationLink(destination: EditProfileView(profile: $profile)) {
                         Text("Edit your Profile")
                             .frame(minWidth: 0, maxWidth: .infinity)
                             .frame(height: 50)
@@ -69,6 +85,11 @@ struct MeView: View {
                 
             }
             .edgesIgnoringSafeArea(.top)
+            .onAppear(){
+                self.profileVM.fetchData()
+                self.getCurrentUserProfile()
+                print("Fetching profileVM for MeView")
+            }
         }
     }
 }

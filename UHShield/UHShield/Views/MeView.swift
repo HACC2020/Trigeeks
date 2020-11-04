@@ -28,60 +28,68 @@ struct MeView: View {
     }
     
     var body: some View {
-        NavigationView{
-            VStack(spacing: 20) {
-                VStack (spacing: 20){
-                    Spacer()
-                    Text("Hello, \(self.profile.firstName)!")
-                        .font(.system(size: 18, weight: .medium))
-                    
-                    NavigationLink(destination: EditProfileView(profile: $profile)) {
-                        Text("Edit your Profile")
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .frame(height: 50)
-                            .foregroundColor(.white)
-                            .font(.system(size: 14, weight: .bold))
-                            .background(LinearGradient(gradient: Gradient(colors: [Color("blue4"), Color("bg1")]), startPoint: .leading, endPoint: .trailing))
-                            .cornerRadius(5)
-                    }
-                    
-                    // leave for other buttons
-                    Button(action: session.signOut) {
-                        Text("Another Sign Out")
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .frame(height: 50)
-                            .foregroundColor(.white)
-                            .font(.system(size: 14, weight: .bold))
-                            .background(LinearGradient(gradient: Gradient(colors: [Color("blue4"), Color("bg1")]), startPoint: .leading, endPoint: .trailing))
-                            .cornerRadius(5)
+        Group{
+            if profileVM.profiles.count > 0 {
+                NavigationView{
+                    VStack(spacing: 20) {
+                        VStack (spacing: 20){
+                            Spacer()
+                            Text("Hello, \(self.profile.firstName)!")
+                                .font(.system(size: 18, weight: .medium))
+                            
+                            NavigationLink(destination: EditProfileView(profile: $profile)) {
+                                Text("Edit your Profile")
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .frame(height: 50)
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 14, weight: .bold))
+                                    .background(LinearGradient(gradient: Gradient(colors: [Color("blue4"), Color("bg1")]), startPoint: .leading, endPoint: .trailing))
+                                    .cornerRadius(5)
+                            }
+                            
+                            // leave for other buttons
+                            Button(action: session.signOut) {
+                                Text("Another Sign Out")
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .frame(height: 50)
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 14, weight: .bold))
+                                    .background(LinearGradient(gradient: Gradient(colors: [Color("blue4"), Color("bg1")]), startPoint: .leading, endPoint: .trailing))
+                                    .cornerRadius(5)
+                                
+                            }
+                            
+                            Spacer()
+                            
+                            Button(action: session.signOut) {
+                                Text("Sign Out")
+                                    .frame(minWidth: 0, maxWidth: .infinity)
+                                    .frame(height: 50)
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 14, weight: .bold))
+                                    .background(LinearGradient(gradient: Gradient(colors: [Color("blue3"), Color("bg1")]), startPoint: .leading, endPoint: .trailing))
+                                    .cornerRadius(5)
+                                
+                            }
+                            
+                            Spacer()
+                        }.padding(.horizontal, 32)
+                        
                         
                     }
-                    
-                    Spacer()
-                    
-                    Button(action: session.signOut) {
-                        Text("Sign Out")
-                            .frame(minWidth: 0, maxWidth: .infinity)
-                            .frame(height: 50)
-                            .foregroundColor(.white)
-                            .font(.system(size: 14, weight: .bold))
-                            .background(LinearGradient(gradient: Gradient(colors: [Color("blue3"), Color("bg1")]), startPoint: .leading, endPoint: .trailing))
-                            .cornerRadius(5)
-                        
-                    }
-                    
-                    Spacer()
-                }.padding(.horizontal, 32)
-                
-                
+                    .edgesIgnoringSafeArea(.top)
+                }
             }
-            .edgesIgnoringSafeArea(.top)
-            .onAppear(){
-                self.profileVM.fetchData()
-                self.getCurrentUserProfile()
-                print("Fetching profileVM for MeView")
+            else {
+                VStack {
+                    Text("Loading...")
+                }
             }
+        }
+        .onAppear(){
+            self.profileVM.fetchData()
+            self.getCurrentUserProfile()
+            print("Fetching profileVM for MeView")
         }
     }
 }
-

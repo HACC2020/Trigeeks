@@ -17,7 +17,7 @@ struct SelectionView: View {
             if profileViewModel.profiles.count > 0 {
                 VStack {
                     if selection == 0{
-                        MeView()
+                        GuestView(selection: $selection)
                     } else if selection == 1 {
                         SearchView(selection: $selection).environmentObject(profileViewModel)
                     } else if selection == 10 {
@@ -48,6 +48,8 @@ struct SelectionView: View {
                     selection = 20
                 } else if profile.role == "reception" {
                     selection = 10
+                } else if profile.role == "guest" {
+                    selection = 0
                 }
             }
         }

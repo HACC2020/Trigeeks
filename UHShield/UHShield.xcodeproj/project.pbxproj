@@ -21,6 +21,7 @@
 		39410B24255109ED00DEF4CB /* UpcomingEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */; };
 		39410B292551243300DEF4CB /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B282551243300DEF4CB /* MeView.swift */; };
 		39410B2C255126AB00DEF4CB /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B2B255126AB00DEF4CB /* EditProfileView.swift */; };
+		3955F28C2552C2A4004AB1AA /* GuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3955F28B2552C2A4004AB1AA /* GuestView.swift */; };
 		453CF8E525511E8C004BBA40 /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E425511E8C004BBA40 /* CheckInView.swift */; };
 		453CF8E825515B5B004BBA40 /* AddBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E725515B5A004BBA40 /* AddBadgeView.swift */; };
 		4567D172254EA04A00C9DBCB /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567D171254EA04A00C9DBCB /* Event.swift */; };
@@ -63,6 +64,7 @@
 		39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsView.swift; sourceTree = "<group>"; };
 		39410B282551243300DEF4CB /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		39410B2B255126AB00DEF4CB /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		3955F28B2552C2A4004AB1AA /* GuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestView.swift; sourceTree = "<group>"; };
 		430F3808FC1F511B4A751145 /* Pods-UHShield.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UHShield.release.xcconfig"; path = "Target Support Files/Pods-UHShield/Pods-UHShield.release.xcconfig"; sourceTree = "<group>"; };
 		453CF8E425511E8C004BBA40 /* CheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInView.swift; sourceTree = "<group>"; };
 		453CF8E725515B5A004BBA40 /* AddBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBadgeView.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				39410AE8254E882A00DEF4CB /* EditEventView.swift */,
 				39410B2B255126AB00DEF4CB /* EditProfileView.swift */,
 				39410ACB254E4D9900DEF4CB /* EventsView.swift */,
+				3955F28B2552C2A4004AB1AA /* GuestView.swift */,
 				4590CC322548F5D10096C728 /* HomeView.swift */,
 				4590CC2E2548F4460096C728 /* MainView.swift */,
 				39410B282551243300DEF4CB /* MeView.swift */,
@@ -361,6 +364,7 @@
 				453CF8E825515B5B004BBA40 /* AddBadgeView.swift in Sources */,
 				4590CC372548F68C0096C728 /* ScannerLayoutView.swift in Sources */,
 				39410AE3254E82EB00DEF4CB /* SponsorView.swift in Sources */,
+				3955F28C2552C2A4004AB1AA /* GuestView.swift in Sources */,
 				39410B0A254FA1CB00DEF4CB /* EventRowView.swift in Sources */,
 				45B8C632254A8C16003A8511 /* AlertView.swift in Sources */,
 				90AF2C232550017A008F2B26 /* SearchBar.swift in Sources */,

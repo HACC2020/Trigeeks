@@ -35,6 +35,7 @@ struct BadgeRowView: View {
             
             Image("check-mark-badge")
                 .resizable().cornerRadius(10).frame(width:65, height: 65)
+            
         }
                 
             }

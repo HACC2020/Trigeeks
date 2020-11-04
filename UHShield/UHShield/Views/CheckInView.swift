@@ -153,8 +153,8 @@ struct CheckInView: View {
             }
         }
         
-        if !self.event.arrivedGuests.contains(details[7]) {
-            self.event.arrivedGuests.append(details[7])
+        if !self.event.arrivedGuests!.contains(details[7]) {
+            self.event.arrivedGuests!.append(details[7])
             eventViewModel.updateEvent(event: self.event)
         }
         isShowAddBadge = true

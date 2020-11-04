@@ -11,18 +11,48 @@ struct EventRowView: View {
     var event: Event
     var body: some View {
         VStack{
-            HStack{
-                Text("Room\(String(event.location.roomID))")
-                    .font(.system(size: 20, weight: .bold))
-                Spacer()
-                Text("\(event.startTime, style: .time) to \(event.endTime, style: .time)")
-            }
-            HStack{
-                Text(event.sponsor)
-                Spacer()
-                Text("\(String(event.arrivedGuests.count)) / \(String(event.guests.count)) Guests Arrived")
-            }
-        }.padding(.vertical, 10)
+            ZStack{
+                Rectangle().fill(Color.white)
+                    .cornerRadius(10)
+                    .shadow(color: .gray, radius: 5, x: 1, y: 1)
+                VStack{
+                HStack{
+                    Image(systemName: "clock").font(.system(size:60, weight: .bold)).foregroundColor(.green).padding(.leading, 10).padding(.vertical,15)
+                    VStack(alignment: .leading, spacing: 2){
+                        Text(self.event.eventName).font(.system(size: 25, weight: .bold))
+                        Text(self.event.sponsor).font(.system(size: 16, weight: .regular))
+                    }//Vstack 2
+                    Spacer()
+                    HStack{
+                        Text(event.location.building)
+                        Text(event.location.roomID)
+                    }
+                }//Hstack1
+                    Divider().background(Color("bg7"))
+                    Text("Time: \(event.startTime, style: .time) ~ \(event.endTime, style: .time)").font(.system(size: 15, weight: .regular)).foregroundColor(.gray)
+                    
+                }
+            }//Zstack1
+            
+        }//Vstack 1
+        .padding(.vertical, 5)
+        
+        
+        
+//        VStack{
+//
+//            HStack{
+//                Text("Room\(String(event.location.roomID))")
+//                    .font(.system(size: 20, weight: .bold))
+//                Spacer()
+//                Text("\(event.startTime, style: .time) to \(event.endTime, style: .time)")
+//            }
+//            HStack{
+//                Text(event.sponsor)
+//                Spacer()
+//                Text("\(String(event.arrivedGuests.count)) / \(String(event.guests.count)) Guests Arrived")
+//            }
+//        }.padding(.vertical, 10)
     }
 }
 

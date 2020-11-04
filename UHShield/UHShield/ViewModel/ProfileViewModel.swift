@@ -35,7 +35,15 @@ class ProfileViewModel: ObservableObject {
     // update profile when users use EditProfile View
     func updateProfile(profile: Profile) {
         do {
-            try db.collection("profiles").document(profile.email).setData(from: profile, merge: true)
+            try db.collection("Profiles").document(profile.email).setData(from: profile, merge: true)
+        } catch {
+            print(error)
+        }
+    }
+    
+    func addProfile(profile: Profile) {
+        do {
+            let _ = try db.collection("Profiles").document(profile.id!).setData(from: profile)
         } catch {
             print(error)
         }

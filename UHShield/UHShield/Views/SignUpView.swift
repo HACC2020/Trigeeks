@@ -16,6 +16,7 @@ struct SignUpView: View {
     @State var showAlert = false
     
     @EnvironmentObject var session: SessionStore
+    @StateObject var profileViewModel = ProfileViewModel()
     var TextColor = Color("bg1")
     
     var body: some View {
@@ -49,6 +50,7 @@ struct SignUpView: View {
                                 .foregroundColor(TextColor)
                             TextField("Email address", text: $email)
                                 .keyboardType(.emailAddress)
+                                .autocapitalization(.none)
                                 .modifier(TextFieldModifier())
                         }
                         
@@ -110,6 +112,9 @@ struct SignUpView: View {
             .padding(.vertical, 50)
             .background(Color(#colorLiteral(red: 0.8864660859, green: 0.8863860965, blue: 0.9189570546, alpha: 1)))
             .edgesIgnoringSafeArea(.all)
+            .onAppear {
+                profileViewModel.fetchData()
+            }
             
             
             // if error occured show the alert popup View
@@ -129,6 +134,7 @@ struct SignUpView: View {
                     self.error = error.localizedDescription
                     showAlert = true
                 } else {
+                    profileViewModel.addProfile(profile: Profile(id: email ,email: email, firstName: "", lastName: "", role: "sponsor"))
                     self.email = ""
                     self.password = ""
                 }

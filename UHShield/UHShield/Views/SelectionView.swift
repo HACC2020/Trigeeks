@@ -6,28 +6,49 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct SelectionView: View {
     @EnvironmentObject var session: SessionStore
-    @State var selection: Int = 10
+    @StateObject var profileViewModel = ProfileViewModel()
+    @State var selection: Int = 0
     var body: some View {
         Group {
-            if selection == 0{
-                MeView()
-            } else if selection == 1 {
-                BadgesView()
-            } else if selection == 10 {
-                ReceptionistView(selection: $selection)
-            } else if selection == 11{
-                // change to QR code scanner view
-                ScannerLayoutView(selection: $selection)
-            } else if selection == 20 {
-                SponsorView(selection: $selection)
-            } else if selection == 21 {
-                // change to add event view
-
-                AddEventView(selection: $selection).transition(.slide)
-
+            if profileViewModel.profiles.count > 0 {
+                VStack {
+                    if selection == 0{
+                        MeView()
+                    } else if selection == 1 {
+                        BadgesView()
+                    } else if selection == 10 {
+                        ReceptionistView(selection: $selection)
+                    } else if selection == 11{
+                        // change to QR code scanner view
+                        ScannerLayoutView(selection: $selection)
+                    } else if selection == 20 {
+                        SponsorView(selection: $selection)
+                    } else if selection == 21 {
+                        AddEventView(selection: $selection).transition(.slide)
+                    }
+                }.onAppear {checkRole()}
+            } else {
+                VStack {
+                    Text("Loading...")
+                }
+            }
+        }.onAppear {
+            profileViewModel.fetchData()
+        }
+    }
+    
+    func checkRole() {
+        for profile in profileViewModel.profiles {
+            if profile.email == Auth.auth().currentUser?.email {
+                if profile.role == "sponsor" {
+                    selection = 20
+                } else if profile.role == "reception" {
+                    selection = 10
+                }
             }
         }
     }

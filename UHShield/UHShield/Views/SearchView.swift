@@ -11,7 +11,6 @@ import FirebaseAuth
 struct SearchView: View {
     @State var search = ""
     @Binding var selection: Int
-    @EnvironmentObject var profileViewModel: ProfileViewModel
     @StateObject var eventViewModel = EventViewModel()
     @State var searchType = 0 // 0 for all, 1 for name, 2 for sponsor, 3 for location
     
@@ -97,7 +96,7 @@ struct SearchView: View {
                 }
                 .resignKeyboardOnDragGesture()
                 .listStyle(GroupedListStyle())
-                .navigationBarItems(leading: Button(action: {checkRole()}, label: {
+                .navigationBarItems(leading: Button(action: {selection = 0}, label: {
                     Image(systemName: "chevron.backward")
                     Text("Back")
                 }))
@@ -128,18 +127,7 @@ struct SearchView: View {
         }
         
     }
-    
-    func checkRole() {
-        for profile in profileViewModel.profiles {
-            if profile.email == Auth.auth().currentUser?.email {
-                if profile.role == "sponsor" {
-                    selection = 20
-                } else if profile.role == "reception" {
-                    selection = 10
-                }
-            }
-        }
-    }
+
 }
 
 

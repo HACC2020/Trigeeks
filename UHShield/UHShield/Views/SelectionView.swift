@@ -19,7 +19,7 @@ struct SelectionView: View {
                     if selection == 0{
                         MeView()
                     } else if selection == 1 {
-                        BadgesView()
+                        SearchView(selection: $selection).environmentObject(profileViewModel)
                     } else if selection == 10 {
                         ReceptionistView(selection: $selection)
                     } else if selection == 11{

@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		28C6976C1B0E606414017302 /* Pods_UHShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9779873E92E10EB8324AD16F /* Pods_UHShield.framework */; };
-		39410AC9254E4CB500DEF4CB /* ReceptionistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AC8254E4CB500DEF4CB /* ReceptionistView.swift */; };
 		39410ACC254E4D9900DEF4CB /* EventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410ACB254E4D9900DEF4CB /* EventsView.swift */; };
 		39410ACF254E4E5900DEF4CB /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410ACE254E4E5900DEF4CB /* SearchView.swift */; };
 		39410AD2254E4E7300DEF4CB /* BadgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AD1254E4E7300DEF4CB /* BadgesView.swift */; };
 		39410ADE254E55CE00DEF4CB /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410ADD254E55CE00DEF4CB /* SelectionView.swift */; };
-		39410AE3254E82EB00DEF4CB /* SponsorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AE2254E82EA00DEF4CB /* SponsorView.swift */; };
 		39410AE6254E871700DEF4CB /* MyEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AE5254E871700DEF4CB /* MyEventsView.swift */; };
 		39410AE9254E882A00DEF4CB /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AE8254E882A00DEF4CB /* EditEventView.swift */; };
 		39410AEE254E8A3B00DEF4CB /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AED254E8A3B00DEF4CB /* UserView.swift */; };
@@ -21,7 +19,6 @@
 		39410B24255109ED00DEF4CB /* UpcomingEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */; };
 		39410B292551243300DEF4CB /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B282551243300DEF4CB /* MeView.swift */; };
 		39410B2C255126AB00DEF4CB /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B2B255126AB00DEF4CB /* EditProfileView.swift */; };
-		3955F28C2552C2A4004AB1AA /* GuestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3955F28B2552C2A4004AB1AA /* GuestView.swift */; };
 		453CF8E525511E8C004BBA40 /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E425511E8C004BBA40 /* CheckInView.swift */; };
 		453CF8E825515B5B004BBA40 /* AddBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E725515B5A004BBA40 /* AddBadgeView.swift */; };
 		4567D172254EA04A00C9DBCB /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567D171254EA04A00C9DBCB /* Event.swift */; };
@@ -51,12 +48,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		39410AC8254E4CB500DEF4CB /* ReceptionistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceptionistView.swift; sourceTree = "<group>"; };
 		39410ACB254E4D9900DEF4CB /* EventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsView.swift; sourceTree = "<group>"; };
 		39410ACE254E4E5900DEF4CB /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		39410AD1254E4E7300DEF4CB /* BadgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgesView.swift; sourceTree = "<group>"; };
 		39410ADD254E55CE00DEF4CB /* SelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
-		39410AE2254E82EA00DEF4CB /* SponsorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorView.swift; sourceTree = "<group>"; };
 		39410AE5254E871700DEF4CB /* MyEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventsView.swift; sourceTree = "<group>"; };
 		39410AE8254E882A00DEF4CB /* EditEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEventView.swift; sourceTree = "<group>"; };
 		39410AED254E8A3B00DEF4CB /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
@@ -64,7 +59,6 @@
 		39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsView.swift; sourceTree = "<group>"; };
 		39410B282551243300DEF4CB /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		39410B2B255126AB00DEF4CB /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
-		3955F28B2552C2A4004AB1AA /* GuestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestView.swift; sourceTree = "<group>"; };
 		430F3808FC1F511B4A751145 /* Pods-UHShield.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UHShield.release.xcconfig"; path = "Target Support Files/Pods-UHShield/Pods-UHShield.release.xcconfig"; sourceTree = "<group>"; };
 		453CF8E425511E8C004BBA40 /* CheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInView.swift; sourceTree = "<group>"; };
 		453CF8E725515B5A004BBA40 /* AddBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBadgeView.swift; sourceTree = "<group>"; };
@@ -173,18 +167,15 @@
 				39410AE8254E882A00DEF4CB /* EditEventView.swift */,
 				39410B2B255126AB00DEF4CB /* EditProfileView.swift */,
 				39410ACB254E4D9900DEF4CB /* EventsView.swift */,
-				3955F28B2552C2A4004AB1AA /* GuestView.swift */,
 				4590CC322548F5D10096C728 /* HomeView.swift */,
 				4590CC2E2548F4460096C728 /* MainView.swift */,
 				39410B282551243300DEF4CB /* MeView.swift */,
 				39410AE5254E871700DEF4CB /* MyEventsView.swift */,
-				39410AC8254E4CB500DEF4CB /* ReceptionistView.swift */,
 				4590CC362548F68C0096C728 /* ScannerLayoutView.swift */,
 				39410ACE254E4E5900DEF4CB /* SearchView.swift */,
 				39410ADD254E55CE00DEF4CB /* SelectionView.swift */,
 				45B8C628254A8593003A8511 /* SignInView.swift */,
 				45B8C634254A8DB4003A8511 /* SignUpView.swift */,
-				39410AE2254E82EA00DEF4CB /* SponsorView.swift */,
 				39410B08254FA17100DEF4CB /* SubViews */,
 				39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */,
 				39410AED254E8A3B00DEF4CB /* UserView.swift */,
@@ -363,12 +354,9 @@
 				4590CC3B2548F7240096C728 /* AddEventView.swift in Sources */,
 				453CF8E825515B5B004BBA40 /* AddBadgeView.swift in Sources */,
 				4590CC372548F68C0096C728 /* ScannerLayoutView.swift in Sources */,
-				39410AE3254E82EB00DEF4CB /* SponsorView.swift in Sources */,
-				3955F28C2552C2A4004AB1AA /* GuestView.swift in Sources */,
 				39410B0A254FA1CB00DEF4CB /* EventRowView.swift in Sources */,
 				45B8C632254A8C16003A8511 /* AlertView.swift in Sources */,
 				90AF2C232550017A008F2B26 /* SearchBar.swift in Sources */,
-				39410AC9254E4CB500DEF4CB /* ReceptionistView.swift in Sources */,
 				901C8B17254E8A04005B147B /* Badge.swift in Sources */,
 				901C8B35254E90BC005B147B /* BadgeViewModel.swift in Sources */,
 				45B8C635254A8DB4003A8511 /* SignUpView.swift in Sources */,

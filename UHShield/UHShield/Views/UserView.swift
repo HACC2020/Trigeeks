@@ -28,26 +28,19 @@ struct UserView: View {
                                 .foregroundColor(.white)
                             
                             Spacer()
+                            
+                            Button(action: {
+                                self.selection = 1
+                            }) {
+                                Image(systemName: "magnifyingglass")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.white)
+                            }.padding(.trailing, 20)
+                            
                             Group {
-                                if self.viewSelection == "GuestView" {
-                                    Button(action: {
-                                        self.selection = 1
-                                    }) {
-                                        Image(systemName: "magnifyingglass")
-                                            .font(.system(size: 20))
-                                            .foregroundColor(.white)
-                                    }.padding(.trailing, 20)
-                                }
                                 
                                 if self.viewSelection == "SponsorView" {
-                                    Button(action: {
-                                        self.selection = 1
-                                    }) {
-                                        Image(systemName: "magnifyingglass")
-                                            .font(.system(size: 20))
-                                            .foregroundColor(.white)
-                                    }.padding(.trailing, 20)
-                                    
+                                
                                     Button(action: {
                                         withAnimation(.spring()) {
                                         self.selection = 21
@@ -60,13 +53,6 @@ struct UserView: View {
                                 }
                                 
                                 if self.viewSelection == "ReceptionView" {
-                                    Button(action: {
-                                        self.selection = 1
-                                    }) {
-                                        Image(systemName: "magnifyingglass")
-                                            .font(.system(size: 20))
-                                            .foregroundColor(.white)
-                                    }.padding(.trailing, 20)
                                     
                                     Button(action: {
                                         self.selection = 11

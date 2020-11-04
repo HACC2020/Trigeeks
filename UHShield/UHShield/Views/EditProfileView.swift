@@ -50,10 +50,12 @@ struct EditProfileView: View {
                             .font(.system(size: 14))
                             .padding(12)
                             .background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color(.gray), lineWidth: 1))
+                            .disableAutocorrection(true)
                         TextField("Last Name", text: $lastName)
                             .font(.system(size: 14))
                             .padding(12)
                             .background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color(.gray), lineWidth: 1))
+                            .disableAutocorrection(true)
                     }
                     .padding(.top, -40)
                     .padding(.bottom, 40)

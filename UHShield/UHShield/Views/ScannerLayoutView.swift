@@ -26,7 +26,7 @@ struct ScannerLayoutView: View {
                 VStack {
                     HStack {
                         Button(action: {
-                            selection = 10
+                            selection = 0
                         }, label: {
                             HStack {
                                 Image(systemName: "chevron.backward")
@@ -49,7 +49,7 @@ struct ScannerLayoutView: View {
                 Image(systemName: "checkmark").foregroundColor(Color.white.opacity(checkMarkOpacity)).font(.system(size: checkMarkSize, weight: .bold)).rotationEffect(Angle(degrees: checkMarkRotation))
 
                 if isShowCheckInView {
-                    CheckInView(details: codeDetails, isShowCheckInView: $isShowCheckInView).onDisappear {selection = 10}
+                    CheckInView(details: codeDetails, isShowCheckInView: $isShowCheckInView).onDisappear {selection = 0}
                 }
             }.onAppear {
                 Timer.scheduledTimer(withTimeInterval: 1.8, repeats: true) { _ in
@@ -93,7 +93,7 @@ struct ScannerLayoutView: View {
             print(details[1])
         case .failure(let error):
             print(error)
-            selection = 10
+            selection = 0
         }
     }
 }

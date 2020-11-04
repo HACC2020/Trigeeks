@@ -220,9 +220,9 @@ struct AddEventView: View {
     
     // MARK: -Button functions
     func handleBackButton() {
-        withAnimation(.spring()) {
-            selection = 20
-        }
+//        withAnimation(.spring()) {
+            selection = 0
+//        }
     }
     
     func handleDoneButton() {
@@ -239,7 +239,7 @@ struct AddEventView: View {
     
     func handleXButton() {
         isShowingSendView = false
-        selection = 20
+        selection = 0
     }
     
     func generateQRCode(from string: String) -> UIImage {

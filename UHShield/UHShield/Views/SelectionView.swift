@@ -20,7 +20,7 @@ struct SelectionView: View {
                 if selection == 0{
                     UserView(selection: $selection)
                 } else if selection == 1 {
-                    SearchView(selection: $selection).environmentObject(profileViewModel)
+                    SearchView(selection: $selection)
                 } else if selection == 11{
                     // change to QR code scanner view
                     ScannerLayoutView(selection: $selection)

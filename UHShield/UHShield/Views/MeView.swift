@@ -12,7 +12,7 @@ import FirebaseFirestoreSwift
 
 struct MeView: View {
     @EnvironmentObject var session: SessionStore
-    @StateObject var profileVM = ProfileViewModel()
+    @EnvironmentObject var profileVM : ProfileViewModel
     @State var profile = Profile(email: "", firstName: "User", lastName: "User", role: "guest")
     
     func getCurrentUserProfile(){
@@ -87,9 +87,8 @@ struct MeView: View {
             }
         }
         .onAppear(){
-            self.profileVM.fetchData()
+//            self.profileVM.fetchData()
             self.getCurrentUserProfile()
-            print("Fetching profileVM for MeView")
         }
     }
 }

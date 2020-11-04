@@ -75,7 +75,7 @@ struct UserView: View {
                     if self.viewSelection == "GuestView" {
                         VStack{
                             TabView {
-                                MeView()
+                                MeView().environmentObject(profileViewModel)
                                     .tabItem {
                                         VStack {
                                             Image(systemName: "person.fill")
@@ -107,7 +107,7 @@ struct UserView: View {
                                         }
                                 }.tag(1)
                             
-                                MeView()
+                                MeView().environmentObject(profileViewModel)
                                     .tabItem {
                                         VStack {
                                             Image(systemName: "person.fill")
@@ -137,7 +137,7 @@ struct UserView: View {
                                         }
                                 }.tag(1)
                             
-                                MeView()
+                                MeView().environmentObject(profileViewModel)
                                     .tabItem {
                                         VStack {
                                             Image(systemName: "person.fill")

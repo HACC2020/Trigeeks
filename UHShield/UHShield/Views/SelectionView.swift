@@ -13,23 +13,19 @@ struct SelectionView: View {
     @StateObject var profileViewModel = ProfileViewModel()
     @State var selection: Int = 0
     var body: some View {
-        Group {
-            if profileViewModel.profiles.count > 0 {
-                VStack {
-                    if selection == 0{
-                        UserView(selection: $selection)
-                    } else if selection == 1 {
-                        SearchView(selection: $selection).environmentObject(profileViewModel)
-                    } else if selection == 11{
-                        // change to QR code scanner view
-                        ScannerLayoutView(selection: $selection)
-                    } else if selection == 21 {
-                        AddEventView(selection: $selection).transition(.slide)
-                    }
-                }
-            } else {
-                VStack {
-                    Text("Loading...")
+        
+        
+        VStack {
+            Group {
+                if selection == 0{
+                    UserView(selection: $selection)
+                } else if selection == 1 {
+                    SearchView(selection: $selection).environmentObject(profileViewModel)
+                } else if selection == 11{
+                    // change to QR code scanner view
+                    ScannerLayoutView(selection: $selection)
+                } else if selection == 21 {
+                    AddEventView(selection: $selection).transition(.slide)
                 }
             }
         }.onAppear {

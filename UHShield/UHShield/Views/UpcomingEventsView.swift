@@ -61,18 +61,30 @@ struct UpcomingEventsView: View {
 
 struct GuestListView: View {
     
-   // @Binding var showGuestList: Bool
+    // @Binding var showGuestList: Bool
     var guests: [Guest]
     var event: Event
-    
+    @State var guestName = ""
+    @State var guestEmail = ""
+    @State var showCheckin = false
     var body: some View {
-        List(guests.indices, id: \.self){ index in
-            HStack{
-                Text("\(guests[index].name!)")
+        ZStack{
+            List(guests.indices, id: \.self){ index in
+                HStack{
+                    Image(systemName: "person.circle.fill").font(.largeTitle).padding(.vertical, 10)
+                    Text("\(guests[index].name!)")
+                }.onTapGesture {
+                    self.showCheckin = true
+                    self.guestName = guests[index].name!
+                    self.guestEmail = guests[index].email!
+                    
+                }
+                
             }
-            
+            if(showCheckin){
+                CheckInView(details: [event.eventName!, event.sponsor!, event.location!.building, event.location!.roomID, "\(event.startTime!)", "\(event.endTime!)", guestName, guestEmail], isShowCheckInView: $showCheckin)
+            }
         }
-        
     }
     
 }

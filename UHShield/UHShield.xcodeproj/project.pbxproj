@@ -18,11 +18,11 @@
 		39410AE9254E882A00DEF4CB /* EditEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AE8254E882A00DEF4CB /* EditEventView.swift */; };
 		39410AEE254E8A3B00DEF4CB /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410AED254E8A3B00DEF4CB /* UserView.swift */; };
 		39410B0A254FA1CB00DEF4CB /* EventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B09254FA1CB00DEF4CB /* EventRowView.swift */; };
-		453CF8E525511E8C004BBA40 /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E425511E8C004BBA40 /* CheckInView.swift */; };
-		453CF8E825515B5B004BBA40 /* AddBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E725515B5A004BBA40 /* AddBadgeView.swift */; };
 		39410B24255109ED00DEF4CB /* UpcomingEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */; };
 		39410B292551243300DEF4CB /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B282551243300DEF4CB /* MeView.swift */; };
 		39410B2C255126AB00DEF4CB /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B2B255126AB00DEF4CB /* EditProfileView.swift */; };
+		453CF8E525511E8C004BBA40 /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E425511E8C004BBA40 /* CheckInView.swift */; };
+		453CF8E825515B5B004BBA40 /* AddBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E725515B5A004BBA40 /* AddBadgeView.swift */; };
 		4567D172254EA04A00C9DBCB /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567D171254EA04A00C9DBCB /* Event.swift */; };
 		4567D175254EA43100C9DBCB /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4567D174254EA43100C9DBCB /* EventViewModel.swift */; };
 		456ED979254FE1A7003C32E4 /* EmailComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456ED978254FE1A7003C32E4 /* EmailComposer.swift */; };
@@ -163,28 +163,28 @@
 		4590CC2A2548F0D20096C728 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				39410B08254FA17100DEF4CB /* SubViews */,
-				4590CC2E2548F4460096C728 /* MainView.swift */,
-				4590CC322548F5D10096C728 /* HomeView.swift */,
-				4590CC362548F68C0096C728 /* ScannerLayoutView.swift */,
+				453CF8E725515B5A004BBA40 /* AddBadgeView.swift */,
 				4590CC3A2548F7240096C728 /* AddEventView.swift */,
-				45B8C628254A8593003A8511 /* SignInView.swift */,
 				45B8C631254A8C16003A8511 /* AlertView.swift */,
-				45B8C634254A8DB4003A8511 /* SignUpView.swift */,
-				39410AC8254E4CB500DEF4CB /* ReceptionistView.swift */,
-				39410AE2254E82EA00DEF4CB /* SponsorView.swift */,
+				39410AD1254E4E7300DEF4CB /* BadgesView.swift */,
+				453CF8E425511E8C004BBA40 /* CheckInView.swift */,
 				39410AE8254E882A00DEF4CB /* EditEventView.swift */,
 				39410B2B255126AB00DEF4CB /* EditProfileView.swift */,
-				39410ADD254E55CE00DEF4CB /* SelectionView.swift */,
-				39410AED254E8A3B00DEF4CB /* UserView.swift */,
-				39410AD1254E4E7300DEF4CB /* BadgesView.swift */,
 				39410ACB254E4D9900DEF4CB /* EventsView.swift */,
-				39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */,
-				39410ACE254E4E5900DEF4CB /* SearchView.swift */,
-				39410AE5254E871700DEF4CB /* MyEventsView.swift */,
-				453CF8E425511E8C004BBA40 /* CheckInView.swift */,
-				453CF8E725515B5A004BBA40 /* AddBadgeView.swift */,
+				4590CC322548F5D10096C728 /* HomeView.swift */,
+				4590CC2E2548F4460096C728 /* MainView.swift */,
 				39410B282551243300DEF4CB /* MeView.swift */,
+				39410AE5254E871700DEF4CB /* MyEventsView.swift */,
+				39410AC8254E4CB500DEF4CB /* ReceptionistView.swift */,
+				4590CC362548F68C0096C728 /* ScannerLayoutView.swift */,
+				39410ACE254E4E5900DEF4CB /* SearchView.swift */,
+				39410ADD254E55CE00DEF4CB /* SelectionView.swift */,
+				45B8C628254A8593003A8511 /* SignInView.swift */,
+				45B8C634254A8DB4003A8511 /* SignUpView.swift */,
+				39410AE2254E82EA00DEF4CB /* SponsorView.swift */,
+				39410B08254FA17100DEF4CB /* SubViews */,
+				39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */,
+				39410AED254E8A3B00DEF4CB /* UserView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";

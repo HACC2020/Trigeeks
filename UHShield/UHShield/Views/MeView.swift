@@ -27,15 +27,6 @@ struct MeView: View {
         }
     }
     
-    func getCurrentUserName() -> String {
-        print("The current user profile is: \(self.profile)")
-        var userEmail = ""
-        if self.session.session != nil {
-            userEmail = (Auth.auth().currentUser?.email)!
-        }
-        return userEmail
-    }
-    
     var body: some View {
         NavigationView{
             VStack(spacing: 20) {

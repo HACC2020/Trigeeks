@@ -11,13 +11,13 @@ import FirebaseFirestoreSwift
 struct Event: Codable, Identifiable, Hashable {
 
     @DocumentID var id: String? = UUID().uuidString
-    var eventName: String
-    var sponsor: String
-    var guests: [Guest]
-    var arrivedGuests: [String]
-    var location: Location
-    var startTime: Date
-    var endTime: Date
+    var eventName: String?
+    var sponsor: String?
+    var guests: [Guest]?
+    var arrivedGuests: [String]?
+    var location: Location?
+    var startTime: Date?
+    var endTime: Date?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -38,6 +38,6 @@ struct Location: Codable, Hashable {
 }
 
 struct Guest: Codable, Hashable {
-    var name: String
-    var email: String
+    var name: String?
+    var email: String?
 }

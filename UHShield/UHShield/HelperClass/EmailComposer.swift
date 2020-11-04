@@ -57,13 +57,13 @@ public struct EmailComposer: UIViewControllerRepresentable {
         let vc = MFMailComposeViewController()
         
         print("\(guest)")
-        print("\(guest.email)")
-        print("\(guest.name)")
+        print("\(guest.email!)")
+        print("\(guest.name!)")
         
         vc.setSubject(eventName)
-        vc.setToRecipients([guest.email])
+        vc.setToRecipients([guest.email!])
 //        vc.setMessageBody("Aloha \(guest.name)!\nThis is an invatation of \(eventName).\nLocation: \(location.building) \(location.roomID)\nTime: \(formatter.string(from: startTime)). Please come in time. Mahalo!\n\(sponsor)", isHTML: true)
-        vc.setMessageBody("<h1>Invitation</h1><p>Aloha \(guest.name)!</p><p>This is an invatation of \(eventName)</p><p>Location: \(location.building) \(location.roomID)</p><p>Time: \(formatter.string(from: startTime)) </p><p>The attachment below is your identity authentication QR-Code, please show it to the reception.</p><p>Mahalo!</p><p>\(sponsor)</p>", isHTML: true)
+        vc.setMessageBody("<h1>Invitation</h1><p>Aloha \(guest.name ?? "user")!</p><p>This is an invatation of \(eventName)</p><p>Location: \(location.building) \(location.roomID)</p><p>Time: \(formatter.string(from: startTime)) </p><p>The attachment below is your identity authentication QR-Code, please show it to the reception.</p><p>Mahalo!</p><p>\(sponsor)</p>", isHTML: true)
         vc.addAttachmentData(qrCode.pngData()!, mimeType: "image/png", fileName: "imageName.png")
         vc.mailComposeDelegate = context.coordinator
         

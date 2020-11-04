@@ -19,17 +19,17 @@ struct EventRowView: View {
                 HStack{
                     Image(systemName: "clock").font(.system(size:60, weight: .bold)).foregroundColor(.green).padding(.leading, 10).padding(.vertical,15)
                     VStack(alignment: .leading, spacing: 2){
-                        Text(self.event.eventName).font(.system(size: 25, weight: .bold))
-                        Text(self.event.sponsor).font(.system(size: 16, weight: .regular))
+                        Text(self.event.eventName!).font(.system(size: 25, weight: .bold))
+                        Text(self.event.sponsor!).font(.system(size: 16, weight: .regular))
                     }//Vstack 2
                     Spacer()
                     HStack{
-                        Text(event.location.building)
-                        Text(event.location.roomID)
+                        Text(event.location!.building)
+                        Text(event.location!.roomID)
                     }
                 }//Hstack1
                     Divider().background(Color("bg7"))
-                    Text("Time: \(event.startTime, style: .time) ~ \(event.endTime, style: .time)").font(.system(size: 15, weight: .regular)).foregroundColor(.gray)
+                    Text("Time: \(event.startTime!, style: .time) ~ \(event.endTime!, style: .time)").font(.system(size: 15, weight: .regular)).foregroundColor(.gray)
                     
                 }
             }//Zstack1

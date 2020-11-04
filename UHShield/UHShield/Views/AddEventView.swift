@@ -122,9 +122,9 @@ struct AddEventView: View {
                             // guests present area
                             ForEach(guests, id: \.self) { guest in
                                 HStack {
-                                    Text("\(guest.name)")
+                                    Text("\(guest.name!)")
                                     Spacer()
-                                    Text("\(guest.email)")
+                                    Text("\(guest.email!)")
                                 }.padding(.horizontal)
                                 .foregroundColor(.blue)
                             }.onDelete(perform: removeGuest)
@@ -180,7 +180,7 @@ struct AddEventView: View {
                                     Text("Guests").font(.title2).fontWeight(.bold)
                                     Text("")
                                     ForEach(guests, id: \.self) { guest in
-                                        Text("\(guest.email)")
+                                        Text("\(guest.email!)")
                                         Button(action: {
                                             handleSendButton(guest: guest)
                                             
@@ -209,7 +209,7 @@ struct AddEventView: View {
             
             //MARK: - Mail Composer View
             if(isShowingMailView) {
-                EmailComposer(result: self.$result, isShowing: $isShowingMailView ,eventName: eventName, guest: guestHolder, location: Location(building: building, roomID: room), sponsor: getCurrentUser(), startTime: startTime, endTime: endTime, qrCode: resizeImage(image: generateQRCode(from: "\(eventName)\n\(getCurrentUser())\n\(building)\n\(room)\n\(startTime)\n\(endTime)\n\(guestHolder.name)\n\(guestHolder.email)"), targetSize: CGSize(width: 200.0, height: 200.0))
+                EmailComposer(result: self.$result, isShowing: $isShowingMailView ,eventName: eventName, guest: guestHolder, location: Location(building: building, roomID: room), sponsor: getCurrentUser(), startTime: startTime, endTime: endTime, qrCode: resizeImage(image: generateQRCode(from: "\(eventName)\n\(getCurrentUser())\n\(building)\n\(room)\n\(startTime)\n\(endTime)\n\(guestHolder.name ?? "user")\n\(guestHolder.email ?? "")"), targetSize: CGSize(width: 200.0, height: 200.0))
 
                 )
                     .transition(.move(edge: .bottom)).animation(.linear)

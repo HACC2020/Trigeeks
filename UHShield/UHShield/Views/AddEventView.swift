@@ -40,7 +40,7 @@ struct AddEventView: View {
     // selection of View: AddEvent=21, sponsor=20
     @Binding var selection: Int
     
-    @State var event = Event(eventName: "", sponsor: "", guests: [], arrivedGuests: [], location: Location(building: "", roomID: ""), startTime: Date(), endTime: Date())
+    @State var event = Event(eventName: "", sponsor: "", guests: [], arrivedGuests: [], location: Location(building: "", roomID: ""), startTime: Date(), endTime: Date(), attendance: [])
     
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()

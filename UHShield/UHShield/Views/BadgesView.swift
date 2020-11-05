@@ -65,7 +65,7 @@ struct ConfirmWindow: View {
                 Text("Badge ID: \(badge.badgeID!)")
                 Text("Guest ID: \(badge.guestID!)")
                 Divider()
-                Text("Are you sure you the information is correct?")
+                Text("Are you sure the information is correct?")
                 HStack{
                     Button(action: {
                         self.showWindow.toggle()

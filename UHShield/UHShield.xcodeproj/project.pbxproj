@@ -170,9 +170,9 @@
 				39410ADD254E55CE00DEF4CB /* SelectionView.swift */,
 				45B8C628254A8593003A8511 /* SignInView.swift */,
 				45B8C634254A8DB4003A8511 /* SignUpView.swift */,
-				39410B08254FA17100DEF4CB /* SubViews */,
 				39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */,
 				39410AED254E8A3B00DEF4CB /* UserView.swift */,
+				39410B08254FA17100DEF4CB /* SubViews */,
 			);
 			path = Views;
 			sourceTree = "<group>";

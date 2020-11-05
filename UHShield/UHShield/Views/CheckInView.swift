@@ -11,14 +11,10 @@ struct CheckInView: View {
     let details: [String]
     @Binding var isShowCheckInView: Bool
     @StateObject var eventViewModel = EventViewModel()
+    @StateObject var profileViewModel = ProfileViewModel()
     
-    let dateFormatter = DateFormatter()
-    let dateFormatterPresent = DateFormatter()
-    let timeFormatterPresent = DateFormatter()
-    @State var startTime = ""
-    @State var endTime = ""
-    @State var date = ""
     @State var isShowAddBadge = false
+    @State var isShowWarning = false
     
     @State var event = Event(eventName: "", sponsor: "", guests: [], arrivedGuests: [], location: Location(building: "", roomID: ""), startTime: Date(), endTime: Date())
     
@@ -36,42 +32,42 @@ struct CheckInView: View {
                         }
                         HStack {
                             Text("Name:       ")
-                            Text("\(details[6])").font(.title3)
-                            Spacer()
-                        }
-                        HStack {
-                            Text("Email:         ")
-                            Text("\(details[7])").font(.title3)
-                            Spacer()
-                        }
-                        HStack {
-                            Text("Event:        ")
-                            Text("\(details[0])").font(.title3)
-                            Spacer()
-                        }
-                        HStack {
-                            Text("Sponsor:    ")
                             Text("\(details[1])").font(.title3)
                             Spacer()
                         }
                         HStack {
+                            Text("Email:         ")
+                            Text("\(details[2])").font(.title3)
+                            Spacer()
+                        }
+                        HStack {
+                            Text("Event:        ")
+                            Text("\(event.eventName!)").font(.title3)
+                            Spacer()
+                        }
+                        HStack {
+                            Text("Sponsor:    ")
+                            Text("\(getSponsorName())").font(.title3)
+                            Spacer()
+                        }
+                        HStack {
                             Text("Date:          ")
-                            Text("\(date)").font(.title3)
+                            Text("\(event.startTime!, style: .date)").font(.title3)
                             Spacer()
                         }
                         HStack {
                             Text("Start Time:")
-                            Text("\(startTime)").font(.title3)
+                            Text("\(event.startTime!, style: .time)").font(.title3)
                             Spacer()
                         }
                         HStack {
                             Text("End Time:  ")
-                            Text("\(endTime)").font(.title3)
+                            Text("\(event.endTime!, style: .time)").font(.title3)
                             Spacer()
                         }
                         HStack {
                             Text("Location:    ")
-                            Text("\(details[2]) \(details[3])").font(.title3)
+                            Text("\(event.location!.building) \(event.location!.roomID)").font(.title3)
                             Spacer()
                         }
                         HStack {
@@ -83,12 +79,16 @@ struct CheckInView: View {
                                 Text("Deny").font(.title3).fontWeight(.semibold).foregroundColor(.white)
                             }).padding().buttonStyle(RedLongButtonStyle())
                         }
-                    }.padding()
+                    }
+                    .padding()
                     .background(
                         RoundedRectangle(cornerRadius: 25).foregroundColor(Color(#colorLiteral(red: 0.8864660859, green: 0.8863860965, blue: 0.9189570546, alpha: 1)))
                             .shadow(color: Color.black.opacity(0.2), radius: 10, x: 8, y: 10)
                             .shadow(color: Color.white.opacity(0.7), radius: 10, x: -10, y: -10)
                     ).padding(30)
+                    .onAppear {
+                        getEvent()
+                    }
                 } else {
                     VStack {
                         HStack {
@@ -112,34 +112,51 @@ struct CheckInView: View {
             //Color(#colorLiteral(red: 0.8864660859, green: 0.8863860965, blue: 0.9189570546, alpha: 1))
             .onAppear {
                 eventViewModel.fetchData()
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZZ"
-                dateFormatterPresent.dateFormat = "y-M-d"
-                timeFormatterPresent.dateFormat = "H:m a"
-                
-                startTime = timeFormatterPresent.string(from: dateFormatter.date(from: "\(details[4])")!)
-                date = dateFormatterPresent.string(from: dateFormatter.date(from: "\(details[4])")!)
-                endTime = timeFormatterPresent.string(from: dateFormatter.date(from: "\(details[5])")!)
+                profileViewModel.fetchData()
             }
             
             if isShowAddBadge {
-                AddBadgeView(isShowAddBadge: $isShowAddBadge, guestName: details[6], guestEmail: details[7])
+                AddBadgeView(isShowAddBadge: $isShowAddBadge, guestName: details[1], guestEmail: details[2])
                     .transition(.move(edge: .bottom))
                     .animation(.linear)
                     .onDisappear {
                     handleCloseButton()
                 }
             }
+            
+            if isShowWarning {
+                AlertView(showAlert: $isShowWarning, alertMessage: .constant("Attention! This Guest has already checked in! Please be careful on assigning badge!"), alertTitle: "WARNING")
+            }
         }
         
     }
     
     func checkEvent() -> Bool {
-        for event in eventViewModel.events {
-            if event.eventName == details[0] && event.sponsor == details[1] && event.location == Location(building: details[2], roomID: details[3]) {
-                return true
+        if details.count == 3 {
+            for event in eventViewModel.events {
+                if event.id == details[0] {
+                    return true
+                }
             }
         }
         return false
+    }
+    
+    func getEvent() {
+        for event in eventViewModel.events {
+            if event.id == details[0] {
+                self.event = event
+            }
+        }
+    }
+    
+    func getSponsorName() -> String {
+        for profile in profileViewModel.profiles {
+            if profile.email == event.sponsor {
+                return "\(profile.firstName) \(profile.lastName)"
+            }
+        }
+        return event.sponsor!
     }
     
     func handleCloseButton() {
@@ -148,15 +165,11 @@ struct CheckInView: View {
     
     func handleConfirmButton() {
         
-        for event in eventViewModel.events {
-            if event.eventName == details[0] && event.sponsor == details[1] && event.location == Location(building: details[2], roomID: details[3]) {
-                self.event = Event(id: event.id, eventName: event.eventName, sponsor: event.sponsor, guests: event.guests, arrivedGuests: event.arrivedGuests, location: event.location, startTime: event.startTime, endTime: event.endTime)
-            }
-        }
-        
-        if !self.event.arrivedGuests!.contains(details[7]) {
-            self.event.arrivedGuests!.append(details[7])
+        if !self.event.arrivedGuests!.contains(details[2]) {
+            self.event.arrivedGuests!.append(details[2])
             eventViewModel.updateEvent(event: self.event)
+        } else {
+            isShowWarning = true
         }
         isShowAddBadge = true
     }
@@ -164,6 +177,6 @@ struct CheckInView: View {
 
 struct CheckInView_Previews: PreviewProvider {
     static var previews: some View {
-        CheckInView(details: ["Test", "John", "POST", "101", "2020-11-03 02:39:18 +0000", "2020-11-03 02:39:18 +0000", "Weir", "heweiron@hawaii.edu"], isShowCheckInView: .constant(false))
+        CheckInView(details: ["F2B9C6A5-2B8C-47E8-BAF5-DA5DEE058607", "Wei", "heweiron@hawaii.edu"], isShowCheckInView: .constant(true))
     }
 }

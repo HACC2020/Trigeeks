@@ -15,6 +15,7 @@ import FirebaseFirestoreSwift
 
 struct AddEventView: View {
     @StateObject var eventViewModel = EventViewModel()
+    @StateObject var profileViewModel = ProfileViewModel()
     
     @State var isOpenGuestTextField =  false
     @State var guestEmail: String = ""
@@ -34,10 +35,7 @@ struct AddEventView: View {
     @State private var startTime = Date()
     @State private var endTime = Date()
     private let tempTime = Date()
-
     
-    
-    // selection of View: AddEvent=21, sponsor=20
     @Binding var selection: Int
     
     @State var event = Event(eventName: "", sponsor: "", guests: [], arrivedGuests: [], location: Location(building: "", roomID: ""), startTime: Date(), endTime: Date(), attendance: [])
@@ -46,22 +44,18 @@ struct AddEventView: View {
     let filter = CIFilter.qrCodeGenerator()
     var body: some View {
         ZStack {
-        NavigationView {
-            
-            
+            NavigationView {
+                
+                
                 VStack {
                     Form {
                         
                         // event section
                         Section(header: Text("Event")) {
-                        
-                        TextField("describe event", text: $eventName)
-                            .padding(.horizontal)
-                            .disableAutocorrection(true)
-                        TextField(getCurrentUser(), text: $sponsor)
-                            .textContentType(.name)
-                            .padding(.horizontal)
-                            .disableAutocorrection(true)
+                            
+                            TextField("describe event", text: $eventName)
+                                .padding(.horizontal)
+                                .disableAutocorrection(true)
                         }
                         
                         // Location section
@@ -128,9 +122,9 @@ struct AddEventView: View {
                                 }.padding(.horizontal)
                                 .foregroundColor(.blue)
                             }.onDelete(perform: removeGuest)
-     
+                            
                         } // end of Guest section
-
+                        
                     }
                     
                     // Back Button and Done Button
@@ -143,7 +137,7 @@ struct AddEventView: View {
                         }),
                         trailing: Button(action: { handleDoneButton() }, label: {
                             Text("Done")
-                        }).disabled(sponsor == "" ||
+                        }).disabled(
                                         eventName == "" ||
                                         building == "" ||
                                         room == "" ||
@@ -156,9 +150,10 @@ struct AddEventView: View {
                     ).navigationTitle("Create Event")
                 }.onAppear {
                     eventViewModel.fetchData()
+                    profileViewModel.fetchData()
                 }
-           
-        }
+                
+            }
             // MARK: - sending email View
             if isShowingSendView {
                 if MFMailComposeViewController.canSendMail() {
@@ -200,7 +195,7 @@ struct AddEventView: View {
                     .transition(.move(edge: .bottom)).animation(.linear)
                     
                 } else {
-                    AlertView(showAlert: $isShowingSendView, alertMessage: .constant("Event created Successful! But this device is simulator or it does not have Mail App, so we skip that step.")).onDisappear {
+                    AlertView(showAlert: $isShowingSendView, alertMessage: .constant("Event created Successful! But this device is simulator or it does not have Mail App, so we skip that step."), alertTitle: "Notification").onDisappear {
                         selection = 20
                     }
                 }
@@ -209,10 +204,10 @@ struct AddEventView: View {
             
             //MARK: - Mail Composer View
             if(isShowingMailView) {
-                EmailComposer(result: self.$result, isShowing: $isShowingMailView ,eventName: eventName, guest: guestHolder, location: Location(building: building, roomID: room), sponsor: getCurrentUser(), startTime: startTime, endTime: endTime, qrCode: resizeImage(image: generateQRCode(from: "\(eventName)\n\(getCurrentUser())\n\(building)\n\(room)\n\(startTime)\n\(endTime)\n\(guestHolder.name ?? "user")\n\(guestHolder.email ?? "")"), targetSize: CGSize(width: 200.0, height: 200.0))
-
+                EmailComposer(result: self.$result, isShowing: $isShowingMailView ,eventName: eventName, guest: guestHolder, location: Location(building: building, roomID: room), sponsor: getSponsorName(), startTime: startTime, endTime: endTime, qrCode: resizeImage(image: generateQRCode(from: "\(event.id!)\n\(guestHolder.name ?? "user")\n\(guestHolder.email ?? "")"), targetSize: CGSize(width: 200.0, height: 200.0))
+                              
                 )
-                    .transition(.move(edge: .bottom)).animation(.linear)
+                .transition(.move(edge: .bottom)).animation(.linear)
             }
         }
     }
@@ -220,16 +215,16 @@ struct AddEventView: View {
     
     // MARK: -Button functions
     func handleBackButton() {
-//        withAnimation(.spring()) {
-            selection = 0
-//        }
+        //        withAnimation(.spring()) {
+        selection = 0
+        //        }
     }
     
     func handleDoneButton() {
         // code here
         event = Event(eventName: eventName.trimmingCharacters(in: .whitespaces), sponsor: getCurrentUser(), guests: guests, arrivedGuests: [], location: Location(building: building.trimmingCharacters(in: .whitespaces), roomID: room.trimmingCharacters(in: .whitespaces)), startTime: startTime, endTime: endTime)
         eventViewModel.addEvent(event: event)
-            isShowingSendView = true
+        isShowingSendView = true
     }
     
     func handleSendButton(guest: Guest) {
@@ -256,10 +251,10 @@ struct AddEventView: View {
     
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size
-
+        
         let widthRatio  = targetSize.width  / size.width
         let heightRatio = targetSize.height / size.height
-
+        
         // Figure out what our orientation is, and use that to form the rectangle
         var newSize: CGSize
         if(widthRatio > heightRatio) {
@@ -267,16 +262,16 @@ struct AddEventView: View {
         } else {
             newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
         }
-
+        
         // This is the rect that we've calculated out and this is what is actually used below
         let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-
+        
         // Actually do the resizing to the rect using the ImageContext stuff
         UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
         image.draw(in: rect)
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-
+        
         return newImage!
     }
     
@@ -288,8 +283,17 @@ struct AddEventView: View {
         let userEmail : String = (Auth.auth().currentUser?.email)!
         return userEmail
     }
-
-
+    
+    func getSponsorName() -> String {
+        for profile in profileViewModel.profiles {
+            if profile.email == getCurrentUser() {
+                return "\(profile.firstName) \(profile.lastName)"
+            }
+        }
+        return event.sponsor!
+    }
+    
+    
 }
 
 

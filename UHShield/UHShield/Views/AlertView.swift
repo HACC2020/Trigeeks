@@ -10,13 +10,14 @@ import SwiftUI
 struct AlertView: View {
     @Binding var showAlert: Bool
     @Binding var alertMessage: String
+    var alertTitle: String
     var body: some View {
         VStack {
             VStack {
                 
                 // title of alert
                 HStack {
-                    Text("ERROR").font(.title).bold().foregroundColor(Color.red.opacity(0.7))
+                    Text("\(alertTitle)").font(.title).bold().foregroundColor(Color.red.opacity(0.7))
                     Spacer()
                 }.padding(.horizontal, 25)
                 
@@ -43,6 +44,6 @@ struct AlertView: View {
 
 struct AlertView_Previews: PreviewProvider {
     static var previews: some View {
-        AlertView(showAlert: .constant(true), alertMessage: .constant("This is wrong"))
+        AlertView(showAlert: .constant(true), alertMessage: .constant("This is wrong"), alertTitle: "Error")
     }
 }

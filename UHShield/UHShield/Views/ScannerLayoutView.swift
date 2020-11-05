@@ -20,7 +20,7 @@ struct ScannerLayoutView: View {
 
             ZStack {
                 VStack {
-                    CodeScannerView(codeTypes: [.qr], simulatedData: "Test\nJohn\nPOST\n101\n2020-11-03 02:39:18 +0000\n2020-11-03 02:39:18 +0000\nWeir\nheweiron@hawaii.edu", completion: handleScan)
+                    CodeScannerView(codeTypes: [.qr], simulatedData: "F2B9C6A5-2B8C-47E8-BAF5-DA5DEE058607\nWei\nheweiron@hawaii.edu", completion: handleScan)
                 }
                 
                 VStack {
@@ -88,9 +88,6 @@ struct ScannerLayoutView: View {
             })
             let details = code.components(separatedBy: "\n")
             codeDetails = details
-            
-            print(details[0])
-            print(details[1])
         case .failure(let error):
             print(error)
             selection = 0

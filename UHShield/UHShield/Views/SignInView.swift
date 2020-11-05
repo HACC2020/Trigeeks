@@ -117,7 +117,7 @@ struct SignInView: View {
                 }.background(Color(#colorLiteral(red: 0.8864660859, green: 0.8863860965, blue: 0.9189570546, alpha: 1)))
                 .ignoresSafeArea(.all)
                 if showAlert {
-                    AlertView(showAlert: $showAlert, alertMessage: $error).transition(.slide)
+                    AlertView(showAlert: $showAlert, alertMessage: $error, alertTitle: "ERROR").transition(.slide)
                 }
             }
         }

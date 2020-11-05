@@ -106,7 +106,7 @@ struct GuestListView: View {
                 
             }
 
-            NavigationLink(destination: CheckInView(details: [event.eventName!, event.sponsor!, event.location!.building, event.location!.roomID, "\(event.startTime!)", "\(event.endTime!)", guestName, guestEmail], isShowCheckInView: $showCheckin), isActive: self.$showCheckin) {
+            NavigationLink(destination: CheckInView(details: [event.id!, guestName, guestEmail], isShowCheckInView: $showCheckin), isActive: self.$showCheckin) {
                 Text("")
             }
             

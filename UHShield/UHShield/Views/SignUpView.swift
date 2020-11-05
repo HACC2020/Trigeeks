@@ -119,7 +119,7 @@ struct SignUpView: View {
             
             // if error occured show the alert popup View
             if showAlert {
-                AlertView(showAlert: $showAlert, alertMessage: $error).transition(.slide)
+                AlertView(showAlert: $showAlert, alertMessage: $error, alertTitle: "ERROR").transition(.slide)
             }
         }
     }

@@ -77,7 +77,7 @@ struct AddBadgeView: View {
             }
             
             if isShowAlert {
-                AlertView(showAlert: $isShowAlert, alertMessage: .constant("Badge ID cannot be empty!")).transition(.slide)
+                AlertView(showAlert: $isShowAlert, alertMessage: .constant("Badge ID cannot be empty!"), alertTitle: "ERROR").transition(.slide)
             }
         }
     }

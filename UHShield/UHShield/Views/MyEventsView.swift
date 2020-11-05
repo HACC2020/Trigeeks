@@ -59,6 +59,7 @@ struct ArrivedGuestView: View {
     
     @StateObject var eventVM = EventViewModel()
     @State var showConfirm = false
+    
     var body: some View{
         
             ZStack{
@@ -67,16 +68,26 @@ struct ArrivedGuestView: View {
                         if(theEvent.id == event.id){
                             ForEach(self.guests.indices){ index in
                                 if(theEvent.arrivedGuests!.contains(guests[index].email!)){
-                                    HStack{
-                                        Image(systemName: "person.circle.fill").font(.largeTitle).padding(.vertical, 10)
-                                        Text("\(guests[index].name!)")
-                                        Spacer()
+                                    
                                         if((theEvent.attendance) != nil){
                                             if(theEvent.attendance!.contains(guests[index].email!)){
+                                                HStack{
+                                                Image(systemName: "person.circle.fill").font(.largeTitle).padding(.vertical, 10)
+                                                Text("\(guests[index].name!)")
+                                                Spacer()
                                                 Image(systemName: "checkmark.shield.fill").font(.system(size: 30, weight: .regular)).foregroundColor(.green)
+                                                }
+                                            }
+                                        } else {
+                                            HStack{
+                                            Image(systemName: "person.circle.fill").font(.largeTitle).padding(.vertical, 10)
+                                            Text("\(guests[index].name!)")
+                                            Spacer()
+                                            }.onTapGesture {
+                                                self.showConfirm = true
                                             }
                                         }
-                                    }
+                                   
                                 } else {
                                     HStack{
                                         Image(systemName: "person.circle.fill").font(.largeTitle).padding(.vertical, 10).foregroundColor(.gray)
@@ -88,6 +99,9 @@ struct ArrivedGuestView: View {
                     }
                 }
                 }
+                if(showConfirm){
+                    
+                }
             }.navigationBarTitle("\(event.eventName!)", displayMode: .inline)
             .onAppear {
                 self.eventVM.fetchData()
@@ -96,26 +110,3 @@ struct ArrivedGuestView: View {
     }
 }
 
-//                    ForEach(guests.indices, id: \.self){ index in
-//                        if(event.arrivedGuests!.contains(guests[index].email!)){
-//                        HStack{
-//                            Image(systemName: "person.circle.fill").font(.largeTitle).padding(.vertical, 10)
-//                            Text("\(guests[index].name!)")
-//                            Spacer()
-//                            ForEach(self.eventVM.events){ eventV in
-//                                if(eventV.id == event.id){
-//                                    if(eventV.arrivedGuests!.contains(guests[index].email!)&&(eventV.attendance!.contains(guests[index].email!))){
-//                                Image(systemName: "checkmark.shield.fill").font(.system(size: 30, weight: .regular)).foregroundColor(.green)
-//                            }
-//                                }
-//                            }
-//                        }
-//                        } else {
-//                            HStack{
-//                                Image(systemName: "person.circle.fill").font(.largeTitle).padding(.vertical, 10).foregroundColor(.gray)
-//                                Text("\(guests[index].name!)").foregroundColor(.gray)
-//                                Spacer()
-//                            }
-//                        }
-//                    }
-                

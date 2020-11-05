@@ -59,7 +59,7 @@ public struct CodeScannerView: UIViewControllerRepresentable {
             label.translatesAutoresizingMaskIntoConstraints = false
             label.numberOfLines = 0
 
-            label.text = "You're running in the simulator, which means the camera isn't available. Tap anywhere to send back some simulated data:\n Test\nJohn\nPOST\n101\n2020-11-03 02:39:18 +0000\n2020-11-03 02:39:18 +0000\nWeir\nheweiron@hawaii.edu"
+            label.text = "You're running in the simulator, which means the camera isn't available. Tap anywhere to send back some simulated data:\n F2B9C6A5-2B8C-47E8-BAF5-DA5DEE058607\nWei\nheweiron@hawaii.edu"
             label.textAlignment = .left
 
             let stackView = UIStackView()

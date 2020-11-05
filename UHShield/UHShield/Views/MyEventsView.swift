@@ -18,39 +18,40 @@ struct MyEventsView: View {
     
     var body: some View {
         NavigationView{
-        ZStack{
-            ScrollView{
-                LazyVStack{
-                    ForEach(self.eventVM.events) { event in
-                        if (event.sponsor == getCurrentUser()) {
-                            EventRowView(event: event).padding(.horizontal).onTapGesture {
-                                self.showWindow = true
-                                self.tappedEvent = event
+            ZStack{
+                ScrollView{
+                    LazyVStack{
+                        ForEach(self.eventVM.events) { event in
+                            if (event.sponsor == getCurrentUser()) {
+                                EventRowView(event: event).padding(.horizontal).onTapGesture {
+                                    self.showWindow = true
+                                    self.tappedEvent = event
+                                }
+                                Spacer().frame(height: 1).background(Color("bg2"))
                             }
-                        Spacer().frame(height: 1).background(Color("bg2"))
                         }
                     }
                 }
+                NavigationLink(destination: ArrivedGuestView(event: self.tappedEvent, guests: self.tappedEvent.guests ?? [Guest]()), isActive: $showWindow){
+                    Text("")
+                }
+                
             }
-            NavigationLink(destination: ArrivedGuestView(event: self.tappedEvent, guests: self.tappedEvent.guests ?? [Guest]()), isActive: $showWindow){
-                Text("")
+            .onAppear(){
+                self.eventVM.fetchData()
+                print("Fetching data in MyEvents View")
             }
-
+            .navigationBarHidden(true)
         }
-        .onAppear(){
-            self.eventVM.fetchData()
-            print("Fetching data in MyEvents View")
-        }
-        .navigationBarHidden(true)
     }
+    func getCurrentUser() -> String {
+        let userEmail : String = (Auth.auth().currentUser?.email)!
+        print("current user email: \(userEmail)")
+        return userEmail
     }
 }
 
-func getCurrentUser() -> String {
-    let userEmail : String = (Auth.auth().currentUser?.email)!
-    print("current user email: \(userEmail)")
-    return userEmail
-}
+
 
 struct ArrivedGuestView: View {
     //@Binding var showWindow: Bool

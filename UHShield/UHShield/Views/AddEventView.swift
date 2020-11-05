@@ -222,7 +222,7 @@ struct AddEventView: View {
     
     func handleDoneButton() {
         // code here
-        event = Event(eventName: eventName.trimmingCharacters(in: .whitespaces), sponsor: getCurrentUser(), guests: guests, arrivedGuests: [], location: Location(building: building.trimmingCharacters(in: .whitespaces), roomID: room.trimmingCharacters(in: .whitespaces)), startTime: startTime, endTime: endTime)
+        event = Event(eventName: eventName.trimmingCharacters(in: .whitespaces), sponsor: getCurrentUser(), guests: guests, arrivedGuests: [], location: Location(building: building.trimmingCharacters(in: .whitespaces), roomID: room.trimmingCharacters(in: .whitespaces)), startTime: startTime, endTime: endTime, attendance: [])
         eventViewModel.addEvent(event: event)
         isShowingSendView = true
     }

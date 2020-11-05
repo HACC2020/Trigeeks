@@ -85,6 +85,9 @@ struct GuestListView: View {
                     Spacer()
                     ForEach(self.eventVM.events){ eventV in
                         if(eventV.id == event.id){
+                            if(eventV.attendance!.contains(guests[index].email!)){
+                                Image(systemName: "hand.thumbsup.fill").font(.system(size: 30, weight: .regular)).foregroundColor(.yellow)
+                            }
                             if(eventV.arrivedGuests!.contains(guests[index].email!)){
                         Image(systemName: "checkmark.shield.fill").font(.system(size: 30, weight: .regular)).foregroundColor(.green)
                     }

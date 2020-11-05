@@ -100,7 +100,7 @@ struct ArrivedGuestView: View {
                 }
                 }
                 if(showConfirm){
-                    AttendanceWindow(showWindow: $showConfirm, guest: self.tappedGuest)
+                    AttendanceWindow(showWindow: $showConfirm, eventVM: self.eventVM, event: event, guest: self.tappedGuest)
                 }
             }.navigationBarTitle("\(event.eventName!)", displayMode: .inline)
             .onAppear {
@@ -113,8 +113,11 @@ struct ArrivedGuestView: View {
 struct AttendanceWindow: View {
     
     @Binding var showWindow: Bool
+    var eventVM: EventViewModel
+    var event: Event
     var guest: Guest
     
+    @State var tempEvent = Event()
     var body: some View{
         ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top)){
             
@@ -133,7 +136,13 @@ struct AttendanceWindow: View {
                 HStack{
                     Button(action: {
                         self.showWindow.toggle()
-                        
+                        for eachEvent in self.eventVM.events{
+                            if(self.event.id! == eachEvent.id!){
+                                tempEvent = eachEvent
+                            }
+                        }
+                        tempEvent.attendance?.append(guest.email!)
+                        self.eventVM.updateEvent(event: tempEvent)
                     }) {
                         Text("Confirm").foregroundColor(Color.white).fontWeight(.bold).padding(.vertical, 10).padding(.horizontal, 25).background(Color("button1")).clipShape(Capsule())
                     }

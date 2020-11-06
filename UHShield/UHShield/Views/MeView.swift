@@ -73,6 +73,14 @@ struct MeView: View {
                             }
                             
                             Spacer()
+                            Button(action: {
+                                
+                                self.send()
+                                
+                                
+                            }) {
+                                Text("Send Notification")
+                            }
                         }.padding(.horizontal, 32)
                         
                         
@@ -90,5 +98,23 @@ struct MeView: View {
 //            self.profileVM.fetchData()
             self.getCurrentUserProfile()
         }
+    }
+    func send(){
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (_, _) in
+            
+        }
+        let content = UNMutableNotificationContent()
+        content.title = "Message"
+        content.body = "Your Guest is coming!"
+        let open = UNNotificationAction(identifier: "Open", title: "Open", options: .foreground)
+        let cancel = UNNotificationAction(identifier: "Cancel", title: "Cancel", options: .destructive)
+        let categories = UNNotificationCategory(identifier: "action", actions: [open, cancel], intentIdentifiers: [])
+        
+        UNUserNotificationCenter.current().setNotificationCategories([categories])
+        content.categoryIdentifier = "action"
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        let req = UNNotificationRequest(identifier: "req", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
     }
 }

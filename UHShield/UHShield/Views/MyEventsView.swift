@@ -15,39 +15,93 @@ struct MyEventsView: View {
     @StateObject var eventVM = EventViewModel()
     @State var showWindow = false
     @State var tappedEvent = Event()
+    @State var datepicked = Date()
     
     var body: some View {
-        NavigationView{
-            ZStack{
-                ScrollView{
-                    LazyVStack{
-                        ForEach(self.eventVM.events) { event in
-                            if (event.sponsor == getCurrentUser()) {
-                                EventRowView(event: event).padding(.horizontal).onTapGesture {
-                                    self.showWindow = true
-                                    self.tappedEvent = event
+        NavigationView {
+            ZStack {
+                VStack {
+                    HStack {
+                        
+                        DatePicker("", selection: $datepicked, displayedComponents: .date).padding(.horizontal).datePickerStyle(DefaultDatePickerStyle())
+                        
+                        Spacer()
+                        
+                    }.padding(.horizontal)
+                    
+                    if (self.eventVM.events.filter{$0.sponsor!.contains((Auth.auth().currentUser?.email) ?? "")}.filter{Calendar.current.isDate($0.startTime!, inSameDayAs:datepicked)}.count > 0) { // check if there is event for user
+                        ScrollView {
+                            LazyVStack(alignment: .leading) {
+                                ForEach(self.eventVM.events.filter{$0.sponsor!.contains((Auth.auth().currentUser?.email)!)}.filter{Calendar.current.isDate($0.startTime!, inSameDayAs:datepicked)} ) { event in
+                                    HStack(alignment: .top) {
+                                        // start time
+                                        Text("\(event.startTime!, style: .time)").fontWeight(.semibold).frame(width: 80)
+                                        
+                                        // dot and line
+                                        VStack {
+                                            
+                                            Circle().frame(width: 10, height: 10).foregroundColor(Color(#colorLiteral(red: 0.4647484422, green: 0.6298647523, blue: 1, alpha: 1)))
+                                            HStack {
+                                                Rectangle().foregroundColor(Color(#colorLiteral(red: 0.4647484422, green: 0.6298647523, blue: 1, alpha: 1))).frame(width: 5).frame(minHeight: 80)
+                                            }
+                                        }
+                                        
+                                        // event information
+                                        HStack {
+                                            VStack(alignment: .leading) {
+                                                Text("\(event.eventName!)").font(.title3).fontWeight(.semibold)
+                                                VStack(alignment: .leading) {
+                                                    Text("\((event.location?.building)!) \(event.location!.roomID)").font(.footnote).fontWeight(.semibold)
+                                                    Text("\(String(event.arrivedGuests!.count)) / \(String(event.guests!.count)) Guests Arrived").font(.footnote).fontWeight(.semibold)
+                                                    Spacer()
+                                                    
+                                                }.padding(.leading, 20)
+                                                Text("end at: \(event.endTime! , style: .time)").font(.footnote).fontWeight(.semibold).foregroundColor(.gray)
+                                            }
+                                            Spacer()
+                                            Image(systemName: "chevron.right").padding(.horizontal)
+                                        }.padding().background(Color(#colorLiteral(red: 0.9080156684, green: 0.9026180506, blue: 0.9121648669, alpha: 1)))
+                                        .onTapGesture {
+                                            self.showWindow = true
+                                            self.tappedEvent = event
+                                        }
+                                        
+                                        
+                                    }
+                                    
                                 }
-                                Spacer().frame(height: 1).background(Color("bg2"))
+                                
                             }
+                            
                         }
+                    } else {
+                        Spacer()
+                        Text("You don't have event in this day.")
+                        Spacer()
                     }
+                    
+                }.onAppear {
+                    eventVM.fetchData()
                 }
+                .navigationBarHidden(true)
+                
                 NavigationLink(destination: ArrivedGuestView(event: self.tappedEvent, guests: self.tappedEvent.guests ?? [Guest]()), isActive: $showWindow){
                     Text("")
                 }
-                
             }
-            .onAppear(){
-                self.eventVM.fetchData()
-                print("Fetching data in MyEvents View")
-            }
-            .navigationBarHidden(true)
+            
         }
     }
     func getCurrentUser() -> String {
-        let userEmail : String = (Auth.auth().currentUser?.email)!
+        let userEmail : String = (Auth.auth().currentUser?.email) ?? ""
         print("current user email: \(userEmail)")
         return userEmail
+    }
+}
+
+struct MyEventsView_Previews: PreviewProvider {
+    static var previews: some View {
+        MyEventsView()
     }
 }
 
@@ -162,3 +216,4 @@ struct AttendanceWindow: View {
         }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.primary.opacity(0.35))
     }
 }
+

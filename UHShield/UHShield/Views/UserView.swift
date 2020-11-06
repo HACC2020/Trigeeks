@@ -99,7 +99,7 @@ struct UserView: View {
                                         }
                                 }.tag(0)
                                 
-                                MyEventsView()
+                                MyEventsView().environmentObject(profileViewModel)
                                     .tabItem {
                                         VStack {
                                             Image(systemName: "eyeglasses")

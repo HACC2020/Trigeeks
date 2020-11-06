@@ -19,7 +19,7 @@ struct Event: Codable, Identifiable, Hashable {
     var startTime: Date?
     var endTime: Date?
     var attendance: [String]?
-    
+    var showNotification: Bool?
     enum CodingKeys: String, CodingKey {
         case id
         case eventName
@@ -30,6 +30,7 @@ struct Event: Codable, Identifiable, Hashable {
         case startTime
         case endTime
         case attendance
+        case showNotification
     }
     
 }

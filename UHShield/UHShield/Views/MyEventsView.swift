@@ -12,6 +12,8 @@ import FirebaseFirestoreSwift
 
 struct MyEventsView: View {
     
+    @EnvironmentObject var profiles: ProfileViewModel
+    @EnvironmentObject var session: SessionStore
     @StateObject var eventVM = EventViewModel()
     @State var showWindow = false
     @State var tappedEvent = Event()
@@ -82,6 +84,13 @@ struct MyEventsView: View {
                     
                 }.onAppear {
                     eventVM.fetchData()
+                    for eachPro in self.profiles.profiles {
+                        if(eachPro.email == session.session?.email){
+                            if(eachPro.showNotification!){
+                                self.send()
+                            }
+                        }
+                    }
                 }
                 .navigationBarHidden(true)
                 
@@ -97,6 +106,25 @@ struct MyEventsView: View {
         print("current user email: \(userEmail)")
         return userEmail
     }
+    
+        func send(){
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert,.sound,.badge]) { (_, _) in
+    
+            }
+            let content = UNMutableNotificationContent()
+            content.title = "Message"
+            content.body = "Your Guest is coming!"
+            let open = UNNotificationAction(identifier: "Open", title: "Open", options: .foreground)
+            let cancel = UNNotificationAction(identifier: "Cancel", title: "Cancel", options: .destructive)
+            let categories = UNNotificationCategory(identifier: "action", actions: [open, cancel], intentIdentifiers: [])
+    
+            UNUserNotificationCenter.current().setNotificationCategories([categories])
+            content.categoryIdentifier = "action"
+    
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+            let req = UNNotificationRequest(identifier: "req", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(req, withCompletionHandler: nil)
+        }
 }
 
 struct MyEventsView_Previews: PreviewProvider {

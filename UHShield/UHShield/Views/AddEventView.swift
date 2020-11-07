@@ -196,7 +196,7 @@ struct AddEventView: View {
                     
                 } else {
                     AlertView(showAlert: $isShowingSendView, alertMessage: .constant("Event created Successful! But this device is simulator or it does not have Mail App, so we skip that step."), alertTitle: "Notification").onDisappear {
-                        selection = 20
+                        selection = 0
                     }
                 }
             }

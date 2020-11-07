@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct MyEventDetailView: View {
-    var event: Event
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var event: Event
     @StateObject var eventViewModel = EventViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
     @State private var isTankingAttendance = false
+    @State var isDelete = false
     @State var showEdit = false
     @State var eventTemp = Event(eventName: "", sponsor: "", guests: [], arrivedGuests: [], location: Location(building: "", roomID: ""), startTime: Date(), endTime: Date(), attendance: [])
     var body: some View {
@@ -109,12 +111,11 @@ struct MyEventDetailView: View {
                     .background(Color(#colorLiteral(red: 0.9284724593, green: 0.9312825799, blue: 0.9660671353, alpha: 1)))
                     
                     
-                    
                 }
 
             }
-            .sheet(isPresented: $showEdit, content: {
-                EditEventView(event: event)
+            .sheet(isPresented: $showEdit, onDismiss: {handleDeleted()}, content: {
+                EditEventView(event: $event, isDelete: $isDelete)
             })
 //            .navigationBarTitle("", displayMode: .automatic)
             .onAppear {
@@ -154,10 +155,16 @@ struct MyEventDetailView: View {
         }
         return event.sponsor!
     }
+    
+    func handleDeleted() -> Void {
+        if isDelete {
+            self.presentationMode.wrappedValue.dismiss()
+        }
+    }
 }
 
 struct MyEventDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MyEventDetailView(event: Event(eventName: "Test Event", sponsor: "wei@sponsor.com", guests: [Guest(name: "Wei", email: "wei@test.com"), Guest(name: "Rong", email: "rong@test.com")], arrivedGuests: ["wei@test.com"], location: Location(building: "POST", roomID: "101"), startTime: Date(), endTime: Date(), attendance: []))
+        MyEventDetailView(event: .constant(Event(eventName: "Test Event", sponsor: "wei@sponsor.com", guests: [Guest(name: "Wei", email: "wei@test.com"), Guest(name: "Rong", email: "rong@test.com")], arrivedGuests: ["wei@test.com"], location: Location(building: "POST", roomID: "101"), startTime: Date(), endTime: Date(), attendance: [])))
     }
 }

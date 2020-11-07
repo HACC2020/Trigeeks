@@ -49,7 +49,7 @@ struct MyEventsView: View {
                 }
                 .navigationBarHidden(true)
                 
-                NavigationLink(destination: MyEventDetailView(event: tappedEvent), isActive: $showWindow){
+                NavigationLink(destination: MyEventDetailView(event: $tappedEvent), isActive: $showWindow){
                     Text("")
                 }
             }

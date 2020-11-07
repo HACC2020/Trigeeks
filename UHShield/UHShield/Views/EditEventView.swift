@@ -9,14 +9,15 @@ import SwiftUI
 
 struct EditEventView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State var event: Event
+    @StateObject var eventViewModel = EventViewModel()
+    @Binding var event: Event
     @State var isShowAlert =  false
     @State var isOpenGuestTextField =  false
+    @Binding var isDelete: Bool
     @State var guestEmail: String = ""
     @State var guestName: String = ""
     
     @State private var eventName = ""
-    @State private var sponsor = ""
     @State private var guests: [Guest] = []
     @State private var building = ""
     @State private var roomID = ""
@@ -172,7 +173,17 @@ struct EditEventView: View {
     }
     
     func handleSaveButton() {
+        
+        event.eventName = eventName.trimmingCharacters(in: .whitespaces)
+        event.guests = guests
+        event.location?.building = building.trimmingCharacters(in: .whitespaces)
+        event.location?.roomID = roomID.trimmingCharacters(in: .whitespaces)
+        event.startTime = startTime
+        event.endTime = endTime
+        
+        eventViewModel.updateEvent(event: event)
         presentationMode.wrappedValue.dismiss()
+        
     }
     
     func handleDeleteButton() {
@@ -180,12 +191,15 @@ struct EditEventView: View {
     }
     
     func handleConfirmDelete() {
-        
+        // delete from database
+        isShowAlert = false
+        isDelete = true
+        eventViewModel.deleteEvent(event: event)
+        handleBackButton()
     }
     
     func getEventInformation() {
         eventName = event.eventName!
-        sponsor = event.sponsor!
         guests = event.guests!
         building = event.location!.building
         roomID = event.location!.roomID
@@ -201,6 +215,6 @@ struct EditEventView: View {
 
 struct EditEventView_Previews: PreviewProvider {
     static var previews: some View {
-        EditEventView(event: Event(eventName: "Test Event", sponsor: "wei@sponsor.com", guests: [Guest(name: "Wei", email: "wei@test.com"), Guest(name: "Rong", email: "rong@test.com")], arrivedGuests: ["wei@test.com"], location: Location(building: "POST", roomID: "101"), startTime: Date(), endTime: Date(), attendance: []))
+        EditEventView(event: .constant(Event(eventName: "Test Event", sponsor: "wei@sponsor.com", guests: [Guest(name: "Wei", email: "wei@test.com"), Guest(name: "Rong", email: "rong@test.com")], arrivedGuests: ["wei@test.com"], location: Location(building: "POST", roomID: "101"), startTime: Date(), endTime: Date(), attendance: [])), isDelete: .constant(false))
     }
 }

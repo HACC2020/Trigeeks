@@ -9,13 +9,20 @@ import SwiftUI
 
 struct EventsView: View {
     @StateObject var eventVM = EventViewModel()
+    @State var showEndedEvents = false
     var body: some View {
-        ZStack{
+        VStack{
+            Toggle(isOn: $showEndedEvents) {
+                Text("Show ended events")
+            }.padding()
             ScrollView{
                 LazyVStack{
-                    ForEach(self.eventVM.events) { event in 
+                    ForEach(self.eventVM.events.filter{showEndedEvents ? true : $0.endTime! >= Date()}.sorted {(lhs:Event, rhs:Event) in
+                        return lhs.startTime! < rhs.startTime!
+                    }) { event in 
                         EventRowView(event: event).padding(.horizontal)
-                        Spacer().frame(height: 1).background(Color("bg2"))
+                            .animation(.interactiveSpring())
+                        Spacer().frame(height: 1)
                     }
                 }
             }

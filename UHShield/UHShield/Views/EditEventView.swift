@@ -216,12 +216,16 @@ struct EditEventView: View {
                 }
                 
             }.navigationBarItems(leading: Button(action: { handleBackButton() }, label: {
+                if !isShowingSendView {
                 HStack {
                     Image(systemName: "chevron.down")
                     Text("Back")
                 }.font(.system(size: 20))
+                }
             }), trailing: Button(action: { handleSaveButton() }, label: {
+                if !isShowingSendView {
                     Text("Save").font(.system(size: 20))
+                }
             }))
             .navigationTitle("Edit Event")
             
@@ -246,13 +250,14 @@ struct EditEventView: View {
         event.endTime = endTime
         
         eventViewModel.updateEvent(event: event)
-        presentationMode.wrappedValue.dismiss()
+        //presentationMode.wrappedValue.dismiss()
         isShowingSendView = true
         
     }
     
     func handleXButton() {
         isShowingSendView = false
+        presentationMode.wrappedValue.dismiss()
        // selection = 0
     }
     

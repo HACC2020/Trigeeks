@@ -13,6 +13,7 @@ struct MyEventDetailView: View {
     @StateObject var eventViewModel = EventViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
     @State private var isTankingAttendance = false
+    @State private var showAlert = false
     @State var isDelete = false
     @State var showEdit = false
     @State var eventTemp = Event(eventName: "", sponsor: "", guests: [], arrivedGuests: [], location: Location(building: "", roomID: ""), startTime: Date(), endTime: Date(), attendance: [])
@@ -26,9 +27,29 @@ struct MyEventDetailView: View {
                         HStack {
                             Text("\(event.eventName!)").font(.largeTitle).fontWeight(.bold)
                             Spacer()
-                            Button(action: { handleEdit() }, label: {
-                                Image(systemName: "pencil.circle.fill").font(.largeTitle)
-                            })
+                            
+                            if event.endTime! > Date() {
+                                Button(action: { handleEdit() }, label: {
+                                    Image(systemName: "pencil.circle.fill").font(.largeTitle)
+                                })
+                            } else {
+                                VStack {
+                                    HStack {
+                                        Spacer()
+                                        Button(action: { withAnimation { showAlert.toggle() } }, label: {
+                                            Image(systemName: "pencil.circle.fill").font(.largeTitle).foregroundColor(.gray)
+                                        })
+                                    }
+                                    if showAlert {
+                                        Text("This event is over").foregroundColor(.gray).fontWeight(.semibold)
+                                            .padding()
+                                            .overlay(
+                                                Capsule(style: .continuous)
+                                                    .stroke(Color.gray, style: StrokeStyle(lineWidth: 5, dash: [10]))
+                                            )
+                                    }
+                                }
+                            }
                         }.padding(.horizontal)
                         
                         

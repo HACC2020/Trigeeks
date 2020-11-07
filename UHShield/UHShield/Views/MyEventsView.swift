@@ -32,7 +32,10 @@ struct MyEventsView: View {
                     if (self.eventVM.events.filter{$0.sponsor!.contains((Auth.auth().currentUser?.email) ?? "")}.filter{Calendar.current.isDate($0.startTime!, inSameDayAs:datepicked)}.count > 0) { // check if there is event for user
                         ScrollView {
                             LazyVStack(alignment: .leading) {
-                                ForEach(self.eventVM.events.filter{$0.sponsor!.contains((Auth.auth().currentUser?.email)!)}.filter{Calendar.current.isDate($0.startTime!, inSameDayAs:datepicked)} ) { event in
+                                ForEach(self.eventVM.events.filter{$0.sponsor!.contains((Auth.auth().currentUser?.email)!)}.filter{Calendar.current.isDate($0.startTime!, inSameDayAs:datepicked)}
+                                            .sorted {(lhs:Event, rhs:Event) in
+                                                return lhs.startTime! < rhs.startTime!
+                                            } ) { event in
                                     
                                     MyEventRow(event: event, showWindow: $showWindow, tappedEvent: $tappedEvent)
                                 }
@@ -80,10 +83,21 @@ struct MyEventRow: View {
             
             // dot and line
             VStack {
-                
-                Circle().frame(width: 10, height: 10).foregroundColor(Color(#colorLiteral(red: 0.4647484422, green: 0.6298647523, blue: 1, alpha: 1)))
-                HStack {
-                    Rectangle().foregroundColor(Color(#colorLiteral(red: 0.4647484422, green: 0.6298647523, blue: 1, alpha: 1))).frame(width: 5).frame(minHeight: 80)
+                if event.startTime! < Date() && event.endTime! > Date() {
+                    Circle().frame(width: 10, height: 10).foregroundColor(Color(#colorLiteral(red: 0.9444511533, green: 0, blue: 0, alpha: 1)))
+                    HStack {
+                        Rectangle().foregroundColor(Color(#colorLiteral(red: 0.9444511533, green: 0, blue: 0, alpha: 1))).frame(width: 5).frame(minHeight: 80)
+                    }
+                } else if event.endTime! < Date() {
+                    Circle().frame(width: 10, height: 10).foregroundColor(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)))
+                    HStack {
+                        Rectangle().foregroundColor(Color(#colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1))).frame(width: 5).frame(minHeight: 80)
+                    }
+                } else {
+                    Circle().frame(width: 10, height: 10).foregroundColor(Color(#colorLiteral(red: 0.4647484422, green: 0.6298647523, blue: 1, alpha: 1)))
+                    HStack {
+                        Rectangle().foregroundColor(Color(#colorLiteral(red: 0.4647484422, green: 0.6298647523, blue: 1, alpha: 1))).frame(width: 5).frame(minHeight: 80)
+                    }
                 }
             }
             

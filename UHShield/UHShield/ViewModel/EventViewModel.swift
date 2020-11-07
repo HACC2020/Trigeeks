@@ -46,4 +46,14 @@ class EventViewModel: ObservableObject {
             print(error)
         }
     }
+    
+    func deleteEvent(event: Event){
+        db.collection("events").document(event.id!).delete{ (error) in
+            if error != nil {
+                print(error!)
+            } else {
+                print("Event deleted!")
+            }
+        }
+    }
 }

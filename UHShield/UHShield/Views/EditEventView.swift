@@ -4,19 +4,24 @@
 //
 //  Created by Yuhan Jiang on 2020/10/31.
 //
-
+import CoreImage.CIFilterBuiltins
 import SwiftUI
+import MessageUI
+import FirebaseFirestore
+import Firebase
+import FirebaseFirestoreSwift
 
 struct EditEventView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var eventViewModel = EventViewModel()
+    @StateObject var profileViewModel = ProfileViewModel()
     @Binding var event: Event
     @State var isShowAlert =  false
     @State var isOpenGuestTextField =  false
     @Binding var isDelete: Bool
     @State var guestEmail: String = ""
     @State var guestName: String = ""
-    
+    @State var guestHolder = Guest(name: "", email: "")
     @State private var eventName = ""
     @State private var guests: [Guest] = []
     @State private var building = ""
@@ -26,6 +31,12 @@ struct EditEventView: View {
     @State private var endTime = Date()
     private let tempTime = Date()
     
+    @State var isShowingSendView = false
+    @State var isShowingMailView = false
+   // @Binding var selection: Int
+    let context = CIContext()
+    let filter = CIFilter.qrCodeGenerator()
+    @State var result: Result<MFMailComposeResult, Error>? = nil
     var body: some View {
         NavigationView {
             ZStack {
@@ -151,6 +162,59 @@ struct EditEventView: View {
                     .background(Color.gray.opacity(0.5).ignoresSafeArea())
                 }
                 
+                if isShowingSendView {
+                    if MFMailComposeViewController.canSendMail() {
+                        VStack {
+                            
+                            VStack {
+                                HStack {
+                                    Text("Send Invitation").font(.largeTitle).fontWeight(.bold)
+                                    Spacer()
+                                    
+                                    Button(action: {handleXButton()}, label: {
+                                        Image(systemName: "xmark.circle").font(.title)
+                                    })
+                                    
+                                }
+                                
+                                ScrollView {
+                                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
+                                        Text("Guests").font(.title2).fontWeight(.bold)
+                                        Text("")
+                                        ForEach(guests, id: \.self) { guest in
+                                            Text("\(guest.email!)")
+                                            Button(action: {
+                                                handleSendButton(guest: guest)
+                                                
+                                            }, label: {
+                                                HStack {
+                                                    Image(systemName: "paperplane")
+                                                    Text("Send")
+                                                }.padding().background(Color("bg1")).foregroundColor(.white).cornerRadius(25)
+                                            })
+                                        }
+                                    }
+                                }
+                                
+                            }.padding()
+                            .background(Color.white)
+                        }.background(Color.white.ignoresSafeArea())
+                        .transition(.move(edge: .bottom)).animation(.linear)
+                        
+                    } else {
+                        AlertView(showAlert: $isShowingSendView, alertMessage: .constant("Event created Successful! But this device is simulator or it does not have Mail App, so we skip that step."), alertTitle: "Notification").onDisappear {
+                            //selection = 0
+                        }
+                    }
+                    
+                }
+                if(isShowingMailView) {
+                    EmailComposer(result: self.$result, isShowing: $isShowingMailView ,eventName: eventName, guest: guestHolder, location: Location(building: building, roomID: roomID), sponsor: getSponsorName(), startTime: startTime, endTime: endTime, qrCode: resizeImage(image: generateQRCode(from: "\(event.id!)\n\(guestHolder.name ?? "user")\n\(guestHolder.email ?? "")"), targetSize: CGSize(width: 200.0, height: 200.0))
+                                  
+                    )
+                    .transition(.move(edge: .bottom)).animation(.linear)
+                }
+                
             }.navigationBarItems(leading: Button(action: { handleBackButton() }, label: {
                 HStack {
                     Image(systemName: "chevron.down")
@@ -183,7 +247,18 @@ struct EditEventView: View {
         
         eventViewModel.updateEvent(event: event)
         presentationMode.wrappedValue.dismiss()
+        isShowingSendView = true
         
+    }
+    
+    func handleXButton() {
+        isShowingSendView = false
+       // selection = 0
+    }
+    
+    func handleSendButton(guest: Guest) {
+        guestHolder = guest
+        self.isShowingMailView = true
     }
     
     func handleDeleteButton() {
@@ -210,6 +285,58 @@ struct EditEventView: View {
     
     func removeGuest(at offsets: IndexSet) {
         guests.remove(atOffsets: offsets)
+    }
+    
+    func getSponsorName() -> String {
+        for profile in profileViewModel.profiles {
+            if profile.email == getCurrentUser() {
+                return "\(profile.firstName) \(profile.lastName)"
+            }
+        }
+        return event.sponsor!
+    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+    
+    func generateQRCode(from string: String) -> UIImage {
+        let data = Data(string.utf8)
+        filter.setValue(data, forKey: "InputMessage")
+        
+        if let outputImage = filter.outputImage {
+            if let cgImage = context.createCGImage(outputImage, from: outputImage.extent) {
+                return UIImage(cgImage: cgImage)
+            }
+        }
+        return UIImage(systemName: "xmark.circle") ?? UIImage()
+    }
+    
+    func getCurrentUser() -> String {
+        let userEmail : String = (Auth.auth().currentUser?.email)!
+        return userEmail
     }
 }
 

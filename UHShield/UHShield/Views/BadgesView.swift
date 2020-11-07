@@ -19,24 +19,28 @@ struct BadgesView: View {
                 SearchBar(text: $search)
                 ScrollView{
                     LazyVStack {
-                        ForEach(self.badges.badges.filter{self.search.isEmpty ? true : $0.guestID!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Badge, rhs:Badge) in
+                        
+                        ForEach(self.badges.badges.filter{self.search.isEmpty ? true : $0.badgeID!.localizedCaseInsensitiveContains(self.search) || $0.guestID!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Badge, rhs:Badge) in
                             return lhs.assignedTime! > rhs.assignedTime!
                         }) { badge in
+                            BadgeRowView(badge: badge)
+                        }
                         
-                        BadgeRowView(badge: badge)
-                        
-                        
+//                        ForEach(self.badges.badges.filter{self.search.isEmpty ? true : $0.guestID!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Badge, rhs:Badge) in
+//                            return lhs.assignedTime! > rhs.assignedTime!
+//                        }) { badge in
+//                            BadgeRowView(badge: badge)
+//                        }
                     }
-                }
                 }.onAppear{
                     self.badges.fetchData()
                 }
                 
                 
             }
-//            if showWindow {
-//                ConfirmWindow(showWindow: $showWindow, badge: recycledBadge).transition(.move(edge: .trailing))
-//            }
+            //            if showWindow {
+            //                ConfirmWindow(showWindow: $showWindow, badge: recycledBadge).transition(.move(edge: .trailing))
+            //            }
         }
     }
 }
@@ -48,31 +52,31 @@ struct ConfirmWindow: View {
     var badge: Badge
     
     var body: some View {
-
-            VStack {
+        
+        VStack {
+            HStack {
+                Text("Attention").font(.title).bold().foregroundColor(Color.red.opacity(0.7))
+                Spacer()
+            }.padding(.horizontal, 25)
+            
+            // error message
+            Text("Are you sure to delete this Badge?").foregroundColor(Color.black.opacity(0.7)).padding(.vertical)
+                .frame(width: UIScreen.main.bounds.width - 120)
+            
+            // confirm button
+            HStack {
                 HStack {
-                    Text("Attention").font(.title).bold().foregroundColor(Color.red.opacity(0.7))
-                    Spacer()
-                }.padding(.horizontal, 25)
-                
-                // error message
-                Text("Are you sure to delete this Badge?").foregroundColor(Color.black.opacity(0.7)).padding(.vertical)
-                    .frame(width: UIScreen.main.bounds.width - 120)
-                
-                // confirm button
-                HStack {
-                    HStack {
-                        Button(action: {handleConfirmDelete()}, label: {
-                            Text("Confirm").font(.title3).fontWeight(.semibold).foregroundColor(.white)
-                        }).padding().buttonStyle(RedLongButtonStyle())
-                        
-                        Button(action: {showWindow = false}, label: {
-                            Text("Cancel").font(.title3).fontWeight(.semibold).foregroundColor(.white)
-                        }).padding().buttonStyle(LongButtonStyle())
-                    }
+                    Button(action: {handleConfirmDelete()}, label: {
+                        Text("Confirm").font(.title3).fontWeight(.semibold).foregroundColor(.white)
+                    }).padding().buttonStyle(RedLongButtonStyle())
+                    
+                    Button(action: {showWindow = false}, label: {
+                        Text("Cancel").font(.title3).fontWeight(.semibold).foregroundColor(.white)
+                    }).padding().buttonStyle(LongButtonStyle())
                 }
-            }.padding().background(Color.white).cornerRadius(20)
-            .animation(.spring())
+            }
+        }.padding().background(Color.white).cornerRadius(20)
+        .animation(.spring())
     }
     
     func handleConfirmDelete() {

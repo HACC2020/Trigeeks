@@ -14,97 +14,75 @@ struct BadgesView: View {
     @State var showWindow = false
     @State var recycledBadge = Badge()
     var body: some View {
-        NavigationView{
-            ZStack{
+        ZStack {
             VStack{
                 SearchBar(text: $search)
-                ScrollView{
-                    LazyVStack{
-                        ForEach(self.badges.badges.filter{self.search.isEmpty ? true : $0.guestID!.localizedCaseInsensitiveContains(self.search)})
-                        { badge in
-                            
-                            BadgeRowView(badge: badge).padding(.horizontal).onTapGesture {
-                                print("Tap me!")
-                                self.showWindow = true
-                                self.recycledBadge = badge
-                            }
+                //ScrollView{
+                List{
+                    ForEach(self.badges.badges.filter{self.search.isEmpty ? true : $0.guestID!.localizedCaseInsensitiveContains(self.search)}) { badge in
+                        
+                        BadgeRowView(badge: badge)
+                        
+                    }.onDelete(perform: { indexSet in
+                        for i in indexSet {
+                            print(self.badges.badges[i])
+                            self.recycledBadge = self.badges.badges[i]
+
+                                showWindow = true
                             
                         }
-                        
-                    }.onAppear{
-                        self.badges.fetchData()
-                    }
+                    })
                     
+                }.onAppear{
+                    self.badges.fetchData()
                 }
-            }.navigationBarTitle("Processing Badges", displayMode: .inline).navigationBarItems(trailing: EditButton())
-                if(showWindow){
-                    ConfirmWindow(showWindow: $showWindow, badges: badges, badge: recycledBadge)
-                }
+                
+                
+            }
+            if showWindow {
+                ConfirmWindow(showWindow: $showWindow, badge: recycledBadge).transition(.move(edge: .trailing))
+            }
         }
-    }
     }
 }
 
 struct ConfirmWindow: View {
     
     @Binding var showWindow: Bool
-    var badges: BadgeViewModel
+    @StateObject var badgeVM = BadgeViewModel()
     var badge: Badge
     
     var body: some View {
-        ZStack(alignment: Alignment(horizontal: .trailing, vertical: .top)){
-            
-            //            Rectangle().fill(Color.white)
-            //                .cornerRadius(10)
-            //                .shadow(color: .gray, radius: 5, x: 1, y: 1)
-            VStack(spacing: 25){
-                Image("check-mark-badge").resizable().cornerRadius(10).frame(width:100, height: 100)
+
+            VStack {
+                HStack {
+                    Text("Attention").font(.title).bold().foregroundColor(Color.red.opacity(0.7))
+                    Spacer()
+                }.padding(.horizontal, 25)
                 
-                Text("Recycle Badge").font(.title).foregroundColor(.black)
-                Divider()
-                Text("Badge ID: \(badge.badgeID!)")
-                Text("Guest ID: \(badge.guestID!)")
-                Divider()
-                Text("Are you sure the information is correct?")
-                HStack{
-                    Button(action: {
-                        self.showWindow.toggle()
-                        self.badges.deleteBadge(badge: badge)
-                    }) {
-                        Text("Confirm").foregroundColor(Color.white).fontWeight(.bold).padding(.vertical, 10).padding(.horizontal, 25).background(Color("button1")).clipShape(Capsule())
-                    }
-                    
-                    Button(action: {
-                        self.showWindow.toggle()
-                    }) {
-                        Text("Cancel").foregroundColor(Color.white).fontWeight(.bold).padding(.vertical, 10).padding(.horizontal, 25).background(Color("button2")).clipShape(Capsule())
+                // error message
+                Text("Are you sure to delete this Badge?").foregroundColor(Color.black.opacity(0.7)).padding(.vertical)
+                    .frame(width: UIScreen.main.bounds.width - 120)
+                
+                // confirm button
+                HStack {
+                    HStack {
+                        Button(action: {handleConfirmDelete()}, label: {
+                            Text("Confirm").font(.title3).fontWeight(.semibold).foregroundColor(.white)
+                        }).padding().buttonStyle(RedLongButtonStyle())
+                        
+                        Button(action: {showWindow = false}, label: {
+                            Text("Cancel").font(.title3).fontWeight(.semibold).foregroundColor(.white)
+                        }).padding().buttonStyle(LongButtonStyle())
                     }
                 }
-            }
-            .padding(.vertical, 25).padding(.horizontal, 30).background(BlurView()).cornerRadius(25)
-//            .padding().background(Color.white).cornerRadius(20)
-//            .animation(.interpolatingSpring(mass: 1, stiffness: 90, damping: 10, initialVelocity: 0))
-            
-        }.frame(maxWidth: .infinity, maxHeight: .infinity).background(Color.primary.opacity(0.35))
-        .onAppear{
-            self.test()
-        }
+            }.padding().background(Color.white).cornerRadius(20)
+            .animation(.spring())
     }
     
-    func test(){
-        print("This is a message from popUp window: \(self.badge)")
+    func handleConfirmDelete() {
+        // delete from database
+        badgeVM.deleteBadge(badge: badge)
+        showWindow = false
     }
-}
-
-struct BlurView : UIViewRepresentable {
-    func updateUIView(_ uiView: UIVisualEffectView, context: Context) {
-        
-    }
-    
-    func makeUIView(context: Context) -> UIVisualEffectView {
-        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemThinMaterial))
-        
-        return blurView
-    }
-    
 }

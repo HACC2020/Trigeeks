@@ -10,42 +10,36 @@ import SwiftUI
 struct BadgeRowView: View {
     
     var badge: Badge
+    //@State var offset = CGSize.zero
     
     var body: some View {
-        VStack{
-            ZStack{
-                Rectangle().fill(Color.white)
-                    .cornerRadius(10)
-                    .shadow(color: .gray, radius: 5, x: 1, y: 1)
-                
         HStack{
-            Image(systemName: "person.circle.fill").font(.largeTitle).padding(.leading, 10)
-            VStack{
-                Text(self.badge.badgeID!)
-                    .font(.system(size: 20, weight: .bold))
-                Text(self.badge.guestID!)
-                    .font(.system(size: 16, weight: .bold))
+            VStack(alignment: .leading){
+                HStack {
+                    Image(systemName: "text.and.command.macwindow").font(.title)
+                    Text("BadgeID: \(self.badge.badgeID!)")
+                        .font(.system(size: 20, weight: .bold))
+                }.padding([.horizontal, .top])
+                HStack {
+                    Text(self.badge.guestID!)
+                        .font(.system(size: 15, weight: .bold)).foregroundColor(Color("bg1"))
+                }.padding(.horizontal)
+                
+                HStack{
+                    Text(self.badge.assignedTime!, style: .time).padding([.horizontal, .bottom])
+                    Text(self.badge.assignedTime!, style: .date).padding(.bottom)
+                }
             }
             Spacer()
-            VStack{
-    
-                Text(self.badge.assignedTime!, style: .time)
-                Text(self.badge.assignedTime!, style: .date)
-            }
             
-            Image("check-mark-badge")
-                .resizable().cornerRadius(10).frame(width:65, height: 65)
-            
-        }
-                
-            }
-            Divider().background(Color("bg7"))
-        }
+        }.background(Rectangle().fill(Color.white)
+                        .cornerRadius(10)
+                        .shadow(color: .gray, radius: 5, x: 1, y: 1))
     }
 }
 
-//struct BadgeRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        BadgeRowView()
-//    }
-//}
+struct BadgeRowView_Previews: PreviewProvider {
+    static var previews: some View {
+        BadgeRowView(badge: Badge(guestID: "wei@test.com", assignedTime: Date(), badgeID: "001"))
+    }
+}

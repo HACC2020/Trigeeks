@@ -17,31 +17,26 @@ struct BadgesView: View {
         ZStack {
             VStack{
                 SearchBar(text: $search)
-                //ScrollView{
-                List{
-                    ForEach(self.badges.badges.filter{self.search.isEmpty ? true : $0.guestID!.localizedCaseInsensitiveContains(self.search)}) { badge in
+                ScrollView{
+                    LazyVStack {
+                        ForEach(self.badges.badges.filter{self.search.isEmpty ? true : $0.guestID!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Badge, rhs:Badge) in
+                            return lhs.assignedTime! > rhs.assignedTime!
+                        }) { badge in
                         
                         BadgeRowView(badge: badge)
                         
-                    }.onDelete(perform: { indexSet in
-                        for i in indexSet {
-                            print(self.badges.badges[i])
-                            self.recycledBadge = self.badges.badges[i]
-
-                                showWindow = true
-                            
-                        }
-                    })
-                    
+                        
+                    }
+                }
                 }.onAppear{
                     self.badges.fetchData()
                 }
                 
                 
             }
-            if showWindow {
-                ConfirmWindow(showWindow: $showWindow, badge: recycledBadge).transition(.move(edge: .trailing))
-            }
+//            if showWindow {
+//                ConfirmWindow(showWindow: $showWindow, badge: recycledBadge).transition(.move(edge: .trailing))
+//            }
         }
     }
 }

@@ -12,9 +12,10 @@ struct MyEventDetailView: View {
     @StateObject var eventViewModel = EventViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
     @State private var isTankingAttendance = false
+    @State var showEdit = false
     @State var eventTemp = Event(eventName: "", sponsor: "", guests: [], arrivedGuests: [], location: Location(building: "", roomID: ""), startTime: Date(), endTime: Date(), attendance: [])
     var body: some View {
-        NavigationView {
+
             VStack {
                 
                 ScrollView {
@@ -23,6 +24,9 @@ struct MyEventDetailView: View {
                         HStack {
                             Text("\(event.eventName!)").font(.largeTitle).fontWeight(.bold)
                             Spacer()
+                            Button(action: { handleEdit() }, label: {
+                                Image(systemName: "pencil.circle.fill").font(.largeTitle)
+                            })
                         }.padding(.horizontal)
                         
                         
@@ -107,14 +111,17 @@ struct MyEventDetailView: View {
                     
                     
                 }
-            }.navigationBarItems(trailing: Button(action: { handleEdit() }, label: {
-                Text("Edit")
-            }))
+
+            }
+            .sheet(isPresented: $showEdit, content: {
+                EditEventView(event: event)
+            })
+//            .navigationBarTitle("", displayMode: .automatic)
             .onAppear {
                 eventTemp = event
                 profileViewModel.fetchData()
             }
-        }
+
     }
     
     func handleCheck(guest: Guest) {
@@ -136,7 +143,7 @@ struct MyEventDetailView: View {
     }
     
     func handleEdit() {
-        
+        showEdit = true
     }
     
     func getSponsorName() -> String {

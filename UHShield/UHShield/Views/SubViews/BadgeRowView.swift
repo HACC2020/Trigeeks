@@ -18,19 +18,20 @@ struct BadgeRowView: View {
         HStack{
             VStack(alignment: .leading){
                 HStack {
-                    Image(systemName: "text.and.command.macwindow").font(.title).foregroundColor(Color("bg1"))
                     Text("BadgeID: \(self.badge.badgeID!)")
-                        .font(.system(size: 20, weight: .bold)).foregroundColor(Color("bg1"))
+                        .font(.title).fontWeight(.bold).foregroundColor(Color("bg1"))
                 }.padding([.horizontal, .top])
                 HStack {
                     Text(self.badge.guestID!)
                         .font(.system(size: 15, weight: .bold))
                 }.padding(.horizontal)
+                .padding(.leading, 20)
                 
                 HStack{
                     Text(self.badge.assignedTime!, style: .time).padding([.horizontal, .bottom])
                     Text(self.badge.assignedTime!, style: .date).padding(.bottom)
-                }
+                }.padding(.leading, 20)
+                
                 Divider()
             }.frame(height: 100)
             .offset(x: offset.width)
@@ -49,7 +50,7 @@ struct BadgeRowView: View {
             } else {
                 HStack {
                     Text("Detele").fontWeight(.bold).foregroundColor(.white)
-                }.frame(width: -offset.width ,height: 100).background(Color.red)
+                }.frame(width: abs(offset.width) < 10 ? 0 : abs(offset.width),height: 100).background(Color.red)
                 .onTapGesture(perform: {
                     withAnimation(.spring()) {
                         showConfirm = true

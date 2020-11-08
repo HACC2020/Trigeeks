@@ -33,7 +33,7 @@ struct EditEventView: View {
     
     @State var isShowingSendView = false
     @State var isShowingMailView = false
-   // @Binding var selection: Int
+    // @Binding var selection: Int
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
     @State var result: Result<MFMailComposeResult, Error>? = nil
@@ -217,10 +217,10 @@ struct EditEventView: View {
                 
             }.navigationBarItems(leading: Button(action: { handleBackButton() }, label: {
                 if !isShowingSendView {
-                HStack {
-                    Image(systemName: "chevron.down")
-                    Text("Back")
-                }.font(.system(size: 20))
+                    HStack {
+                        Image(systemName: "chevron.down")
+                        Text("Back")
+                    }.font(.system(size: 20))
                 }
             }), trailing: Button(action: { handleSaveButton() }, label: {
                 if !isShowingSendView {
@@ -242,6 +242,20 @@ struct EditEventView: View {
     
     func handleSaveButton() {
         
+        if(eventName == event.eventName && (building.trimmingCharacters(in: .whitespaces)) == event.location?.building && (roomID.trimmingCharacters(in: .whitespaces)) == event.location?.roomID && startTime == event.startTime && endTime == event.endTime){
+            if(event.guests != nil){
+                for eachGuest in guests{
+                    if(!event.guests!.contains(eachGuest)){
+                        isShowingSendView = true
+                        break;
+                    }
+                }
+            }
+        } else {
+            isShowingSendView = true
+        }
+        
+        
         event.eventName = eventName.trimmingCharacters(in: .whitespaces)
         event.guests = guests
         event.location?.building = building.trimmingCharacters(in: .whitespaces)
@@ -250,15 +264,17 @@ struct EditEventView: View {
         event.endTime = endTime
         
         eventViewModel.updateEvent(event: event)
-        //presentationMode.wrappedValue.dismiss()
-        isShowingSendView = true
+        
+        if isShowingSendView == false {
+            presentationMode.wrappedValue.dismiss()
+        }
         
     }
     
     func handleXButton() {
         isShowingSendView = false
         presentationMode.wrappedValue.dismiss()
-       // selection = 0
+        // selection = 0
     }
     
     func handleSendButton(guest: Guest) {

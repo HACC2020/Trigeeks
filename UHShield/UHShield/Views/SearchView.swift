@@ -9,13 +9,16 @@ import SwiftUI
 import FirebaseAuth
 
 struct SearchView: View {
-    @Environment(\.presentationMode) var presentationMode
     @State var search = ""
     @StateObject var eventViewModel = EventViewModel()
+    @StateObject var profileViewModel = ProfileViewModel()
     @State var searchType = 0 // 0 for all, 1 for name, 2 for sponsor, 3 for location
+    @State var tappedEvent = Event(eventName: "", sponsor: "", guests: [], arrivedGuests: [], location: Location(building: "", roomID: ""), startTime: Date(), endTime: Date(), attendance: [])
+    @State var showGuestList = false
+    @State var showAlert = false
     
     var body: some View {
-        NavigationView {
+        ZStack {
             VStack {
                 HStack {
                     if searchType == 1 {
@@ -26,7 +29,7 @@ struct SearchView: View {
                                 searchType = 0
                             }
                         })
-
+                        
                         Image(systemName: "text.book.closed")
                     } else if searchType == 2 {
                         Image(systemName: "chevron.backward").onTapGesture(perform: {
@@ -47,92 +50,133 @@ struct SearchView: View {
                     SearchBar(text: $search)
                 }.padding(.horizontal)
                 ZStack {
-                List {
-                    
-                    // search bar section
-                    Section {
+                    List {
                         
+                        // search bar section
+                        Section {
+                            
+                        }
+                        
+                        if !search.isEmpty {
+                            if searchType == 1 || searchType == 0 {
+                                // event name section
+                                Section {
+                                    HStack {
+                                        Text("Search by: ")
+                                        Text("event name").foregroundColor(.blue)
+                                    }
+                                    ForEach(self.eventViewModel.events.filter{$0.eventName!.localizedCaseInsensitiveContains(self.search)}) { event in
+                                        EventRowView(event: event).onTapGesture {
+                                            if checkIsReception() {
+                                                if Calendar.current.isDate(event.startTime!, inSameDayAs:Date()) && event.endTime! > Date() {
+                                                    self.showGuestList = true
+                                                    self.tappedEvent = event
+                                                } else {
+                                                    self.showAlert = true
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            // event sponsor section
+                            if searchType == 2 || searchType == 0 {
+                                Section {
+                                    HStack {
+                                        Text("Search by: ")
+                                        Text("sponsor").foregroundColor(.blue)
+                                    }
+                                    ForEach(self.eventViewModel.events.filter{$0.sponsor!.localizedCaseInsensitiveContains(self.search)}) { event in
+                                        EventRowView(event: event).onTapGesture {
+                                            if checkIsReception() {
+                                                if Calendar.current.isDate(event.startTime!, inSameDayAs:Date()) && event.endTime! > Date() {
+                                                    self.showGuestList = true
+                                                    self.tappedEvent = event
+                                                } else {
+                                                    self.showAlert = true
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            // event location section
+                            if searchType == 3 || searchType == 0 {
+                                Section {
+                                    HStack {
+                                        Text("Search by: ")
+                                        Text("location").foregroundColor(.blue)
+                                    }
+                                    ForEach(self.eventViewModel.events.filter{$0.location!.building.localizedCaseInsensitiveContains(self.search) || $0.location!.roomID.localizedCaseInsensitiveContains(self.search)}) { event in
+                                        EventRowView(event: event).onTapGesture {
+                                            if checkIsReception() {
+                                                if Calendar.current.isDate(event.startTime!, inSameDayAs:Date()) && event.endTime! > Date() {
+                                                    self.showGuestList = true
+                                                    self.tappedEvent = event
+                                                } else {
+                                                    self.showAlert = true
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .resignKeyboardOnDragGesture()
+                    .listStyle(GroupedListStyle())
+                    .navigationBarTitle("Search Events")
+                    .onAppear {
+                        eventViewModel.fetchData()
+                        profileViewModel.fetchData()
                     }
                     
-                    if !search.isEmpty {
-                        if searchType == 1 || searchType == 0 {
-                            // event name section
-                            Section {
-                                HStack {
-                                    Text("Search by: ")
-                                    Text("event name").foregroundColor(.blue)
-                                }
-                                ForEach(self.eventViewModel.events.filter{$0.eventName!.localizedCaseInsensitiveContains(self.search)}) { event in
-                                    EventRowView(event: event)
-                                }
-                            }
-                        }
-                        
-                        // event sponsor section
-                        if searchType == 2 || searchType == 0 {
-                            Section {
-                                HStack {
-                                    Text("Search by: ")
-                                    Text("sponsor").foregroundColor(.blue)
-                                }
-                                ForEach(self.eventViewModel.events.filter{$0.sponsor!.localizedCaseInsensitiveContains(self.search)}) { event in
-                                    EventRowView(event: event)
-                                }
-                            }
-                        }
-                        
-                        // event location section
-                        if searchType == 3 || searchType == 0 {
-                            Section {
-                                HStack {
-                                    Text("Search by: ")
-                                    Text("location").foregroundColor(.blue)
-                                }
-                                ForEach(self.eventViewModel.events.filter{$0.location!.building.localizedCaseInsensitiveContains(self.search) || $0.location!.roomID.localizedCaseInsensitiveContains(self.search)}) { event in
-                                    EventRowView(event: event)
-                                }
-                            }
-                        }
+                    if search.isEmpty {
+                        VStack {
+                            Text("Search By Type").foregroundColor(.gray)
+                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], content: {
+                                Button(action: { withAnimation(.spring()) { searchType = 1 } }, label: {
+                                    Text("Event Name")
+                                })
+                                Button(action: { withAnimation(.spring()) { searchType = 2 } }, label: {
+                                    Text("Sponsor")
+                                })
+                                Button(action: { withAnimation(.spring()) { searchType = 3 } }, label: {
+                                    Text("Location")
+                                })
+                            } ).padding()
+                            
+                            Spacer()
+                        }.offset(y: UIScreen.main.bounds.height/7)
                     }
-                }
-                .resignKeyboardOnDragGesture()
-                .listStyle(GroupedListStyle())
-                .navigationBarItems(leading: Button(action: {handleBackButton()}, label: {
-                    Image(systemName: "chevron.backward")
-                    Text("Back")
-                }))
-                .navigationTitle(Text("Search Events"))
-                .onAppear {
-                    eventViewModel.fetchData()
-                }
-                
-                if search.isEmpty {
-                    VStack {
-                        Text("Search By Type").foregroundColor(.gray)
-                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], content: {
-                            Button(action: { withAnimation(.spring()) { searchType = 1 } }, label: {
-                                Text("Event Name")
-                            })
-                            Button(action: { withAnimation(.spring()) { searchType = 2 } }, label: {
-                                Text("Sponsor")
-                            })
-                            Button(action: { withAnimation(.spring()) { searchType = 3 } }, label: {
-                                Text("Location")
-                            })
-                        } ).padding()
-                        
-                        Spacer()
-                    }.offset(y: UIScreen.main.bounds.height/7)
                 }
             }
+            NavigationLink(destination: GuestListView(event: tappedEvent), isActive: self.$showGuestList) {
+                Text("")
+            }
+            
+            if showAlert {
+                AlertView(showAlert: $showAlert, alertMessage: .constant("You can only access TODAY's UPCOMING events!"), alertTitle: "Deny").transition(.slide)
             }
         }
-        
     }
-
-    func handleBackButton() {
-        presentationMode.wrappedValue.dismiss()
+    
+    func checkIsReception() -> Bool {
+        for profile in profileViewModel.profiles {
+            if profile.email == Auth.auth().currentUser?.email {
+                if profile.role == "reception" {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+        return false
     }
+    
+    
 }
 
 

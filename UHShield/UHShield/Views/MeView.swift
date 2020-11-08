@@ -13,6 +13,7 @@ import FirebaseFirestoreSwift
 struct MeView: View {
     @EnvironmentObject var session: SessionStore
     @EnvironmentObject var profileVM : ProfileViewModel
+    @EnvironmentObject var locationsVM: LocationsViewModel
     @State var profile = Profile(email: "", firstName: "User", lastName: "User", role: "guest")
     
     func getCurrentUserProfile(){
@@ -47,16 +48,17 @@ struct MeView: View {
                                     .cornerRadius(5)
                             }
                             
-                            // leave for other buttons
-                            Button(action: session.signOut) {
-                                Text("Another Sign Out")
-                                    .frame(minWidth: 0, maxWidth: .infinity)
-                                    .frame(height: 50)
-                                    .foregroundColor(.white)
-                                    .font(.system(size: 14, weight: .bold))
-                                    .background(LinearGradient(gradient: Gradient(colors: [Color("blue4"), Color("bg1")]), startPoint: .leading, endPoint: .trailing))
-                                    .cornerRadius(5)
-                                
+                            if profile.role == "reception" {
+                                // leave for other buttons
+                                NavigationLink(destination: EditWorkplaceView(profile: $profile).environmentObject(locationsVM)) {
+                                    Text("Change Workplace")
+                                        .frame(minWidth: 0, maxWidth: .infinity)
+                                        .frame(height: 50)
+                                        .foregroundColor(.white)
+                                        .font(.system(size: 14, weight: .bold))
+                                        .background(LinearGradient(gradient: Gradient(colors: [Color("blue4"), Color("bg1")]), startPoint: .leading, endPoint: .trailing))
+                                        .cornerRadius(5)
+                                }
                             }
                             
                             Spacer()
@@ -87,7 +89,6 @@ struct MeView: View {
             }
         }
         .onAppear(){
-//            self.profileVM.fetchData()
             self.getCurrentUserProfile()
         }
     }

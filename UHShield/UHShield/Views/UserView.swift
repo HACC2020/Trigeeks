@@ -12,13 +12,12 @@ struct UserView: View {
     @EnvironmentObject var session: SessionStore
     @StateObject var profileViewModel = ProfileViewModel()
     @Binding var selection: Int
-    @State var showSearch = false
     // if there is no profile or error occurs, by default the user is a guest
     // do not change this
     @State var viewSelection: String = "GuestView"
     var body: some View {
         
-        Group {
+        NavigationView {
             if profileViewModel.profiles.count > 0 {
                 VStack {
                     // MARK: - Top Bar
@@ -30,16 +29,13 @@ struct UserView: View {
                         
                         Spacer()
                         
-                        Button(action: {
-                            showSearch = true
-                        }) {
+                        
+                        NavigationLink (destination: SearchView()) {
                             Image(systemName: "magnifyingglass")
                                 .font(.system(size: 20))
                                 .foregroundColor(.white)
                         }.padding(.trailing, 20)
-                        .fullScreenCover(isPresented: $showSearch, content: {
-                            SearchView()
-                        })
+
                         
                         if self.viewSelection == "SponsorView" {
                             
@@ -83,6 +79,8 @@ struct UserView: View {
                                             Text("Me")
                                         }
                                     }.tag(0)
+                                    .navigationBarTitle("")
+                                    .navigationBarHidden(true)
                                 
                             }.background(Color(.gray))
                         }
@@ -99,7 +97,8 @@ struct UserView: View {
                                             Text("Events")
                                         }
                                     }.tag(0)
-                                
+                                    .navigationBarTitle("")
+                                    .navigationBarHidden(true)
                                 MyEventsView()
                                     .tabItem {
                                         VStack {
@@ -107,7 +106,8 @@ struct UserView: View {
                                             Text("My Events")
                                         }
                                     }.tag(1)
-                                
+                                    .navigationBarTitle("")
+                                    .navigationBarHidden(true)
                                 MeView().environmentObject(profileViewModel)
                                     .tabItem {
                                         VStack {
@@ -115,6 +115,8 @@ struct UserView: View {
                                             Text("Me")
                                         }
                                     }.tag(2)
+                                    .navigationBarTitle("")
+                                    .navigationBarHidden(true)
                             }.background(Color(.gray))
                         }
                     }
@@ -129,7 +131,8 @@ struct UserView: View {
                                             Text("Upcoming events")
                                         }
                                     }.tag(0)
-                                
+                                    .navigationBarTitle("")
+                                    .navigationBarHidden(true)
                                 BadgesView()
                                     .tabItem {
                                         VStack {
@@ -137,7 +140,8 @@ struct UserView: View {
                                             Text("Badges")
                                         }
                                     }.tag(1)
-                                
+                                    .navigationBarTitle("")
+                                    .navigationBarHidden(true)
                                 MeView().environmentObject(profileViewModel)
                                     .tabItem {
                                         VStack {
@@ -145,7 +149,8 @@ struct UserView: View {
                                             Text("Me")
                                         }
                                     }.tag(2)
-                                
+                                    .navigationBarTitle("")
+                                    .navigationBarHidden(true)
                             }.background(Color(.gray))
                         }
                     }

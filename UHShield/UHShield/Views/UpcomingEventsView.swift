@@ -14,6 +14,7 @@ struct UpcomingEventsView: View {
     @State var showGuestList = false 
     @State var tappedEvent = Event()
     @State var showEndedEvents = false
+    @State var showAlert = false
     var body: some View {
         NavigationView{
             ZStack{
@@ -30,9 +31,12 @@ struct UpcomingEventsView: View {
                                             return lhs.startTime! < rhs.startTime!
                                         }) { event in
                                     EventRowView(event: event).padding(.horizontal).onTapGesture {
-                                        print("An event is tapped!")
-                                        self.showGuestList = true
-                                        self.tappedEvent = event
+                                        if event.endTime! > Date() {
+                                            self.showGuestList = true
+                                            self.tappedEvent = event
+                                        } else {
+                                            self.showAlert = true
+                                        }
                                     }
                                     
                                 
@@ -40,6 +44,7 @@ struct UpcomingEventsView: View {
                         }
                     }
                 }.navigationBarHidden(true)
+                .background(Color.white)
                 .onAppear(){
                     self.eventVM.fetchData()
                     print("Fetching data in Events View")
@@ -47,6 +52,10 @@ struct UpcomingEventsView: View {
 
                 NavigationLink(destination: GuestListView(event: tappedEvent), isActive: self.$showGuestList) {
                     Text("")
+                }
+                
+                if showAlert {
+                    AlertView(showAlert: $showAlert, alertMessage: .constant("You can only access TODAY's UPCOMING events!"), alertTitle: "Deny").transition(.move(edge: .trailing))
                 }
             }
                 

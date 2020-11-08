@@ -33,13 +33,18 @@ struct EditEventView: View {
     
     @State var isShowingSendView = false
     @State var isShowingMailView = false
+    @State var isShowingMailPlusView = false
     // @Binding var selection: Int
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
     @State var result: Result<MFMailComposeResult, Error>? = nil
+    @State var result2: Result<MFMailComposeResult, Error>? = nil
    // @State var resArr: [Result<MFMailComposeResult, Error>?] = []
     @State var indexResArr = 0
     @State var theNum:[Int] = []
+    @State var theNum2 = 0
+    @State var newGuests: [Guest] = []
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -185,7 +190,12 @@ struct EditEventView: View {
                                         Text("Guests").font(.title2).fontWeight(.bold)
                                         Text("")
                                         ForEach(guests.indices) { index in
+                                            HStack{
                                             Text("\(guests[index].email!)")
+                                            if(self.newGuests.contains(guests[index])){
+                                            Image(systemName: "person.crop.circle.fill.badge.plus").foregroundColor(Color("bg1"))
+                                            }
+                                            }
                                             if(theNum[index] == 2){
                                                 HStack {
                                                     Image(systemName: "checkmark")
@@ -193,6 +203,7 @@ struct EditEventView: View {
                                                     
                                                 }.padding().background(Color("button1")).foregroundColor(.white).cornerRadius(25)
                                             } else {
+                                                
                                             Button(action: {
                                                 handleSendButton(guest: guests[index], index: index)
                                                 
@@ -203,7 +214,34 @@ struct EditEventView: View {
                                                     
                                                 }.padding().background(Color("bg1")).foregroundColor(.white).cornerRadius(25)
                                             })
+                    
+                                                
                                             }
+                                        }
+                                    }
+                                    
+                                    VStack{
+                                        Divider()
+                                        Text("Group Sending").font(.title2).fontWeight(.bold)
+                                        Text("If you just update the event information, you can do group sending without sending identity authentication QR-Code!").foregroundColor(.gray)
+                                        
+                                        if(theNum2 == 2){
+                                            HStack {
+                                                Image(systemName: "checkmark")
+                                                Text("Good")
+                                                
+                                            }.padding().background(Color("button1")).foregroundColor(.white).cornerRadius(25)
+                                        }else{
+                                        Button(action: {
+                                            handleGroupSendButton()
+                                            
+                                        }, label: {
+                                            HStack {
+                                                Image(systemName: "paperplane")
+                                                Text("Group Send")
+                                                
+                                            }.padding().background(Color("bg1")).foregroundColor(.white).cornerRadius(25)
+                                        })
                                         }
                                     }
                                 }
@@ -225,6 +263,10 @@ struct EditEventView: View {
                                   
                     )
                     .transition(.move(edge: .bottom)).animation(.linear)
+                }
+                
+                if(isShowingMailPlusView) {
+                    EmailComposerPlus(result: self.$result2, isShowing: $isShowingMailPlusView, outvalue: $theNum2, eventName: eventName, guests: guests, location: Location(building: building, roomID: roomID), sponsor: getSponsorName(), startTime: startTime, endTime: endTime)
                 }
                 
             }.navigationBarItems(leading: Button(action: { handleBackButton() }, label: {
@@ -252,6 +294,10 @@ struct EditEventView: View {
         presentationMode.wrappedValue.dismiss()
     }
     
+    func handleGroupSendButton(){
+        self.isShowingMailPlusView = true
+    }
+    
     func handleSaveButton() {
         
         if(eventName == event.eventName && (building.trimmingCharacters(in: .whitespaces)) == event.location?.building && (roomID.trimmingCharacters(in: .whitespaces)) == event.location?.roomID && startTime == event.startTime && endTime == event.endTime){
@@ -270,12 +316,10 @@ struct EditEventView: View {
         if(event.guests != nil){
             for eachGuest in guests{
                 if(!event.guests!.contains(eachGuest)){
-                    isShowingSendView = true
-                    break;
+                    newGuests.append(eachGuest)
                 }
             }
         }
-        
         
         event.eventName = eventName.trimmingCharacters(in: .whitespaces)
         event.guests = guests

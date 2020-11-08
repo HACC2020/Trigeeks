@@ -37,7 +37,8 @@ struct AddEventView: View {
     private let tempTime = Date()
     
     @Binding var selection: Int
-    
+    @State var indexResArr = 0
+    @State var theNum:[Int] = []
     @State var event = Event(eventName: "", sponsor: "", guests: [], arrivedGuests: [], location: Location(building: "", roomID: ""), startTime: Date(), endTime: Date(), attendance: [])
     
     let context = CIContext()
@@ -174,10 +175,17 @@ struct AddEventView: View {
                                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
                                     Text("Guests").font(.title2).fontWeight(.bold)
                                     Text("")
-                                    ForEach(guests, id: \.self) { guest in
-                                        Text("\(guest.email!)")
+                                    ForEach(guests.indices) { index in
+                                        Text("\(guests[index].email!)")
+                                        if(theNum[index] == 2){
+                                            HStack {
+                                                Image(systemName: "checkmark")
+                                                Text("Good")
+                                                
+                                            }.padding().background(Color("button1")).foregroundColor(.white).cornerRadius(25)
+                                        } else {
                                         Button(action: {
-                                            handleSendButton(guest: guest)
+                                            handleSendButton(guest: guests[index], index: index)
                                             
                                         }, label: {
                                             HStack {
@@ -185,6 +193,7 @@ struct AddEventView: View {
                                                 Text("Send")
                                             }.padding().background(Color("bg1")).foregroundColor(.white).cornerRadius(25)
                                         })
+                                        }
                                     }
                                 }
                             }
@@ -204,7 +213,7 @@ struct AddEventView: View {
             
             //MARK: - Mail Composer View
             if(isShowingMailView) {
-                EmailComposer(result: self.$result, isShowing: $isShowingMailView ,eventName: eventName, guest: guestHolder, location: Location(building: building, roomID: room), sponsor: getSponsorName(), startTime: startTime, endTime: endTime, qrCode: resizeImage(image: generateQRCode(from: "\(event.id!)\n\(guestHolder.name ?? "user")\n\(guestHolder.email ?? "")"), targetSize: CGSize(width: 200.0, height: 200.0))
+                EmailComposer(result: self.$result, isShowing: $isShowingMailView, outvalue: self.$theNum[indexResArr] ,eventName: eventName, guest: guestHolder, location: Location(building: building, roomID: room), sponsor: getSponsorName(), startTime: startTime, endTime: endTime, qrCode: resizeImage(image: generateQRCode(from: "\(event.id!)\n\(guestHolder.name ?? "user")\n\(guestHolder.email ?? "")"), targetSize: CGSize(width: 200.0, height: 200.0))
                               
                 )
                 .transition(.move(edge: .bottom)).animation(.linear)
@@ -224,11 +233,15 @@ struct AddEventView: View {
         // code here
         event = Event(eventName: eventName.trimmingCharacters(in: .whitespaces), sponsor: getCurrentUser(), guests: guests, arrivedGuests: [], location: Location(building: building.trimmingCharacters(in: .whitespaces), roomID: room.trimmingCharacters(in: .whitespaces)), startTime: startTime, endTime: endTime, attendance: [])
         eventViewModel.addEvent(event: event)
+        for _ in guests {
+            theNum.append(0)
+        }
         isShowingSendView = true
     }
     
-    func handleSendButton(guest: Guest) {
+    func handleSendButton(guest: Guest, index: Int) {
         guestHolder = guest
+        indexResArr = index
         self.isShowingMailView = true
     }
     

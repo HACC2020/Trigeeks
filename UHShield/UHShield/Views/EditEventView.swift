@@ -37,8 +37,9 @@ struct EditEventView: View {
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
     @State var result: Result<MFMailComposeResult, Error>? = nil
-    @State var resArr: [Result<MFMailComposeResult, Error>?] = []
+   // @State var resArr: [Result<MFMailComposeResult, Error>?] = []
     @State var indexResArr = 0
+    @State var theNum:[Int] = []
     var body: some View {
         NavigationView {
             ZStack {
@@ -185,6 +186,13 @@ struct EditEventView: View {
                                         Text("")
                                         ForEach(guests.indices) { index in
                                             Text("\(guests[index].email!)")
+                                            if(theNum[index] == 2){
+                                                HStack {
+                                                    Image(systemName: "checkmark")
+                                                    Text("Good")
+                                                    
+                                                }.padding().background(Color("button1")).foregroundColor(.white).cornerRadius(25)
+                                            } else {
                                             Button(action: {
                                                 handleSendButton(guest: guests[index], index: index)
                                                 
@@ -192,11 +200,10 @@ struct EditEventView: View {
                                                 HStack {
                                                     Image(systemName: "paperplane")
                                                     Text("Send")
-                                                    if(resArr[index] != nil){
-                                                        Text("good")
-                                                    }
+                                                    
                                                 }.padding().background(Color("bg1")).foregroundColor(.white).cornerRadius(25)
                                             })
+                                            }
                                         }
                                     }
                                 }
@@ -214,7 +221,7 @@ struct EditEventView: View {
                     
                 }
                 if(isShowingMailView) {
-                    EmailComposer(result: self.$resArr[indexResArr], isShowing: $isShowingMailView ,eventName: eventName, guest: guestHolder, location: Location(building: building, roomID: roomID), sponsor: getSponsorName(), startTime: startTime, endTime: endTime, qrCode: resizeImage(image: generateQRCode(from: "\(event.id!)\n\(guestHolder.name ?? "user")\n\(guestHolder.email ?? "")"), targetSize: CGSize(width: 200.0, height: 200.0))
+                    EmailComposer(result: self.$result, isShowing: $isShowingMailView, outvalue: $theNum[indexResArr] ,eventName: eventName, guest: guestHolder, location: Location(building: building, roomID: roomID), sponsor: getSponsorName(), startTime: startTime, endTime: endTime, qrCode: resizeImage(image: generateQRCode(from: "\(event.id!)\n\(guestHolder.name ?? "user")\n\(guestHolder.email ?? "")"), targetSize: CGSize(width: 200.0, height: 200.0))
                                   
                     )
                     .transition(.move(edge: .bottom)).animation(.linear)
@@ -260,6 +267,16 @@ struct EditEventView: View {
             isShowingSendView = true
         }
         
+        if(event.guests != nil){
+            for eachGuest in guests{
+                if(!event.guests!.contains(eachGuest)){
+                    isShowingSendView = true
+                    break;
+                }
+            }
+        }
+        
+        
         event.eventName = eventName.trimmingCharacters(in: .whitespaces)
         event.guests = guests
         event.location?.building = building.trimmingCharacters(in: .whitespaces)
@@ -271,15 +288,16 @@ struct EditEventView: View {
         if isShowingSendView == false {
             presentationMode.wrappedValue.dismiss()
         }
-        
-       print("*******************  that I want to look: \(resArr)")
-        
+        for _ in guests {
+            theNum.append(0)
+        }
     }
     
     func handleXButton() {
         isShowingSendView = false
         presentationMode.wrappedValue.dismiss()
         // selection = 0
+        print(self.theNum)
     }
     
     func handleSendButton(guest: Guest, index: Int) {
@@ -307,9 +325,6 @@ struct EditEventView: View {
         roomID = event.location!.roomID
         startTime = event.startTime!
         endTime = event.endTime!
-        for _ in guests {
-            resArr.append(nil)
-        }
     }
     
     func removeGuest(at offsets: IndexSet) {

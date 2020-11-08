@@ -13,7 +13,7 @@ public struct EmailComposer: UIViewControllerRepresentable {
     
     @Binding var result: Result<MFMailComposeResult, Error>?
     @Binding var isShowing: Bool
-    
+    @Binding var outvalue: Int
     let eventName: String
     var guest: Guest
     let location: Location
@@ -26,11 +26,13 @@ public struct EmailComposer: UIViewControllerRepresentable {
         
         @Binding var isShowing: Bool
         @Binding var result: Result<MFMailComposeResult, Error>?
+        @Binding var outvalue: Int
         
         init(isShowing: Binding<Bool>,
-             result: Binding<Result<MFMailComposeResult, Error>?>) {
+             result: Binding<Result<MFMailComposeResult, Error>?>, outvalue: Binding<Int>) {
             _isShowing = isShowing
             _result = result
+            _outvalue = outvalue
         }
         
         public func mailComposeController(_ controller: MFMailComposeViewController,
@@ -48,10 +50,16 @@ public struct EmailComposer: UIViewControllerRepresentable {
             switch result {
             case .cancelled:
                 print("Oh you cancel it!")
+                outvalue = 1
             case .sent:
                 print("Oh you send it!")
+                outvalue = 2
             default:
                 print("error")
+            }
+            if (result == .sent) {
+                
+
             }
         }
         
@@ -59,7 +67,7 @@ public struct EmailComposer: UIViewControllerRepresentable {
     
     public func makeCoordinator() -> Coordinator {
         
-        return Coordinator(isShowing: $isShowing, result: $result)
+        return Coordinator(isShowing: $isShowing, result: $result, outvalue: $outvalue)
     }
     
     public func makeUIViewController(context: UIViewControllerRepresentableContext<EmailComposer>) -> MFMailComposeViewController {

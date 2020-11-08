@@ -108,7 +108,7 @@ struct CheckInView: View {
                 }
                 
             }.frame(maxWidth: .infinity ,maxHeight: .infinity)
-            .background(Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)).ignoresSafeArea())
+            .background(Color(#colorLiteral(red: 0.8864660859, green: 0.8863860965, blue: 0.9189570546, alpha: 1)).ignoresSafeArea())
             //Color(#colorLiteral(red: 0.8864660859, green: 0.8863860965, blue: 0.9189570546, alpha: 1))
             .onAppear {
                 eventViewModel.fetchData()

@@ -11,6 +11,7 @@ import FirebaseAuth
 struct UserView: View {
     @EnvironmentObject var session: SessionStore
     @StateObject var profileViewModel = ProfileViewModel()
+    @StateObject var locationsViewModel = LocationsViewModel()
     @Binding var selection: Int
     // if there is no profile or error occurs, by default the user is a guest
     // do not change this
@@ -75,7 +76,7 @@ struct UserView: View {
                     if self.viewSelection == "GuestView" {
                         VStack{
                             TabView {
-                                MeView().environmentObject(profileViewModel)
+                                MeView().environmentObject(profileViewModel).environmentObject(locationsViewModel)
                                     .tabItem {
                                         VStack {
                                             Image(systemName: "person.fill")
@@ -107,7 +108,7 @@ struct UserView: View {
                                         }
                                 }.tag(1)
                             
-                                MeView().environmentObject(profileViewModel)
+                                MeView().environmentObject(profileViewModel).environmentObject(locationsViewModel)
                                     .tabItem {
                                         VStack {
                                             Image(systemName: "person.fill")
@@ -137,7 +138,7 @@ struct UserView: View {
                                         }
                                 }.tag(1)
                             
-                                MeView().environmentObject(profileViewModel)
+                                MeView().environmentObject(profileViewModel).environmentObject(locationsViewModel)
                                     .tabItem {
                                         VStack {
                                             Image(systemName: "person.fill")
@@ -161,6 +162,7 @@ struct UserView: View {
             }
         }.onAppear {
             profileViewModel.fetchData()
+            locationsViewModel.fetchData()
         }
     }
     

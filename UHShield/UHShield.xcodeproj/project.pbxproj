@@ -21,6 +21,7 @@
 		39410B2C255126AB00DEF4CB /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B2B255126AB00DEF4CB /* EditProfileView.swift */; };
 		39845BA42557C0E300AF2A2C /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39845BA32557C0E300AF2A2C /* Locations.swift */; };
 		39845BA72557C16500AF2A2C /* LocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39845BA62557C16500AF2A2C /* LocationsViewModel.swift */; };
+		39845BAC2557DE8F00AF2A2C /* EditWorkplaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39845BAB2557DE8F00AF2A2C /* EditWorkplaceView.swift */; };
 		453CF8E525511E8C004BBA40 /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E425511E8C004BBA40 /* CheckInView.swift */; };
 		453CF8E825515B5B004BBA40 /* AddBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E725515B5A004BBA40 /* AddBadgeView.swift */; };
 		45553062255578910042BA20 /* MyEventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45553061255578910042BA20 /* MyEventDetailView.swift */; };
@@ -62,6 +63,7 @@
 		39410B2B255126AB00DEF4CB /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		39845BA32557C0E300AF2A2C /* Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
 		39845BA62557C16500AF2A2C /* LocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewModel.swift; sourceTree = "<group>"; };
+		39845BAB2557DE8F00AF2A2C /* EditWorkplaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkplaceView.swift; sourceTree = "<group>"; };
 		430F3808FC1F511B4A751145 /* Pods-UHShield.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UHShield.release.xcconfig"; path = "Target Support Files/Pods-UHShield/Pods-UHShield.release.xcconfig"; sourceTree = "<group>"; };
 		453CF8E425511E8C004BBA40 /* CheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInView.swift; sourceTree = "<group>"; };
 		453CF8E725515B5A004BBA40 /* AddBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBadgeView.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				453CF8E425511E8C004BBA40 /* CheckInView.swift */,
 				39410AE8254E882A00DEF4CB /* EditEventView.swift */,
 				39410B2B255126AB00DEF4CB /* EditProfileView.swift */,
+				39845BAB2557DE8F00AF2A2C /* EditWorkplaceView.swift */,
 				39410ACB254E4D9900DEF4CB /* EventsView.swift */,
 				39410B282551243300DEF4CB /* MeView.swift */,
 				39410AE5254E871700DEF4CB /* MyEventsView.swift */,
@@ -356,6 +359,7 @@
 				4590CC3B2548F7240096C728 /* AddEventView.swift in Sources */,
 				453CF8E825515B5B004BBA40 /* AddBadgeView.swift in Sources */,
 				4590CC372548F68C0096C728 /* ScannerLayoutView.swift in Sources */,
+				39845BAC2557DE8F00AF2A2C /* EditWorkplaceView.swift in Sources */,
 				39410B0A254FA1CB00DEF4CB /* EventRowView.swift in Sources */,
 				45B8C632254A8C16003A8511 /* AlertView.swift in Sources */,
 				90AF2C232550017A008F2B26 /* SearchBar.swift in Sources */,

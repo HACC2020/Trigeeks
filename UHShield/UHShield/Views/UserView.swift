@@ -11,6 +11,7 @@ import FirebaseAuth
 struct UserView: View {
     @EnvironmentObject var session: SessionStore
     @StateObject var profileViewModel = ProfileViewModel()
+    @StateObject var locationsViewModel = LocationsViewModel()
     @Binding var selection: Int
     @State var showSearch = false
     // if there is no profile or error occurs, by default the user is a guest
@@ -76,7 +77,7 @@ struct UserView: View {
                     if self.viewSelection == "GuestView" {
                         VStack{
                             TabView {
-                                MeView().environmentObject(profileViewModel)
+                                MeView().environmentObject(profileViewModel).environmentObject(locationsViewModel)
                                     .tabItem {
                                         VStack {
                                             Image(systemName: "person.fill")
@@ -106,9 +107,10 @@ struct UserView: View {
                                             Image(systemName: "eyeglasses")
                                             Text("My Events")
                                         }
-                                    }.tag(1)
-                                
-                                MeView().environmentObject(profileViewModel)
+
+                                }.tag(1)
+                            
+                                MeView().environmentObject(profileViewModel).environmentObject(locationsViewModel)
                                     .tabItem {
                                         VStack {
                                             Image(systemName: "person.fill")
@@ -136,9 +138,9 @@ struct UserView: View {
                                             Image(systemName: "folder.fill")
                                             Text("Badges")
                                         }
-                                    }.tag(1)
-                                
-                                MeView().environmentObject(profileViewModel)
+                                }.tag(1)
+                            
+                                MeView().environmentObject(profileViewModel).environmentObject(locationsViewModel)
                                     .tabItem {
                                         VStack {
                                             Image(systemName: "person.fill")
@@ -162,6 +164,7 @@ struct UserView: View {
             }
         }.onAppear {
             profileViewModel.fetchData()
+            locationsViewModel.fetchData()
         }
         
         

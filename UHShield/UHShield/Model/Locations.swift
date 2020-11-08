@@ -13,7 +13,7 @@ struct Locations: Codable, Identifiable, Hashable {
     
     @DocumentID var id: String? = UUID().uuidString
     var roomID: String?
-    var building: Date?
+    var building: String?
     
     enum CodingKeys: String, CodingKey{
         

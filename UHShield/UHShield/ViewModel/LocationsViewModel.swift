@@ -28,7 +28,7 @@ class LocationsViewModel: ObservableObject {
                 
             }
             print(self.location)
-            print("Done for fetching profile data")
+            print("Done for fetching location data")
             
         }
     }

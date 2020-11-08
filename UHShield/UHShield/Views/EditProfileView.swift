@@ -43,9 +43,10 @@ struct EditProfileView: View {
                     
                     VStack(spacing: 18) {
                         TextField("Role: \(profile.role.capitalized)", text: $role)
+                            .disabled(true)
                             .font(.system(size: 18))
                             .padding(12)
-                            .background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color(.gray), lineWidth: 1))
+                            .background(RoundedRectangle(cornerRadius: 5).strokeBorder(Color(.gray), lineWidth: 0))
                         TextField("First Name", text: $firstName)
                             .font(.system(size: 14))
                             .padding(12)

@@ -12,66 +12,67 @@ struct UserView: View {
     @EnvironmentObject var session: SessionStore
     @StateObject var profileViewModel = ProfileViewModel()
     @Binding var selection: Int
+    @State var showSearch = false
     // if there is no profile or error occurs, by default the user is a guest
     // do not change this
     @State var viewSelection: String = "GuestView"
     var body: some View {
+        
         Group {
             if profileViewModel.profiles.count > 0 {
-                Group {
-                    
+                VStack {
                     // MARK: - Top Bar
-                    VStack (spacing: 20){
-                        HStack {
-                            Text("UH Shield")
-                                .font(.system(size: 22, weight: .semibold))
+                    
+                    HStack {
+                        Text("UH Shield")
+                            .font(.system(size: 22, weight: .semibold))
+                            .foregroundColor(.white)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            showSearch = true
+                        }) {
+                            Image(systemName: "magnifyingglass")
+                                .font(.system(size: 20))
                                 .foregroundColor(.white)
-                            
-                            Spacer()
+                        }.padding(.trailing, 20)
+                        .fullScreenCover(isPresented: $showSearch, content: {
+                            SearchView()
+                        })
+                        
+                        if self.viewSelection == "SponsorView" {
                             
                             Button(action: {
-                                self.selection = 1
+                                withAnimation(.spring()) {
+                                    self.selection = 21
+                                }
                             }) {
-                                Image(systemName: "magnifyingglass")
-                                    .font(.system(size: 20))
+                                Image(systemName: "plus.circle")
+                                    .font(.system(size: 22))
                                     .foregroundColor(.white)
-                            }.padding(.trailing, 20)
-                            
-                            Group {
-                                
-                                if self.viewSelection == "SponsorView" {
-                                
-                                    Button(action: {
-                                        withAnimation(.spring()) {
-                                        self.selection = 21
-                                        }
-                                    }) {
-                                        Image(systemName: "plus.circle")
-                                            .font(.system(size: 22))
-                                            .foregroundColor(.white)
-                                    }
-                                }
-                                
-                                if self.viewSelection == "ReceptionView" {
-                                    
-                                    Button(action: {
-                                        self.selection = 11
-                                    }) {
-                                        Image(systemName: "camera.viewfinder")
-                                            .font(.system(size: 22))
-                                            .foregroundColor(.white)
-                                    }
-                                }
                             }
-
-                            
                         }
+                        
+                        else if self.viewSelection == "ReceptionView" {
+                            
+                            Button(action: {
+                                self.selection = 11
+                            }) {
+                                Image(systemName: "camera.viewfinder")
+                                    .font(.system(size: 22))
+                                    .foregroundColor(.white)
+                            }
+                        }
+                        
+                        
+                        
                     }
                     .padding()
                     .background(Color("bg1").edgesIgnoringSafeArea(.top))
                     // end of top bar
                     
-                    
+                    // MARK: -Main Views: Sponsor or Reception View
                     if self.viewSelection == "GuestView" {
                         VStack{
                             TabView {
@@ -81,13 +82,13 @@ struct UserView: View {
                                             Image(systemName: "person.fill")
                                             Text("Me")
                                         }
-                                }.tag(0)
+                                    }.tag(0)
                                 
                             }.background(Color(.gray))
                         }
                     }
                     
-                    if self.viewSelection == "SponsorView" {
+                    else if self.viewSelection == "SponsorView" {
                         
                         VStack {
                             TabView {
@@ -97,7 +98,7 @@ struct UserView: View {
                                             Image(systemName: "calendar")
                                             Text("Events")
                                         }
-                                }.tag(0)
+                                    }.tag(0)
                                 
                                 MyEventsView()
                                     .tabItem {
@@ -105,20 +106,20 @@ struct UserView: View {
                                             Image(systemName: "eyeglasses")
                                             Text("My Events")
                                         }
-                                }.tag(1)
-                            
+                                    }.tag(1)
+                                
                                 MeView().environmentObject(profileViewModel)
                                     .tabItem {
                                         VStack {
                                             Image(systemName: "person.fill")
                                             Text("Me")
                                         }
-                                }.tag(2)
+                                    }.tag(2)
                             }.background(Color(.gray))
                         }
                     }
                     
-                    if self.viewSelection == "ReceptionView" {
+                    else if self.viewSelection == "ReceptionView" {
                         VStack {
                             TabView {
                                 UpcomingEventsView()
@@ -127,7 +128,7 @@ struct UserView: View {
                                             Image(systemName: "calendar")
                                             Text("Upcoming events")
                                         }
-                                }.tag(0)
+                                    }.tag(0)
                                 
                                 BadgesView()
                                     .tabItem {
@@ -135,15 +136,15 @@ struct UserView: View {
                                             Image(systemName: "folder.fill")
                                             Text("Badges")
                                         }
-                                }.tag(1)
-                            
+                                    }.tag(1)
+                                
                                 MeView().environmentObject(profileViewModel)
                                     .tabItem {
                                         VStack {
                                             Image(systemName: "person.fill")
                                             Text("Me")
                                         }
-                                }.tag(2)
+                                    }.tag(2)
                                 
                             }.background(Color(.gray))
                         }
@@ -162,6 +163,8 @@ struct UserView: View {
         }.onAppear {
             profileViewModel.fetchData()
         }
+        
+        
     }
     
     func checkRole() {

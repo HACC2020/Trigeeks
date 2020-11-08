@@ -36,6 +36,7 @@ public struct EmailComposer: UIViewControllerRepresentable {
         public func mailComposeController(_ controller: MFMailComposeViewController,
                                           didFinishWith result: MFMailComposeResult,
                                           error: Error?) {
+            print("there is a test from Bobby for email result 111: \(result)")
             defer {
                 isShowing = false
             }
@@ -44,10 +45,20 @@ public struct EmailComposer: UIViewControllerRepresentable {
                 return
             }
             self.result = .success(result)
+            switch result {
+            case .cancelled:
+                print("Oh you cancel it!")
+            case .sent:
+                print("Oh you send it!")
+            default:
+                print("error")
+            }
         }
+        
     }
     
     public func makeCoordinator() -> Coordinator {
+        
         return Coordinator(isShowing: $isShowing, result: $result)
     }
     
@@ -72,6 +83,6 @@ public struct EmailComposer: UIViewControllerRepresentable {
     
     public func updateUIViewController(_ uiViewController: MFMailComposeViewController,
                                        context: UIViewControllerRepresentableContext<EmailComposer>) {
-        
+        //print("there is a test from Bobby for email result: \(result)")
     }
 }

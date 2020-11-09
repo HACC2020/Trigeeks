@@ -12,6 +12,7 @@ struct MyEventDetailView: View {
     @Binding var event: Event
     @StateObject var eventViewModel = EventViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
+    @StateObject var buildingViewModel = BuildingViewModel()
     @State private var isTankingAttendance = false
     @State private var showAlert = false
     @State var isDelete = false
@@ -136,11 +137,12 @@ struct MyEventDetailView: View {
 
             }
             .sheet(isPresented: $showEdit, onDismiss: {handleDeleted()}, content: {
-                EditEventView(event: $event, isDelete: $isDelete)
+                EditEventView(event: $event, isDelete: $isDelete).environmentObject(buildingViewModel)
             })
 //            .navigationBarTitle("", displayMode: .automatic)
             .onAppear {
                 eventTemp = event
+                buildingViewModel.fetchData()
                 profileViewModel.fetchData()
             }
 

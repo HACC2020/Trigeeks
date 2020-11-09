@@ -15,7 +15,7 @@ struct EditEventView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var eventViewModel = EventViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
-    @StateObject var buildingViewModel = BuildingViewModel()
+    @EnvironmentObject var buildingViewModel: BuildingViewModel
     @Binding var event: Event
     @State var isShowAlert =  false
     @State var isOpenGuestTextField =  false
@@ -149,8 +149,7 @@ struct EditEventView: View {
                             }
                         })
                     }
-                    
-                    
+
                     // Navigation Buttons : Back and Done
                 }
                 if isShowAlert {

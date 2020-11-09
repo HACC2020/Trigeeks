@@ -63,13 +63,13 @@ struct AddEventView: View {
                         // Location section
                         Section(header: Text("Location")) {
                             
-                            Picker(selection: $building, label: Text("Buildings")) {
+                            Picker(selection: $building, label: Text("Building: \(self.building)")) {
                                 ForEach(self.buildingViewModel.buildings) { building in
                                     Text(building.building).tag(building.building)
                                 }
                             }.pickerStyle(MenuPickerStyle())
                             
-                            Picker(selection: $room, label: Text("Rooms")) {
+                            Picker(selection: $room, label: Text("Room: \(self.room)")) {
                                 ForEach(self.buildingViewModel.buildings.filter({ (building) -> Bool  in
                                     building.building == self.building
                                 })) { building in

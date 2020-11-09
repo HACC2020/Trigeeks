@@ -16,6 +16,7 @@ import FirebaseFirestoreSwift
 struct AddEventView: View {
     @StateObject var eventViewModel = EventViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
+    @StateObject var buildingViewModel = BuildingViewModel()
     
     @State var isOpenGuestTextField =  false
     @State var guestEmail: String = ""
@@ -62,12 +63,22 @@ struct AddEventView: View {
                         // Location section
                         Section(header: Text("Location")) {
                             
-                            TextField("Building:", text: $building)
-                                .textContentType(.location)
-                                .padding(.horizontal).disableAutocorrection(true)
-                            TextField("Room:", text: $room)
-                                //.keyboardType(.decimalPad)
-                                .padding(.horizontal).disableAutocorrection(true)
+                            Picker(selection: $building, label: Text("Buildings")) {
+                                ForEach(self.buildingViewModel.buildings) { building in
+                                    Text(building.building).tag(building.building)
+                                }
+                            }.pickerStyle(MenuPickerStyle())
+                            
+                            Picker(selection: $room, label: Text("Rooms")) {
+                                ForEach(self.buildingViewModel.buildings.filter({ (building) -> Bool  in
+                                    building.building == self.building
+                                })) { building in
+                                    ForEach(building.rooms, id: \.self){ room in
+                                        Text(room).tag(room)
+                                    }
+                                }
+                            }.pickerStyle(MenuPickerStyle())
+                            
                         }
                         
                         // time section
@@ -152,6 +163,7 @@ struct AddEventView: View {
                 }.onAppear {
                     eventViewModel.fetchData()
                     profileViewModel.fetchData()
+                    buildingViewModel.fetchData()
                 }
                 
             }

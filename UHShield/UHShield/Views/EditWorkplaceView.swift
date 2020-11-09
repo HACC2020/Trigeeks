@@ -51,7 +51,6 @@ struct EditWorkplaceView: View {
                         Picker(selection: $building, label: Text("Buildings")) {
                             ForEach(self.buildingVM.buildings) { building in
                                 Text(building.building).tag(building.building)
-    
                             }
                         }
                     

@@ -332,7 +332,7 @@ struct AddEventView: View {
                 }
             }
         }
-        self.rooms = rooms.sorted()
+        self.rooms = self.rooms.sorted()
     }
     
 }

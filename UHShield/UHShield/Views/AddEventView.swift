@@ -38,12 +38,13 @@ struct AddEventView: View {
     @State private var startTime = Date()
     @State private var endTime = Date()
     private let tempTime = Date()
-    
+
     @Binding var selection: Int
     @State var indexResArr = 0
     @State var theNum:[Int] = []
     @State var event = Event(eventName: "", sponsor: "", guests: [], arrivedGuests: [], location: Location(building: "", roomID: ""), startTime: Date(), endTime: Date(), attendance: [])
-    
+    @State var checkTimeConflict = false
+    @State var timeConflictEvent: [Event] = []
     let context = CIContext()
     let filter = CIFilter.qrCodeGenerator()
     var body: some View {
@@ -82,20 +83,88 @@ struct AddEventView: View {
                                 ForEach(self.rooms, id:\.self) { room in
                                     Text(room).tag(room)
                                 }
-                            }
+                            }.onChange(of: room, perform: { (value) in
+                                self.checkTimeConflict = false
+                                self.timeConflictEvent = []
+                                for eachEvent in self.eventViewModel.events {
+                                    if(eachEvent.location!.building == self.building && eachEvent.location!.roomID == room){
+                                        if(eachEvent.startTime! <= startTime && startTime <= eachEvent.endTime!){
+                                            checkTimeConflict = true
+                                            self.timeConflictEvent.append(eachEvent)
+                                        }
+                                        if(eachEvent.startTime! > startTime && eachEvent.startTime! < endTime){
+                                            checkTimeConflict = true
+                                            self.timeConflictEvent.append(eachEvent)
+                                        }
+                                    }
+                                }
+                            })
                             .pickerStyle(DefaultPickerStyle())
                             .onAppear() {
                                 self.getRooms()
                             }
                             
+                            
                         }
                         
                         // time section
                         Section(header: Text("Time")) {
-                            
-                            DatePicker("Start Time", selection: $startTime, in: tempTime...).padding(.horizontal).datePickerStyle(CompactDatePickerStyle())
-                            
-                            DatePicker("End Time", selection: $endTime, in: startTime..., displayedComponents: .hourAndMinute).padding(.horizontal)
+                            DatePicker("Start Time", selection: $startTime, in: tempTime...).padding(.horizontal).datePickerStyle(CompactDatePickerStyle()).onChange(of: startTime) { (value) in
+                                self.checkTimeConflict = false
+                                self.timeConflictEvent = []
+                                if(self.building != "" && self.room != ""){
+                                    for eachEvent in self.eventViewModel.events {
+                                        if(eachEvent.location!.building == self.building && eachEvent.location!.roomID == room){
+                                            if(eachEvent.startTime! <= startTime && startTime <= eachEvent.endTime!){
+                                                checkTimeConflict = true
+                                                self.timeConflictEvent.append(eachEvent)
+                                            }
+                                            if(eachEvent.startTime! > startTime && eachEvent.startTime! < value){
+                                                checkTimeConflict = true
+                                                self.timeConflictEvent.append(eachEvent)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            DatePicker("End Time", selection: $endTime, in: startTime..., displayedComponents: .hourAndMinute).padding(.horizontal).onChange(of: endTime) { (value) in
+                                //if sponsor already select the location
+                                //reset the boolean as its initial value before we do comparison
+                                self.checkTimeConflict = false
+                                self.timeConflictEvent = []
+                                if(self.building != "" && self.room != ""){
+                                    for eachEvent in self.eventViewModel.events {
+                                        if(eachEvent.location!.building == self.building && eachEvent.location!.roomID == room){
+                                            if(eachEvent.startTime! <= startTime && startTime <= eachEvent.endTime!){
+                                                checkTimeConflict = true
+                                                self.timeConflictEvent.append(eachEvent)
+                                            }
+                                            if(eachEvent.startTime! > startTime && eachEvent.startTime! < value){
+                                                checkTimeConflict = true
+                                                self.timeConflictEvent.append(eachEvent)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            if(checkTimeConflict){
+                                
+                                ScrollView{
+                                    LazyVStack{
+                                        HStack {
+                                            Image(systemName: "exclamationmark.circle.fill")
+                                            Text("Time conflict with existing events in the room: ")
+                                        }.padding().background(Color(.red)).foregroundColor(.white).cornerRadius(25)
+                                        ForEach(self.timeConflictEvent){ eve in
+                                            HStack{
+                                                Text("\(eve.eventName!)").fontWeight(.bold).foregroundColor(.red)
+                                                Spacer()
+                                                Text("\(convertDateToTime(theDate: eve.startTime!)) ~ \(convertDateToTime(theDate: eve.endTime!))").fontWeight(.bold).foregroundColor(.red)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                             
                         }
                         
@@ -165,7 +234,7 @@ struct AddEventView: View {
                                         startTime == tempTime ||
                                         endTime == tempTime ||
                                         endTime < startTime ||
-                                        guests.isEmpty
+                                        guests.isEmpty || checkTimeConflict
                         )
                         
                     ).navigationTitle("Create Event")
@@ -345,6 +414,12 @@ struct AddEventView: View {
             self.buildings.append(building.building)
         }
         self.buildings = self.buildings.sorted()
+    }
+    
+    func convertDateToTime(theDate: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return (formatter.string(from: theDate))
     }
     
 }

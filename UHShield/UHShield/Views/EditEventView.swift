@@ -66,9 +66,9 @@ struct EditEventView: View {
                             Picker(selection: $building, label: Text("Building:")) {
                                 ForEach(self.buildingViewModel.buildings) { building in
                                     Text(building.building).tag(building.building)
-                                        .onTapGesture{
-                                            self.roomID = ""
-                                        }
+                                }
+                                .onChange(of: building) { _ in
+                                    self.roomID = ""
                                 }
                             }
                             .pickerStyle(DefaultPickerStyle())

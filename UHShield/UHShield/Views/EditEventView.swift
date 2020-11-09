@@ -40,7 +40,7 @@ struct EditEventView: View {
     let filter = CIFilter.qrCodeGenerator()
     @State var result: Result<MFMailComposeResult, Error>? = nil
     @State var result2: Result<MFMailComposeResult, Error>? = nil
-   // @State var resArr: [Result<MFMailComposeResult, Error>?] = []
+    // @State var resArr: [Result<MFMailComposeResult, Error>?] = []
     @State var indexResArr = 0
     @State var theNum:[Int] = []
     @State var theNum2 = 0
@@ -205,10 +205,10 @@ struct EditEventView: View {
                                         Text("")
                                         ForEach(guests.indices) { index in
                                             HStack{
-                                            Text("\(guests[index].email!)")
-                                            if(self.newGuests.contains(guests[index])){
-                                            Image(systemName: "person.crop.circle.fill.badge.plus").foregroundColor(Color("bg1"))
-                                            }
+                                                Text("\(guests[index].email!)")
+                                                if(self.newGuests.contains(guests[index])){
+                                                    Image(systemName: "person.crop.circle.fill.badge.plus").foregroundColor(Color("bg1"))
+                                                }
                                             }
                                             if(theNum[index] == 2){
                                                 HStack {
@@ -218,17 +218,17 @@ struct EditEventView: View {
                                                 }.padding().background(Color("button1")).foregroundColor(.white).cornerRadius(25)
                                             } else {
                                                 
-                                            Button(action: {
-                                                handleSendButton(guest: guests[index], index: index)
-                                                
-                                            }, label: {
-                                                HStack {
-                                                    Image(systemName: "paperplane")
-                                                    Text("Send")
+                                                Button(action: {
+                                                    handleSendButton(guest: guests[index], index: index)
                                                     
-                                                }.padding().background(Color("bg1")).foregroundColor(.white).cornerRadius(25)
-                                            })
-                    
+                                                }, label: {
+                                                    HStack {
+                                                        Image(systemName: "paperplane")
+                                                        Text("Send")
+                                                        
+                                                    }.padding().background(Color("bg1")).foregroundColor(.white).cornerRadius(25)
+                                                })
+                                                
                                                 
                                             }
                                         }
@@ -246,16 +246,16 @@ struct EditEventView: View {
                                                 
                                             }.padding().background(Color("button1")).foregroundColor(.white).cornerRadius(25)
                                         }else{
-                                        Button(action: {
-                                            handleGroupSendButton()
-                                            
-                                        }, label: {
-                                            HStack {
-                                                Image(systemName: "paperplane")
-                                                Text("Group Send")
+                                            Button(action: {
+                                                handleGroupSendButton()
                                                 
-                                            }.padding().background(Color("bg1")).foregroundColor(.white).cornerRadius(25)
-                                        })
+                                            }, label: {
+                                                HStack {
+                                                    Image(systemName: "paperplane")
+                                                    Text("Group Send")
+                                                    
+                                                }.padding().background(Color("bg1")).foregroundColor(.white).cornerRadius(25)
+                                            })
                                         }
                                     }
                                 }
@@ -294,7 +294,17 @@ struct EditEventView: View {
                 if !isShowingSendView {
                     Text("Save").font(.system(size: 20))
                 }
-            }))
+            }).disabled(
+                eventName == "" ||
+                    building == "" ||
+                    roomID == "" ||
+                    startTime == tempTime ||
+                    endTime == tempTime ||
+                    endTime < startTime ||
+                    guests.isEmpty
+            )
+            
+            )
             .navigationTitle("Edit Event")
             
             

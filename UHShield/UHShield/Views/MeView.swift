@@ -13,7 +13,7 @@ import FirebaseFirestoreSwift
 struct MeView: View {
     @EnvironmentObject var session: SessionStore
     @EnvironmentObject var profileVM : ProfileViewModel
-    @EnvironmentObject var locationsVM: LocationsViewModel
+    @EnvironmentObject var buildingVM: BuildingViewModel
     @State var profile = Profile(email: "", firstName: "User", lastName: "User", role: "guest")
     
     func getCurrentUserProfile(){
@@ -50,7 +50,7 @@ struct MeView: View {
                             
                             if profile.role == "reception" {
                                 // leave for other buttons
-                                NavigationLink(destination: EditWorkplaceView(profile: $profile).environmentObject(locationsVM)) {
+                                NavigationLink(destination: EditWorkplaceView(profile: $profile).environmentObject(buildingVM)) {
                                     Text("Change Workplace")
                                         .frame(minWidth: 0, maxWidth: .infinity)
                                         .frame(height: 50)

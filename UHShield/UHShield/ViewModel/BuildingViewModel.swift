@@ -9,26 +9,26 @@ import Foundation
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
-class LocationsViewModel: ObservableObject {
+class BuildingViewModel: ObservableObject {
     
-    @Published var location = [Locations]()
+    @Published var buildings = [Building]()
     
     private var db = Firestore.firestore()
     
     //fetching data for all badge
     func fetchData() {
-        db.collection("Locations").addSnapshotListener { (querySnapshot, error) in
+        db.collection("Buildings").addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
                 print("No documents")
                 return
             }
             
-            self.location = documents.compactMap { (queryDocumentSnapshot) -> Locations? in
-                return try? queryDocumentSnapshot.data(as: Locations.self)
+            self.buildings = documents.compactMap { (queryDocumentSnapshot) -> Building? in
+                return try? queryDocumentSnapshot.data(as: Building.self)
                 
             }
-            print(self.location)
-            print("Done for fetching location data")
+            print(self.buildings)
+            print("Done for fetching building data")
             
         }
     }

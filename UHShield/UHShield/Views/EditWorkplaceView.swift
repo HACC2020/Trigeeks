@@ -11,20 +11,20 @@ import Firebase
 
 struct EditWorkplaceView: View {
     @EnvironmentObject var session: SessionStore
-    @EnvironmentObject var locationsVM: LocationsViewModel
+    @EnvironmentObject var buildingVM: BuildingViewModel
     @Binding var profile: Profile
     @State var building: String = ""
     @State private var showPopUp = false
-    @State private var buildings: [String] = []
     
-    func getBuildings() {
-        for location in locationsVM.location {
-            if location.building != nil && !buildings.contains(location.building!) {
-                buildings.append(location.building!)
-            }
-        }
-        print(buildings)
-    }
+//    @State private var buildings: [String] = []
+//    func getBuildings() {
+//        for building in buildingVM.location {
+//            if location.building != nil && !buildings.contains(location.building!) {
+//                buildings.append(location.building!)
+//            }
+//        }
+//        print(buildings)
+//    }
     
     func editWorkplace(){
         let db = Firestore.firestore()
@@ -49,8 +49,8 @@ struct EditWorkplaceView: View {
                     VStack(spacing: 18) {
                         
                         Picker(selection: $building, label: Text("Zeige Deteils")) {
-                            ForEach(self.buildings, id: \.self) { building in
-                                    Text(building).tag(building)
+                            ForEach(self.buildingVM.buildings) { building in
+                                Text(building.building).tag(building.building)
     
                             }
                         }
@@ -78,7 +78,7 @@ struct EditWorkplaceView: View {
                 }
                 .onAppear(){
                     print("The profile passed to edit view is: \(profile)")
-                    self.getBuildings()
+//                    self.getBuildings()
                 }
                 .padding(.horizontal, 32)
                 

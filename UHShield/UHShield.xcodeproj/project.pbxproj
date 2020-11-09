@@ -19,8 +19,8 @@
 		39410B24255109ED00DEF4CB /* UpcomingEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */; };
 		39410B292551243300DEF4CB /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B282551243300DEF4CB /* MeView.swift */; };
 		39410B2C255126AB00DEF4CB /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39410B2B255126AB00DEF4CB /* EditProfileView.swift */; };
-		39845BA42557C0E300AF2A2C /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39845BA32557C0E300AF2A2C /* Locations.swift */; };
-		39845BA72557C16500AF2A2C /* LocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39845BA62557C16500AF2A2C /* LocationsViewModel.swift */; };
+		39845BA42557C0E300AF2A2C /* Building.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39845BA32557C0E300AF2A2C /* Building.swift */; };
+		39845BA72557C16500AF2A2C /* BuildingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39845BA62557C16500AF2A2C /* BuildingViewModel.swift */; };
 		39845BAC2557DE8F00AF2A2C /* EditWorkplaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39845BAB2557DE8F00AF2A2C /* EditWorkplaceView.swift */; };
 		453CF8E525511E8C004BBA40 /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E425511E8C004BBA40 /* CheckInView.swift */; };
 		453CF8E825515B5B004BBA40 /* AddBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453CF8E725515B5A004BBA40 /* AddBadgeView.swift */; };
@@ -62,8 +62,8 @@
 		39410B23255109ED00DEF4CB /* UpcomingEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsView.swift; sourceTree = "<group>"; };
 		39410B282551243300DEF4CB /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		39410B2B255126AB00DEF4CB /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
-		39845BA32557C0E300AF2A2C /* Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
-		39845BA62557C16500AF2A2C /* LocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsViewModel.swift; sourceTree = "<group>"; };
+		39845BA32557C0E300AF2A2C /* Building.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Building.swift; sourceTree = "<group>"; };
+		39845BA62557C16500AF2A2C /* BuildingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingViewModel.swift; sourceTree = "<group>"; };
 		39845BAB2557DE8F00AF2A2C /* EditWorkplaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkplaceView.swift; sourceTree = "<group>"; };
 		430F3808FC1F511B4A751145 /* Pods-UHShield.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UHShield.release.xcconfig"; path = "Target Support Files/Pods-UHShield/Pods-UHShield.release.xcconfig"; sourceTree = "<group>"; };
 		453CF8E425511E8C004BBA40 /* CheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInView.swift; sourceTree = "<group>"; };
@@ -217,7 +217,7 @@
 				901C8B16254E8A04005B147B /* Badge.swift */,
 				4567D171254EA04A00C9DBCB /* Event.swift */,
 				90DDD7A02551651F00A0DDF0 /* Profile.swift */,
-				39845BA32557C0E300AF2A2C /* Locations.swift */,
+				39845BA32557C0E300AF2A2C /* Building.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -228,7 +228,7 @@
 				901C8B34254E90BC005B147B /* BadgeViewModel.swift */,
 				4567D174254EA43100C9DBCB /* EventViewModel.swift */,
 				90DDD7A3255169DE00A0DDF0 /* ProfileViewModel.swift */,
-				39845BA62557C16500AF2A2C /* LocationsViewModel.swift */,
+				39845BA62557C16500AF2A2C /* BuildingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -375,13 +375,13 @@
 				45553062255578910042BA20 /* MyEventDetailView.swift in Sources */,
 				45B8C62F254A8774003A8511 /* Modifiers.swift in Sources */,
 				4590CC0E2548ECB60096C728 /* ContentView.swift in Sources */,
-				39845BA42557C0E300AF2A2C /* Locations.swift in Sources */,
+				39845BA42557C0E300AF2A2C /* Building.swift in Sources */,
 				90DDD7A12551651F00A0DDF0 /* Profile.swift in Sources */,
 				39410AE6254E871700DEF4CB /* MyEventsView.swift in Sources */,
 				39410B24255109ED00DEF4CB /* UpcomingEventsView.swift in Sources */,
 				39410AEE254E8A3B00DEF4CB /* UserView.swift in Sources */,
 				4567D172254EA04A00C9DBCB /* Event.swift in Sources */,
-				39845BA72557C16500AF2A2C /* LocationsViewModel.swift in Sources */,
+				39845BA72557C16500AF2A2C /* BuildingViewModel.swift in Sources */,
 				39410B292551243300DEF4CB /* MeView.swift in Sources */,
 				39410AE9254E882A00DEF4CB /* EditEventView.swift in Sources */,
 				4567D175254EA43100C9DBCB /* EventViewModel.swift in Sources */,

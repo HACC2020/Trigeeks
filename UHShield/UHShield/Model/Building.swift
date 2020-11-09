@@ -9,16 +9,16 @@ import Foundation
 import Firebase
 import FirebaseFirestoreSwift
 
-struct Locations: Codable, Identifiable, Hashable {
+struct Building: Codable, Identifiable, Hashable {
     
     @DocumentID var id: String? = UUID().uuidString
-    var roomID: String?
-    var building: String?
+    var rooms: [String]
+    var building: String
     
     enum CodingKeys: String, CodingKey{
         
         case id
-        case roomID
+        case rooms
         case building
     }
 }

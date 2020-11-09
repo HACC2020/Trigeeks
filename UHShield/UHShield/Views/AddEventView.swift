@@ -69,7 +69,6 @@ struct AddEventView: View {
                                     Text(building.building).tag(building.building)
                                         .onTapGesture{
                                             self.room = ""
-                                            self.getRooms()
                                         }
                                 }
                             }
@@ -81,6 +80,9 @@ struct AddEventView: View {
                                 }
                             }
                             .pickerStyle(DefaultPickerStyle())
+                            .onAppear() {
+                                self.getRooms()
+                            }
                             
                         }
                         

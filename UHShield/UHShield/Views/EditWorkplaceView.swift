@@ -48,7 +48,7 @@ struct EditWorkplaceView: View {
                     
                     VStack(spacing: 18) {
                         
-                        Picker(selection: $building, label: Text("Zeige Deteils")) {
+                        Picker(selection: $building, label: Text("Buildings")) {
                             ForEach(self.buildingVM.buildings) { building in
                                 Text(building.building).tag(building.building)
     

@@ -15,6 +15,7 @@ struct EditEventView: View {
     @Environment(\.presentationMode) var presentationMode
     @StateObject var eventViewModel = EventViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
+    @StateObject var buildingViewModel = BuildingViewModel()
     @Binding var event: Event
     @State var isShowAlert =  false
     @State var isOpenGuestTextField =  false
@@ -61,12 +62,25 @@ struct EditEventView: View {
                         // Location section
                         Section(header: Text("Location")) {
                             
-                            TextField("Building:", text: $building)
-                                .textContentType(.location)
-                                .padding(.horizontal).disableAutocorrection(true)
-                            TextField("Room:", text: $roomID)
-                                //.keyboardType(.decimalPad)
-                                .padding(.horizontal).disableAutocorrection(true)
+                            Picker(selection: $building, label: Text("Building: \(self.building)")) {
+                                ForEach(self.buildingViewModel.buildings) { building in
+                                    Text(building.building).tag(building.building)
+                                }
+                            }.pickerStyle(MenuPickerStyle())
+                            .onTapGesture{
+                                self.roomID = ""
+                            }
+                            
+                            Picker(selection: $roomID, label: Text("Room: \(self.roomID)")) {
+                                ForEach(self.buildingViewModel.buildings.filter({ (building) -> Bool  in
+                                    building.building == self.building
+                                })) { building in
+                                    ForEach(building.rooms, id: \.self){ room in
+                                        Text(room).tag(room)
+                                    }
+                                }
+                            }.pickerStyle(MenuPickerStyle())
+                            
                         }
                         
                         // time section
@@ -286,6 +300,7 @@ struct EditEventView: View {
             
         }.onAppear {
             getEventInformation()
+            buildingViewModel.fetchData()
         }
     }
     

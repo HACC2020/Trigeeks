@@ -67,7 +67,11 @@ struct AddEventView: View {
                                 ForEach(self.buildingViewModel.buildings) { building in
                                     Text(building.building).tag(building.building)
                                 }
-                            }.pickerStyle(MenuPickerStyle())
+                            }
+                            .pickerStyle(MenuPickerStyle())
+                            .onTapGesture {
+                                self.room = ""
+                            }
                             
                             Picker(selection: $room, label: Text("Room: \(self.room)")) {
                                 ForEach(self.buildingViewModel.buildings.filter({ (building) -> Bool  in
@@ -77,7 +81,8 @@ struct AddEventView: View {
                                         Text(room).tag(room)
                                     }
                                 }
-                            }.pickerStyle(MenuPickerStyle())
+                            }
+                            .pickerStyle(MenuPickerStyle())
                             
                         }
                         

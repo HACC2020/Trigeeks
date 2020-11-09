@@ -27,6 +27,7 @@ struct EditEventView: View {
     @State private var guests: [Guest] = []
     @State private var building = ""
     @State private var roomID = ""
+    @State private var rooms: [String] = []
     @State private var date = Date()
     @State private var startTime = Date()
     @State private var endTime = Date()
@@ -72,14 +73,14 @@ struct EditEventView: View {
                             }
                             
                             Picker(selection: $roomID, label: Text("Room:")) {
-                                ForEach(self.buildingViewModel.buildings.filter({ (building) -> Bool  in
-                                    building.building == self.building
-                                })) { building in
-                                    ForEach(building.rooms, id: \.self){ room in
-                                        Text(room).tag(room)
-                                    }
+                                ForEach(self.rooms, id:\.self) { room in
+                                    Text(room).tag(room)
                                 }
-                            }.pickerStyle(DefaultPickerStyle())
+                            }
+                            .pickerStyle(DefaultPickerStyle())
+                            .onAppear() {
+                                self.getRooms()
+                            }
                             
                         }
                         
@@ -451,6 +452,19 @@ struct EditEventView: View {
         let userEmail : String = (Auth.auth().currentUser?.email)!
         return userEmail
     }
+    
+    func getRooms() {
+        self.rooms = []
+        for building in buildingViewModel.buildings {
+            if building.building == self.building {
+                for room in building.rooms {
+                    self.rooms.append(room)
+                }
+            }
+        }
+        self.rooms = self.rooms.sorted()
+    }
+    
 }
 
 struct EditEventView_Previews: PreviewProvider {

@@ -370,7 +370,8 @@ struct EditEventView: View {
                     startTime == tempTime ||
                     endTime == tempTime ||
                     endTime < startTime ||
-                    guests.isEmpty || checkTimeConflict
+                    guests.isEmpty || checkTimeConflict || (event.eventName == eventName && event.location!.building == building && event.location!.roomID == roomID && event.startTime == startTime && event.endTime == endTime && event.guests == guests)
+                
             )
             )
             .navigationTitle("Edit Event")

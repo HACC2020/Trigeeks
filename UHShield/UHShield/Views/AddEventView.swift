@@ -16,7 +16,7 @@ import FirebaseFirestoreSwift
 struct AddEventView: View {
     @StateObject var eventViewModel = EventViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
-    @StateObject var buildingViewModel = BuildingViewModel()
+    @EnvironmentObject var buildingViewModel: BuildingViewModel
     
     @State var isOpenGuestTextField =  false
     @State var guestEmail: String = ""
@@ -31,6 +31,7 @@ struct AddEventView: View {
     @State private var sponsor = ""
     @State private var guests: [Guest] = []
     @State private var building = ""
+    @State private var buildings: [String] = []
     @State private var room = ""
     @State private var rooms: [String] = []
     @State private var date = Date()
@@ -65,11 +66,14 @@ struct AddEventView: View {
                         Section(header: Text("Location")) {
                             
                             Picker(selection: $building, label: Text("Building:")) {
-                                ForEach(self.buildingViewModel.buildings) { building in
-                                    Text(building.building).tag(building.building)
+                                ForEach(self.buildings, id:\.self) { building in
+                                    Text(building).tag(building)
                                 }
                             }
                             .pickerStyle(DefaultPickerStyle())
+                            .onAppear() {
+                                self.getBuildings()
+                            }
                             .onChange(of: building) { _ in
                                 self.room = ""
                             }
@@ -333,6 +337,14 @@ struct AddEventView: View {
             }
         }
         self.rooms = self.rooms.sorted()
+    }
+    
+    func getBuildings() {
+        self.buildings = []
+        for building in buildingViewModel.buildings {
+            self.buildings.append(building.building)
+        }
+        self.buildings = self.buildings.sorted()
     }
     
 }

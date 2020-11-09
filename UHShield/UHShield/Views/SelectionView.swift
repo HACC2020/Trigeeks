@@ -10,6 +10,7 @@ import FirebaseAuth
 
 struct SelectionView: View {
     @EnvironmentObject var session: SessionStore
+    @StateObject var buildingViewModel = BuildingViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
     @State var selection: Int = 0
     var body: some View {
@@ -23,11 +24,12 @@ struct SelectionView: View {
                     // change to QR code scanner view
                     ScannerLayoutView(selection: $selection)
                 } else if selection == 21 {
-                    AddEventView(selection: $selection).transition(.slide)
+                    AddEventView(selection: $selection).transition(.slide).environmentObject(buildingViewModel)
                 }
             }
         }.onAppear {
             profileViewModel.fetchData()
+            buildingViewModel.fetchData()
         }
     }
 }

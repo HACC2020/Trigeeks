@@ -26,6 +26,7 @@ struct EditEventView: View {
     @State private var eventName = ""
     @State private var guests: [Guest] = []
     @State private var building = ""
+    @State private var buildings: [String] = []
     @State private var roomID = ""
     @State private var rooms: [String] = []
     @State private var date = Date()
@@ -67,11 +68,14 @@ struct EditEventView: View {
                                 ForEach(self.buildingViewModel.buildings) { building in
                                     Text(building.building).tag(building.building)
                                 }
-                                .onChange(of: building) { _ in
-                                    self.roomID = ""
-                                }
                             }
                             .pickerStyle(DefaultPickerStyle())
+                            .onAppear() {
+                                self.getBuildings()
+                            }
+                            .onChange(of: building) { _ in
+                                self.roomID = ""
+                            }
                             
                             Picker(selection: $roomID, label: Text("Room:")) {
                                 ForEach(self.rooms, id:\.self) { room in
@@ -463,6 +467,14 @@ struct EditEventView: View {
             }
         }
         self.rooms = self.rooms.sorted()
+    }
+    
+    func getBuildings() {
+        self.buildings = []
+        for building in buildingViewModel.buildings {
+            self.buildings.append(building.building)
+        }
+        self.buildings = self.buildings.sorted()
     }
     
 }

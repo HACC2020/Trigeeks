@@ -62,16 +62,16 @@ struct EditEventView: View {
                         // Location section
                         Section(header: Text("Location")) {
                             
-                            Picker(selection: $building, label: Text("Building: \(self.building)")) {
+                            Picker(selection: $building, label: Text("Building:")) {
                                 ForEach(self.buildingViewModel.buildings) { building in
                                     Text(building.building).tag(building.building)
                                 }
-                            }.pickerStyle(MenuPickerStyle())
+                            }.pickerStyle(DefaultPickerStyle())
                             .onTapGesture{
                                 self.roomID = ""
                             }
                             
-                            Picker(selection: $roomID, label: Text("Room: \(self.roomID)")) {
+                            Picker(selection: $roomID, label: Text("Room:")) {
                                 ForEach(self.buildingViewModel.buildings.filter({ (building) -> Bool  in
                                     building.building == self.building
                                 })) { building in
@@ -79,7 +79,7 @@ struct EditEventView: View {
                                         Text(room).tag(room)
                                     }
                                 }
-                            }.pickerStyle(MenuPickerStyle())
+                            }.pickerStyle(DefaultPickerStyle())
                             
                         }
                         

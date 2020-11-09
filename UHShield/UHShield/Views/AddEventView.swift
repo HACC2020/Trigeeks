@@ -32,6 +32,7 @@ struct AddEventView: View {
     @State private var guests: [Guest] = []
     @State private var building = ""
     @State private var room = ""
+    @State private var rooms: [String] = []
     @State private var date = Date()
     @State private var startTime = Date()
     @State private var endTime = Date()
@@ -66,20 +67,17 @@ struct AddEventView: View {
                             Picker(selection: $building, label: Text("Building:")) {
                                 ForEach(self.buildingViewModel.buildings) { building in
                                     Text(building.building).tag(building.building)
+                                        .onTapGesture{
+                                            self.room = ""
+                                            self.getRooms()
+                                        }
                                 }
                             }
                             .pickerStyle(DefaultPickerStyle())
-                            .onTapGesture {
-                                self.room = ""
-                            }
                             
                             Picker(selection: $room, label: Text("Room:")) {
-                                ForEach(self.buildingViewModel.buildings.filter({ (building) -> Bool  in
-                                    building.building == self.building
-                                })) { building in
-                                    ForEach(building.rooms, id: \.self){ room in
-                                        Text(room).tag(room)
-                                    }
+                                ForEach(self.rooms, id:\.self) { room in
+                                    Text(room).tag(room)
                                 }
                             }
                             .pickerStyle(DefaultPickerStyle())
@@ -323,6 +321,17 @@ struct AddEventView: View {
         return event.sponsor!
     }
     
+    func getRooms() {
+        self.rooms = []
+        for building in buildingViewModel.buildings {
+            if building.building == self.building {
+                for room in building.rooms {
+                    self.rooms.append(room)
+                }
+            }
+        }
+        self.rooms = rooms.sorted()
+    }
     
 }
 

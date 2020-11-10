@@ -29,62 +29,62 @@ struct CheckInView: View {
                         HStack {
                             Text("Guest Information").fontWeight(.bold).font(.title)
                             Spacer()
-                        }
+                        }.padding()
                         HStack {
-                            Text("Name:       ")
-                            Text("\(details[1])").font(.title3)
+                            Text("Name:").frame(width: 90, alignment: .leading)
+                            Text("\(details[1])").font(.headline)
                             Spacer()
                         }
                         HStack {
-                            Text("Email:         ")
-                            Text("\(details[2])").font(.title3)
+                            Text("Email:").frame(width: 90, alignment: .leading)
+                            Text("\(details[2])").font(.headline)
                             Spacer()
                         }
                         HStack {
-                            Text("Event:        ")
-                            Text("\(event.eventName!)").font(.title3)
+                            Text("Event:").frame(width: 90, alignment: .leading)
+                            Text("\(event.eventName!)").font(.headline)
                             Spacer()
                         }
                         HStack {
-                            Text("Sponsor:    ")
-                            Text("\(getSponsorName())").font(.title3)
+                            Text("Sponsor:").frame(width: 90, alignment: .leading)
+                            Text("\(getSponsorName())").font(.headline)
                             Spacer()
                         }
                         HStack {
-                            Text("Date:          ")
-                            Text("\(event.startTime!, style: .date)").font(.title3)
+                            Text("Date:").frame(width: 90, alignment: .leading)
+                            Text("\(event.startTime!, style: .date)").font(.headline)
                             Spacer()
                         }
                         HStack {
-                            Text("Start Time:")
-                            Text("\(event.startTime!, style: .time)").font(.title3)
+                            Text("Start Time:").frame(width: 90, alignment: .leading)
+                            Text("\(event.startTime!, style: .time)").font(.headline)
                             Spacer()
                         }
                         HStack {
-                            Text("End Time:  ")
-                            Text("\(event.endTime!, style: .time)").font(.title3)
+                            Text("End Time:").frame(width: 90, alignment: .leading)
+                            Text("\(event.endTime!, style: .time)").font(.headline)
                             Spacer()
                         }
                         HStack {
-                            Text("Location:    ")
-                            Text("\(event.location!.building) \(event.location!.roomID)").font(.title3)
+                            Text("Location:").frame(width: 90, alignment: .leading)
+                            Text("\(event.location!.building) \(event.location!.roomID)").font(.headline)
                             Spacer()
                         }
                         HStack {
                             Button(action: {handleConfirmButton()}, label: {
-                                Text("Confirm").font(.title3).fontWeight(.semibold).foregroundColor(.white)
+                                Text("Confirm").font(.headline).fontWeight(.semibold).foregroundColor(.white)
                             }).padding().buttonStyle(LongButtonStyle())
                             
                             Button(action: {handleCloseButton()}, label: {
-                                Text("Deny").font(.title3).fontWeight(.semibold).foregroundColor(.white)
+                                Text("Cancel").font(.headline).fontWeight(.semibold).foregroundColor(.white)
                             }).padding().buttonStyle(RedLongButtonStyle())
                         }
                     }
                     .padding()
                     .background(
                         RoundedRectangle(cornerRadius: 25).foregroundColor(Color(#colorLiteral(red: 0.8864660859, green: 0.8863860965, blue: 0.9189570546, alpha: 1)))
-                            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 8, y: 10)
-                            .shadow(color: Color.white.opacity(0.7), radius: 10, x: -10, y: -10)
+                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 4, y: 5)
+                            .shadow(color: Color.white.opacity(0.7), radius: 5, x: -5, y: -5)
                     ).padding(30)
                     .onAppear {
                         getEvent()

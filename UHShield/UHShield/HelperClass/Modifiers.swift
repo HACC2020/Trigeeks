@@ -87,8 +87,8 @@ struct LongButtonStyle: ButtonStyle {
                         .shadow(color: Color.white.opacity(0.7), radius: 10, x: 5, y: 5)
                     } else {
                         RoundedRectangle(cornerRadius: 15).foregroundColor(buttonColor)
-                            .shadow(color: Color(#colorLiteral(red: 0.4459395409, green: 0.4322124422, blue: 0.4563130736, alpha: 1)), radius: 5, x: 5, y: 8)
-                            .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+                            .shadow(color: Color(#colorLiteral(red: 0.4459395409, green: 0.4322124422, blue: 0.4563130736, alpha: 1)), radius: 3, x: 2, y: 3)
+                            .shadow(color: Color.white.opacity(0.7), radius: 5, x: -2, y: -2)
                     }
                 }
             )
@@ -109,8 +109,8 @@ struct RedLongButtonStyle: ButtonStyle {
                         .shadow(color: Color.white.opacity(0.7), radius: 10, x: 5, y: 5)
                     } else {
                         RoundedRectangle(cornerRadius: 15).foregroundColor(buttonColor)
-                            .shadow(color: Color(#colorLiteral(red: 0.4459395409, green: 0.4322124422, blue: 0.4563130736, alpha: 1)), radius: 5, x: 5, y: 8)
-                            .shadow(color: Color.white.opacity(0.7), radius: 10, x: -5, y: -5)
+                            .shadow(color: Color(#colorLiteral(red: 0.4459395409, green: 0.4322124422, blue: 0.4563130736, alpha: 1)), radius: 3, x: 2, y: 3)
+                            .shadow(color: Color.white.opacity(0.7), radius: 5, x: -2, y: -2)
                     }
                 }
             )

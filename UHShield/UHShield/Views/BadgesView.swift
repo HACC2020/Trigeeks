@@ -33,7 +33,7 @@ struct BadgesView: View {
                             }
                         }.padding()
                         
-                        if self.badges.badges.count == 0 || self.badges.badges.filter{$0.building! == getProfileBuilding()}.count == 0 {
+                        if self.badges.badges.filter{$0.building! == getProfileBuilding()}.count == 0 {
                             // if no event
                             Spacer()
                             Text("There is no assigned badges right now in your workplace!")

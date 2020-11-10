@@ -80,7 +80,7 @@ struct SearchView: View {
                                     }) { event in
                                         EventRowView(event: event).onTapGesture {
                                             if checkIsReception() {
-                                                if Calendar.current.isDate(event.startTime!, inSameDayAs:Date()) && event.endTime! > Date() {
+                                                if Calendar.current.isDate(event.startTime!, inSameDayAs:Date()) && event.endTime! > Date() && event.location!.building == getProfileBuilding(){
                                                     self.showGuestList = true
                                                     self.tappedEvent = event
                                                 } else {
@@ -106,7 +106,7 @@ struct SearchView: View {
                                     }) { event in
                                         EventRowView(event: event).onTapGesture {
                                             if checkIsReception() {
-                                                if Calendar.current.isDate(event.startTime!, inSameDayAs:Date()) && event.endTime! > Date() {
+                                                if Calendar.current.isDate(event.startTime!, inSameDayAs:Date()) && event.endTime! > Date() && event.location!.building == getProfileBuilding(){
                                                     self.showGuestList = true
                                                     self.tappedEvent = event
                                                 } else {
@@ -132,7 +132,7 @@ struct SearchView: View {
                                     }) { event in
                                         EventRowView(event: event).onTapGesture {
                                             if checkIsReception() {
-                                                if Calendar.current.isDate(event.startTime!, inSameDayAs:Date()) && event.endTime! > Date() {
+                                                if Calendar.current.isDate(event.startTime!, inSameDayAs:Date()) && event.endTime! > Date() && event.location!.building == getProfileBuilding(){
                                                     self.showGuestList = true
                                                     self.tappedEvent = event
                                                 } else {
@@ -178,7 +178,7 @@ struct SearchView: View {
             }
             
             if showAlert {
-                AlertView(showAlert: $showAlert, alertMessage: .constant("You can only access TODAY's UPCOMING events!"), alertTitle: "Deny").transition(.slide)
+                AlertView(showAlert: $showAlert, alertMessage: .constant("You can only access TODAY's UPCOMING events in your workplace which is \(getProfileBuilding())!"), alertTitle: "Deny").transition(.slide)
             }
         }
     }
@@ -204,6 +204,15 @@ struct SearchView: View {
                 self.sponsors.append(profile.email)
             }
         }
+    }
+    
+    func getProfileBuilding() -> String {
+        for profile in profileViewModel.profiles {
+            if profile.email == Auth.auth().currentUser?.email {
+                return profile.building
+            }
+        }
+        return ""
     }
     
     

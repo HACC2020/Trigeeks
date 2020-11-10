@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct ScannerLayoutView: View {
+    
+    @StateObject var eventViewModel = EventViewModel()
+    
     @State var scanerLineOffset: CGFloat = 0
     @State var circleSize: CGFloat = 0
     @State var checkMarkSize: CGFloat = 0.1
@@ -52,6 +55,7 @@ struct ScannerLayoutView: View {
                     CheckInView(details: codeDetails, isShowCheckInView: $isShowCheckInView).onDisappear {selection = 0}
                 }
             }.onAppear {
+                self.eventViewModel.fetchData()
                 Timer.scheduledTimer(withTimeInterval: 1.8, repeats: true) { _ in
                     self.scanerLineOffset = 0
                     withAnimation(.linear(duration: 1.8)) {
@@ -88,6 +92,12 @@ struct ScannerLayoutView: View {
             })
             let details = code.components(separatedBy: "\n")
             codeDetails = details
+            for event in eventViewModel.events {
+                if event.id == codeDetails[0] {
+                    codeDetails.append(event.location?.building ?? "Unknown")
+                }
+            }
+           
         case .failure(let error):
             print(error)
             selection = 0

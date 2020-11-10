@@ -68,9 +68,8 @@ struct SearchView: View {
                                     }
                                     ForEach(self.eventViewModel.events.filter{$0.eventName!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Event, rhs:Event) in
                                         return lhs.startTime! > rhs.startTime!
-                                    }.sorted {
-                                        (lhs:Event, rhs:Event) in
-                                        return lhs.endTime! > self.currentTime
+                                    }.sorted { (lhs:Event, rhs:Event) in
+                                        return !(Calendar.current.isDate(rhs.startTime!, inSameDayAs:Date()))
                                     }) { event in
                                         EventRowView(event: event).onTapGesture {
                                             if checkIsReception() {
@@ -95,9 +94,8 @@ struct SearchView: View {
                                     }
                                     ForEach(self.eventViewModel.events.filter{$0.sponsor!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Event, rhs:Event) in
                                         return lhs.startTime! > rhs.startTime!
-                                    }.sorted {
-                                        (lhs:Event, rhs:Event) in
-                                        return lhs.endTime! > self.currentTime
+                                    }.sorted { (lhs:Event, rhs:Event) in
+                                        return !(Calendar.current.isDate(rhs.startTime!, inSameDayAs:Date()))
                                     }) { event in
                                         EventRowView(event: event).onTapGesture {
                                             if checkIsReception() {
@@ -122,9 +120,8 @@ struct SearchView: View {
                                     }
                                     ForEach(self.eventViewModel.events.filter{$0.location!.building.localizedCaseInsensitiveContains(self.search) || $0.location!.roomID.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Event, rhs:Event) in
                                         return lhs.startTime! > rhs.startTime!
-                                    }.sorted {
-                                        (lhs:Event, rhs:Event) in
-                                        return lhs.endTime! > self.currentTime
+                                    }.sorted { (lhs:Event, rhs:Event) in
+                                        return !(Calendar.current.isDate(rhs.startTime!, inSameDayAs:Date()))
                                     }) { event in
                                         EventRowView(event: event).onTapGesture {
                                             if checkIsReception() {

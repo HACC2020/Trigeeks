@@ -24,14 +24,28 @@ struct UpcomingEventsView: View {
                     Toggle(isOn: $showEndedEvents) {
                         Text("Show ended events")
                     }.padding()
-                    ScrollView{
-                        LazyVStack{
-                            
-                            ForEach(self.eventVM.events
-                                        .filter{Calendar.current.isDate($0.startTime!, inSameDayAs:Date())}.filter{showEndedEvents ? true : $0.endTime! >= Date()}.filter{$0.location!.building == getProfileBuilding()}
-                                        .sorted {(lhs:Event, rhs:Event) in
-                                            return lhs.startTime! < rhs.startTime!
-                                        }) { event in
+                    HStack {
+                        Text("Your workplace:")
+                        Spacer()
+                        if getProfileBuilding() == "" {
+                            Text("Please go to setting and select your workplace").foregroundColor(.red)
+                        } else {
+                            Text("\(getProfileBuilding())")
+                        }
+                    }.padding(.horizontal)
+                    
+                    if self.eventVM.events
+                        .filter{Calendar.current.isDate($0.startTime!, inSameDayAs:Date())}.filter{showEndedEvents ? true : $0.endTime! >= Date()}.filter{$0.location!.building == getProfileBuilding()}.count > 0 {
+                        ScrollView{
+                            LazyVStack{
+                                
+                                
+                                
+                                ForEach(self.eventVM.events
+                                            .filter{Calendar.current.isDate($0.startTime!, inSameDayAs:Date())}.filter{showEndedEvents ? true : $0.endTime! >= Date()}.filter{$0.location!.building == getProfileBuilding()}
+                                            .sorted {(lhs:Event, rhs:Event) in
+                                                return lhs.startTime! < rhs.startTime!
+                                            }) { event in
                                     EventRowView(event: event).padding(.horizontal).onTapGesture {
                                         if event.endTime! > Date() {
                                             self.showGuestList = true
@@ -41,9 +55,15 @@ struct UpcomingEventsView: View {
                                         }
                                     }
                                     
-                                
+                                    
+                                }
                             }
                         }
+                    } else {
+                        // if no event
+                        Spacer()
+                        Text("There is no upcoming event right now in your workplace!")
+                        Spacer()
                     }
                 }.navigationBarHidden(true)
                 .background(Color.white)

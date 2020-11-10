@@ -7,10 +7,12 @@
 
 import SwiftUI
 import Foundation
+import FirebaseAuth
 
 struct UpcomingEventsView: View {
     
     @StateObject var eventVM = EventViewModel()
+    @StateObject var profileVM = ProfileViewModel()
     @State var showGuestList = false 
     @State var tappedEvent = Event()
     @State var showEndedEvents = false
@@ -26,7 +28,7 @@ struct UpcomingEventsView: View {
                         LazyVStack{
                             
                             ForEach(self.eventVM.events
-                                        .filter{Calendar.current.isDate($0.startTime!, inSameDayAs:Date())}.filter{showEndedEvents ? true : $0.endTime! >= Date()}
+                                        .filter{Calendar.current.isDate($0.startTime!, inSameDayAs:Date())}.filter{showEndedEvents ? true : $0.endTime! >= Date()}.filter{$0.location!.building == getProfileBuilding()}
                                         .sorted {(lhs:Event, rhs:Event) in
                                             return lhs.startTime! < rhs.startTime!
                                         }) { event in
@@ -47,6 +49,7 @@ struct UpcomingEventsView: View {
                 .background(Color.white)
                 .onAppear(){
                     self.eventVM.fetchData()
+                    self.profileVM.fetchData()
                     print("Fetching data in Events View")
                 }
 
@@ -61,6 +64,15 @@ struct UpcomingEventsView: View {
                 
             
         }
+    }
+    
+    func getProfileBuilding() -> String {
+        for profile in profileVM.profiles {
+            if profile.email == Auth.auth().currentUser?.email {
+                return profile.building
+            }
+        }
+        return ""
     }
 
 }

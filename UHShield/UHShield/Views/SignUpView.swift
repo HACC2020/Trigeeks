@@ -86,8 +86,13 @@ struct SignUpView: View {
                         }
                         
                         // Re-enter password field
-                        TextField("Re-Enter Password", text: $rePassword)
+                        if isVisiable {
+                            TextField("Re-Enter Password", text: $rePassword)
+                                .modifier(TextFieldModifier())
+                        } else {
+                            SecureField("Re-Enter Password", text: $rePassword)
                             .modifier(TextFieldModifier())
+                        }
                         
                     }.padding()
                     

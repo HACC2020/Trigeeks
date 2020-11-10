@@ -11,6 +11,7 @@ import FirebaseAuth
 struct SearchView: View {
     @State var search = ""
     @State var currentTime = Date()
+    @State var sponsors: [String] = []
     @StateObject var eventViewModel = EventViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
     @State var searchType = 0 // 0 for all, 1 for name, 2 for sponsor, 3 for location
@@ -50,6 +51,9 @@ struct SearchView: View {
                     }
                     
                     SearchBar(text: $search)
+                        .onChange(of: search) { _ in
+                            self.searchByName()
+                        }
                 }.padding(.horizontal)
                 ZStack {
                     List {
@@ -95,7 +99,7 @@ struct SearchView: View {
                                         Text("Search by: ")
                                         Text("sponsor").foregroundColor(.blue)
                                     }
-                                    ForEach(self.eventViewModel.events.filter{$0.sponsor!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Event, rhs:Event) in
+                                    ForEach(self.eventViewModel.events.filter{self.sponsors.contains($0.sponsor!)}.sorted {(lhs:Event, rhs:Event) in
                                         return lhs.startTime! > rhs.startTime!
                                     }.sorted { (lhs:Event, rhs:Event) in
                                         return !(Calendar.current.isDate(rhs.startTime!, inSameDayAs:Date()))
@@ -190,6 +194,16 @@ struct SearchView: View {
             }
         }
         return false
+    }
+    
+    func searchByName() {
+        
+        self.sponsors = []
+        for profile in self.profileViewModel.profiles {
+            if profile.firstName.localizedCaseInsensitiveContains(self.search) || profile.lastName.localizedCaseInsensitiveContains(self.search) {
+                self.sponsors.append(profile.email)
+            }
+        }
     }
     
     

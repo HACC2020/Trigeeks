@@ -33,7 +33,7 @@ struct BadgesView: View {
                             }
                         }.padding()
                         
-                        if self.badges.badges.filter{$0.building! == getProfileBuilding()}.count == 0 {
+                        if self.badges.badges.filter{$0.building ?? "" == getProfileBuilding()}.count == 0 {
                             // if no event
                             Spacer()
                             Text("There is no assigned badges right now in your workplace!")
@@ -41,7 +41,7 @@ struct BadgesView: View {
                         }
                         
                         ForEach(self.badges.badges
-                                    .filter{$0.building! == getProfileBuilding()}
+                                    .filter{$0.building ?? "" == getProfileBuilding()}
                                     .filter{self.search.isEmpty ? true : $0.badgeID!.localizedCaseInsensitiveContains(self.search) || $0.guestID!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Badge, rhs:Badge) in
                                         return lhs.assignedTime! > rhs.assignedTime!
                                     }) { badge in

@@ -14,7 +14,7 @@ struct MeView: View {
     @EnvironmentObject var session: SessionStore
     @EnvironmentObject var profileVM : ProfileViewModel
     @EnvironmentObject var buildingVM: BuildingViewModel
-    @State var profile = Profile(email: "", firstName: "User", lastName: "User", role: "guest")
+    @State var profile = Profile(email: "", firstName: "User", lastName: "User", role: "guest", building: "")
     
     func getCurrentUserProfile(){
         if self.session.session != nil && self.profileVM.profiles.count != 0 {

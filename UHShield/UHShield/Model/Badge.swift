@@ -15,12 +15,15 @@ struct Badge: Codable, Identifiable, Hashable {
     var guestID: String?
     var assignedTime: Date?
     var badgeID: String?
+    var building: String?
+    
     enum CodingKeys: String, CodingKey{
         
         case id
         case guestID
         case assignedTime
         case badgeID
+        case building
     }
 }
 

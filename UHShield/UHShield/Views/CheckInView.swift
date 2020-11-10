@@ -116,7 +116,7 @@ struct CheckInView: View {
             }
             
             if isShowAddBadge {
-                AddBadgeView(isShowAddBadge: $isShowAddBadge, guestName: details[1], guestEmail: details[2])
+                AddBadgeView(isShowAddBadge: $isShowAddBadge, guestName: details[1], guestEmail: details[2], building: details[3])
                     .transition(.move(edge: .bottom))
                     .animation(.linear)
                     .onDisappear {
@@ -132,7 +132,7 @@ struct CheckInView: View {
     }
     
     func checkEvent() -> Bool {
-        if details.count == 3 {
+        if details.count == 4 {
             for event in eventViewModel.events {
                 if event.id == details[0] {
                     return true

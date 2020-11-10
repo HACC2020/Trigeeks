@@ -122,7 +122,7 @@ struct GuestListView: View {
                         self.showCheckin = true
                     }
                     .fullScreenCover(isPresented: $showCheckin, content: {
-                        CheckInView(details: [event.id!, guest.name!, guest.email!], isShowCheckInView: $showCheckin)
+                        CheckInView(details: [event.id!, guest.name!, guest.email!, event.location!.building], isShowCheckInView: $showCheckin)
                     })
                     
                 }

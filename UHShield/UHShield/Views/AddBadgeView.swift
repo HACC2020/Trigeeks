@@ -13,6 +13,7 @@ struct AddBadgeView: View {
     @Binding var isShowAddBadge: Bool
     let guestName: String
     let guestEmail: String
+    let building: String
     
     @State var badgeID = ""
     @State var isShowAlert = false
@@ -88,7 +89,7 @@ struct AddBadgeView: View {
                 isShowAlert = true
             }
         } else {
-            badgeViewModel.addBadge(badge: Badge(guestID: "\(guestEmail)", assignedTime: Date(), badgeID: badgeID))
+            badgeViewModel.addBadge(badge: Badge(guestID: "\(guestEmail)", assignedTime: Date(), badgeID: badgeID, building: building))
             isShowAddBadge = false
         }
     }
@@ -96,6 +97,6 @@ struct AddBadgeView: View {
 
 struct AddBadgeView_Previews: PreviewProvider {
     static var previews: some View {
-        AddBadgeView(isShowAddBadge: .constant(true), guestName: "John", guestEmail: "john@hawaii.edu")
+        AddBadgeView(isShowAddBadge: .constant(true), guestName: "John", guestEmail: "john@hawaii.edu", building: "IT Center")
     }
 }

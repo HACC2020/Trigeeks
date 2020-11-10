@@ -7,9 +7,11 @@
 
 import SwiftUI
 import Foundation
+import FirebaseAuth
 
 struct BadgesView: View {
     @StateObject var badges = BadgeViewModel()
+    @StateObject var profileVM = ProfileViewModel()
     @State private var search = ""
     @State var showWindow = false
     @State var recycledBadge = Badge()
@@ -17,23 +19,46 @@ struct BadgesView: View {
         ZStack {
             VStack{
                 SearchBar(text: $search)
+                
                 ScrollView{
                     LazyVStack {
                         
-                        ForEach(self.badges.badges.filter{self.search.isEmpty ? true : $0.badgeID!.localizedCaseInsensitiveContains(self.search) || $0.guestID!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Badge, rhs:Badge) in
-                            return lhs.assignedTime! > rhs.assignedTime!
-                        }) { badge in
+                        HStack {
+                            Text("Your workplace:")
+                            Spacer()
+                            if getProfileBuilding() == "" {
+                                Text("Please go to setting and select your workplace").foregroundColor(.red)
+                            } else {
+                                Text("\(getProfileBuilding())")
+                            }
+                        }.padding()
+                        
+                        if self.badges.badges.count == 0 || self.badges.badges.filter{$0.building! == getProfileBuilding()}.count == 0 {
+                            // if no event
+                            Spacer()
+                            Text("There is no assigned badges right now in your workplace!")
+                            Spacer()
+                        }
+                        
+                        ForEach(self.badges.badges
+                                    .filter{$0.building! == getProfileBuilding()}
+                                    .filter{self.search.isEmpty ? true : $0.badgeID!.localizedCaseInsensitiveContains(self.search) || $0.guestID!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Badge, rhs:Badge) in
+                                        return lhs.assignedTime! > rhs.assignedTime!
+                                    }) { badge in
                             BadgeRowView(badge: badge)
                         }
                         
-//                        ForEach(self.badges.badges.filter{self.search.isEmpty ? true : $0.guestID!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Badge, rhs:Badge) in
-//                            return lhs.assignedTime! > rhs.assignedTime!
-//                        }) { badge in
-//                            BadgeRowView(badge: badge)
-//                        }
+
+                        
+                        //                        ForEach(self.badges.badges.filter{self.search.isEmpty ? true : $0.guestID!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Badge, rhs:Badge) in
+                        //                            return lhs.assignedTime! > rhs.assignedTime!
+                        //                        }) { badge in
+                        //                            BadgeRowView(badge: badge)
+                        //                        }
                     }
                 }.onAppear{
                     self.badges.fetchData()
+                    self.profileVM.fetchData()
                 }
                 
                 
@@ -43,6 +68,16 @@ struct BadgesView: View {
             //            }
         }
     }
+    
+    func getProfileBuilding() -> String {
+        for profile in profileVM.profiles {
+            if profile.email == Auth.auth().currentUser?.email {
+                return profile.building
+            }
+        }
+        return ""
+    }
+    
 }
 
 struct ConfirmWindow: View {

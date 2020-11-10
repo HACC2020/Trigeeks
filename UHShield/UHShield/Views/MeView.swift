@@ -69,7 +69,7 @@ struct MeView: View {
                                     .frame(height: 50)
                                     .foregroundColor(.white)
                                     .font(.system(size: 14, weight: .bold))
-                                    .background(LinearGradient(gradient: Gradient(colors: [Color("blue3"), Color("bg1")]), startPoint: .leading, endPoint: .trailing))
+                                    .background(Color("button2"))
                                     .cornerRadius(5)
                                 
                             }

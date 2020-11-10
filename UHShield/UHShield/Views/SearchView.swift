@@ -10,6 +10,7 @@ import FirebaseAuth
 
 struct SearchView: View {
     @State var search = ""
+    @State var currentTime = Date()
     @StateObject var eventViewModel = EventViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
     @State var searchType = 0 // 0 for all, 1 for name, 2 for sponsor, 3 for location
@@ -65,7 +66,12 @@ struct SearchView: View {
                                         Text("Search by: ")
                                         Text("event name").foregroundColor(.blue)
                                     }
-                                    ForEach(self.eventViewModel.events.filter{$0.eventName!.localizedCaseInsensitiveContains(self.search)}) { event in
+                                    ForEach(self.eventViewModel.events.filter{$0.eventName!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Event, rhs:Event) in
+                                        return lhs.startTime! > rhs.startTime!
+                                    }.sorted {
+                                        (lhs:Event, rhs:Event) in
+                                        return lhs.endTime! > self.currentTime
+                                    }) { event in
                                         EventRowView(event: event).onTapGesture {
                                             if checkIsReception() {
                                                 if Calendar.current.isDate(event.startTime!, inSameDayAs:Date()) && event.endTime! > Date() {
@@ -87,7 +93,12 @@ struct SearchView: View {
                                         Text("Search by: ")
                                         Text("sponsor").foregroundColor(.blue)
                                     }
-                                    ForEach(self.eventViewModel.events.filter{$0.sponsor!.localizedCaseInsensitiveContains(self.search)}) { event in
+                                    ForEach(self.eventViewModel.events.filter{$0.sponsor!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Event, rhs:Event) in
+                                        return lhs.startTime! > rhs.startTime!
+                                    }.sorted {
+                                        (lhs:Event, rhs:Event) in
+                                        return lhs.endTime! > self.currentTime
+                                    }) { event in
                                         EventRowView(event: event).onTapGesture {
                                             if checkIsReception() {
                                                 if Calendar.current.isDate(event.startTime!, inSameDayAs:Date()) && event.endTime! > Date() {
@@ -109,7 +120,12 @@ struct SearchView: View {
                                         Text("Search by: ")
                                         Text("location").foregroundColor(.blue)
                                     }
-                                    ForEach(self.eventViewModel.events.filter{$0.location!.building.localizedCaseInsensitiveContains(self.search) || $0.location!.roomID.localizedCaseInsensitiveContains(self.search)}) { event in
+                                    ForEach(self.eventViewModel.events.filter{$0.location!.building.localizedCaseInsensitiveContains(self.search) || $0.location!.roomID.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Event, rhs:Event) in
+                                        return lhs.startTime! > rhs.startTime!
+                                    }.sorted {
+                                        (lhs:Event, rhs:Event) in
+                                        return lhs.endTime! > self.currentTime
+                                    }) { event in
                                         EventRowView(event: event).onTapGesture {
                                             if checkIsReception() {
                                                 if Calendar.current.isDate(event.startTime!, inSameDayAs:Date()) && event.endTime! > Date() {

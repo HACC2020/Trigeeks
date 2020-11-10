@@ -24,8 +24,11 @@ struct MyEventsView: View {
                 // date picker
                 VStack {
                     HStack {
-                        DatePicker("", selection: $datepicked, displayedComponents: .date).padding(.horizontal).datePickerStyle(DefaultDatePickerStyle())
+                        
+                        Text("Show events on").padding()
                         Spacer()
+                        DatePicker("", selection: $datepicked, displayedComponents: .date).padding(.horizontal).datePickerStyle(DefaultDatePickerStyle())
+                    
                     }.padding(.horizontal)
                     
                     // events list

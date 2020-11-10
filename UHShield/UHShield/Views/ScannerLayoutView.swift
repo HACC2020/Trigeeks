@@ -10,7 +10,7 @@ import SwiftUI
 struct ScannerLayoutView: View {
     
     @StateObject var eventViewModel = EventViewModel()
-    
+    @EnvironmentObject var session: SessionStore
     @State var scanerLineOffset: CGFloat = 0
     @State var circleSize: CGFloat = 0
     @State var checkMarkSize: CGFloat = 0.1
@@ -94,7 +94,7 @@ struct ScannerLayoutView: View {
             codeDetails = details
             for event in eventViewModel.events {
                 if event.id == codeDetails[0] {
-                    codeDetails.append(event.location?.building ?? "Unknown")
+                    codeDetails.append(event.location?.building ?? "")
                 }
             }
            

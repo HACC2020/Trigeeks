@@ -62,7 +62,7 @@ struct EditWorkplaceView: View {
                     Button(action: {
                         self.showPopUp = true
                     }) {
-                        Text("Edit Profile")
+                        Text("Update")
                             .frame(minWidth: 0, maxWidth: .infinity)
                             .frame(height: 50)
                             .foregroundColor(.white)

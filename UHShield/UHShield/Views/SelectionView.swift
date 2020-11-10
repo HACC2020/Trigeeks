@@ -22,7 +22,7 @@ struct SelectionView: View {
                     UserView(selection: $selection)
                 } else if selection == 11{
                     // change to QR code scanner view
-                    ScannerLayoutView(selection: $selection)
+                    ScannerLayoutView(selection: $selection).environmentObject(session)
                 } else if selection == 21 {
                     AddEventView(selection: $selection).transition(.slide).environmentObject(buildingViewModel)
                 }

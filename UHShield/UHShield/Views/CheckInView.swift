@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct CheckInView: View {
     let details: [String]
     @Binding var isShowCheckInView: Bool
+    @EnvironmentObject var session: SessionStore
     @StateObject var eventViewModel = EventViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
     
@@ -23,7 +25,7 @@ struct CheckInView: View {
         ZStack {
             VStack {
                 
-                if checkEvent() {
+                if checkEvent() && checkBuilding() {
                     Text("Please check ID with guest").fontWeight(.bold).font(.title).foregroundColor(Color("bg1"))
                     VStack {
                         HStack {
@@ -89,13 +91,29 @@ struct CheckInView: View {
                     .onAppear {
                         getEvent()
                     }
-                } else {
+                } else if !checkEvent() {
                     VStack {
                         HStack {
                             Text("Access Denied!").fontWeight(.bold).font(.largeTitle).foregroundColor(.red)
                             Spacer()
                         }
                         Text("This is not a valid QR-Code. Please check with guest in other way!").font(.title3)
+                        Button(action: {handleCloseButton()}, label: {
+                            Text("Close").font(.title3).fontWeight(.semibold).foregroundColor(.white)
+                        }).padding().buttonStyle(LongButtonStyle())
+                    }.padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 25).foregroundColor(Color(#colorLiteral(red: 0.8864660859, green: 0.8863860965, blue: 0.9189570546, alpha: 1)))
+                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 4, y: 5)
+                            .shadow(color: Color.white.opacity(0.4), radius: 5, x: -5, y: -5)
+                    ).padding(30)
+                } else {
+                    VStack {
+                        HStack {
+                            Text("Wrong building!").fontWeight(.bold).font(.largeTitle).foregroundColor(.red)
+                            Spacer()
+                        }
+                        Text("The event is not in this building.\nPlease let the guest know that the event is in Building: \(details[3])").font(.title3)
                         Button(action: {handleCloseButton()}, label: {
                             Text("Close").font(.title3).fontWeight(.semibold).foregroundColor(.white)
                         }).padding().buttonStyle(LongButtonStyle())
@@ -142,6 +160,23 @@ struct CheckInView: View {
         return false
     }
     
+    // this function will run only if checkEvent() is true
+    func checkBuilding() -> Bool {
+        if details[3] == getProfileBuilding() {
+            return true
+        }
+        return false
+    }
+    
+    func getProfileBuilding() -> String {
+        for profile in profileViewModel.profiles {
+            if profile.email == Auth.auth().currentUser?.email {
+                return profile.building
+            }
+        }
+        return ""
+    }
+    
     func getEvent() {
         for event in eventViewModel.events {
             if event.id == details[0] {
@@ -173,6 +208,7 @@ struct CheckInView: View {
         }
         isShowAddBadge = true
     }
+    
 }
 
 struct CheckInView_Previews: PreviewProvider {

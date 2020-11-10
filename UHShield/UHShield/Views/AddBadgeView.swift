@@ -31,23 +31,23 @@ struct AddBadgeView: View {
                     HStack {
                         Text("Guest Information").fontWeight(.bold).font(.title)
                         Spacer()
-                    }
+                    }.padding()
                     HStack {
-                        Text("Name:       ")
-                        Text("\(guestName)").font(.title3)
+                        Text("Name:").frame(width: 90, alignment: .leading)
+                        Text("\(guestName)").font(.headline)
                         Spacer()
                     }
                     HStack {
-                        Text("Email:         ")
-                        Text("\(guestEmail)").font(.title3)
+                        Text("Email:").frame(width: 90, alignment: .leading)
+                        Text("\(guestEmail)").font(.headline)
                         Spacer()
                     }
                    
                 }.padding()
                 .background(
                     RoundedRectangle(cornerRadius: 25).foregroundColor(Color(#colorLiteral(red: 0.8864660859, green: 0.8863860965, blue: 0.9189570546, alpha: 1)))
-                        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 8, y: 10)
-                        .shadow(color: Color.white.opacity(0.7), radius: 10, x: -10, y: -10)
+                        .shadow(color: Color.black.opacity(0.2), radius: 5, x: 4, y: 5)
+                        .shadow(color: Color.white.opacity(0.4), radius: 5, x: -5, y: -5)
                 ).padding(30)
                 
                 VStack {
@@ -64,7 +64,7 @@ struct AddBadgeView: View {
                             .modifier(TextFieldModifier())
                         
                         Button(action: { handleUpdateButton() }, label: {
-                            Text("Update").font(.title).fontWeight(.bold).foregroundColor(.white)
+                            Text("Update").font(.title2).fontWeight(.bold).foregroundColor(.white)
                         }).buttonStyle(LongButtonStyle()).padding()
                     }.padding()
                 }

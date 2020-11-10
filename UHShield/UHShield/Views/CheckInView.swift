@@ -102,8 +102,8 @@ struct CheckInView: View {
                     }.padding()
                     .background(
                         RoundedRectangle(cornerRadius: 25).foregroundColor(Color(#colorLiteral(red: 0.8864660859, green: 0.8863860965, blue: 0.9189570546, alpha: 1)))
-                            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 8, y: 10)
-                            .shadow(color: Color.white.opacity(0.7), radius: 10, x: -10, y: -10)
+                            .shadow(color: Color.black.opacity(0.2), radius: 5, x: 4, y: 5)
+                            .shadow(color: Color.white.opacity(0.4), radius: 5, x: -5, y: -5)
                     ).padding(30)
                 }
                 

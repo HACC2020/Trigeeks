@@ -39,6 +39,7 @@ struct SearchView: View {
                             }
                         })
                         Image(systemName: "person")
+                        
                     } else if searchType == 3 {
                         Image(systemName: "chevron.backward").onTapGesture(perform: {
                             withAnimation(.spring()) {
@@ -66,6 +67,8 @@ struct SearchView: View {
                                         Text("Search by: ")
                                         Text("event name").foregroundColor(.blue)
                                     }
+                                    // Today's event should come first, from the latest to the oldest
+                                    // Other events will be listed after, and from the oldest to the latest
                                     ForEach(self.eventViewModel.events.filter{$0.eventName!.localizedCaseInsensitiveContains(self.search)}.sorted {(lhs:Event, rhs:Event) in
                                         return lhs.startTime! > rhs.startTime!
                                     }.sorted { (lhs:Event, rhs:Event) in

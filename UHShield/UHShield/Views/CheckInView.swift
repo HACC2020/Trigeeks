@@ -17,6 +17,7 @@ struct CheckInView: View {
     
     @State var isShowAddBadge = false
     @State var isShowWarning = false
+    @State var isShowWarning2 = false
     
     @State var event = Event(eventName: "", sponsor: "", guests: [], arrivedGuests: [], location: Location(building: "", roomID: ""), startTime: Date(), endTime: Date())
     
@@ -145,6 +146,10 @@ struct CheckInView: View {
             if isShowWarning {
                 AlertView(showAlert: $isShowWarning, alertMessage: .constant("Attention! This Guest has already checked in! Please be careful on assigning badge!"), alertTitle: "WARNING")
             }
+            
+            if isShowWarning2 {
+                AlertView(showAlert: $isShowWarning2, alertMessage: .constant("Attention! This event has already finished!"), alertTitle: "WARNING")
+            }
         }
         
     }
@@ -199,14 +204,20 @@ struct CheckInView: View {
     }
     
     func handleConfirmButton() {
+        self.isShowWarning = false
+        self.isShowWarning2 = false
         
         if !self.event.arrivedGuests!.contains(details[2]) {
             self.event.arrivedGuests!.append(details[2])
             eventViewModel.updateEvent(event: self.event)
         } else {
-            isShowWarning = true
+            self.isShowWarning = true
         }
-        isShowAddBadge = true
+        
+        if self.event.endTime ?? (Date() - 3600) < Date() {
+            self.isShowWarning2 = true
+        }
+        self.isShowAddBadge = true
     }
     
 }

@@ -113,6 +113,7 @@
 		39410B08254FA17100DEF4CB /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
+				45B8C631254A8C16003A8511 /* AlertView.swift */,
 				39410B09254FA1CB00DEF4CB /* EventRowView.swift */,
 				901C8B72254E9D38005B147B /* BadgeRowView.swift */,
 				45553061255578910042BA20 /* MyEventDetailView.swift */,
@@ -168,7 +169,6 @@
 			children = (
 				453CF8E725515B5A004BBA40 /* AddBadgeView.swift */,
 				4590CC3A2548F7240096C728 /* AddEventView.swift */,
-				45B8C631254A8C16003A8511 /* AlertView.swift */,
 				39410AD1254E4E7300DEF4CB /* BadgesView.swift */,
 				453CF8E425511E8C004BBA40 /* CheckInView.swift */,
 				39410AE8254E882A00DEF4CB /* EditEventView.swift */,

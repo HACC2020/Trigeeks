@@ -87,6 +87,7 @@ struct EditEventView: View {
                                 self.checkTimeConflict = false
                                 self.timeConflictEvent = []
                                 for eachEvent in self.eventViewModel.events {
+                                    if(eachEvent != event){
                                     if(eachEvent.location!.building == self.building && eachEvent.location!.roomID == value){
                                         if(eachEvent.startTime! <= startTime && startTime <= eachEvent.endTime!){
                                             checkTimeConflict = true
@@ -96,6 +97,7 @@ struct EditEventView: View {
                                             checkTimeConflict = true
                                             self.timeConflictEvent.append(eachEvent)
                                         }
+                                    }
                                     }
                                 }
                             })
@@ -113,6 +115,7 @@ struct EditEventView: View {
                                 self.checkTimeConflict = false
                                 self.timeConflictEvent = []
                                 for eachEvent in self.eventViewModel.events {
+                                    if(eachEvent != event){
                                     if(eachEvent.location!.building == self.building && eachEvent.location!.roomID == roomID){
                                         if(eachEvent.startTime! <= startTime && startTime <= eachEvent.endTime!){
                                             checkTimeConflict = true
@@ -123,6 +126,7 @@ struct EditEventView: View {
                                             self.timeConflictEvent.append(eachEvent)
                                         }
                                     }
+                                    }
                                 }
                             }
                             
@@ -130,6 +134,7 @@ struct EditEventView: View {
                                 self.checkTimeConflict = false
                                 self.timeConflictEvent = []
                                 for eachEvent in self.eventViewModel.events {
+                                    if(eachEvent != event){
                                     if(eachEvent.location!.building == self.building && eachEvent.location!.roomID == roomID){
                                         if(eachEvent.startTime! <= startTime && startTime <= eachEvent.endTime!){
                                             checkTimeConflict = true
@@ -139,6 +144,7 @@ struct EditEventView: View {
                                             checkTimeConflict = true
                                             self.timeConflictEvent.append(eachEvent)
                                         }
+                                    }
                                     }
                                 }
                             }

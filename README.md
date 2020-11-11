@@ -7,7 +7,7 @@
 # TABLE OF CONTENTS
 ***
 * [OVERVIEW](#overview)
-* [DEVELOPER GUIDE](#developer-guide)
+* [INSTALLATION GUIDE](#installation-guide)
 
 <br/>
 
@@ -23,8 +23,7 @@ This is a powerful mobile iOS-platform app that allows users(sponsor and recepti
 
 * We also provide the conventional check-in workflow in case of that the guests do not bring valid QR-Codes.
 
-
-# DEVELOPER Guide
+# Installation Guide
 ***
 ### Precondition: 
 Users have to install XCode under MacOS envrionment since it is a iOS platform application. We strongly recommend running our app on the latest version of XCode. 
@@ -49,4 +48,10 @@ Connect your iOS device with your computer. Make sure the version of Deployment 
 
 ### Finished set up, let run the app on your mobile device!
 If you do not have an ios platform mobile device, you can run the app in XCode build-in simulator(No need to set up, can simply choose and run).
-However, partial functionalities is not supported on XCode simulator.
+However, partial functionalities is not supported on XCode simulator(Scan QR Code and Sending Email).
+
+### Note
+After install the APP, you can either log in with exist account or register a new one.
+
+* After Register, you will be automatically set to be SPONSOR rule. 
+* If you want to try the functionality of RECEPTION, you can log in use account username: wei@test.com   password: asd456

@@ -37,6 +37,10 @@ struct MeView: View {
                             Spacer()
                             Text("Hello, \(self.profile.firstName)!")
                                 .font(.system(size: 18, weight: .medium))
+                            if self.profile.role == "guest" {
+                                Text("Dear HACC judges, please use provided accounts in our devpost website to explore the major functionalites.")
+                                    .font(.system(size: 18, weight: .medium))
+                            }
                             
                             NavigationLink(destination: EditProfileView(profile: $profile)) {
                                 Text("Edit your Profile")

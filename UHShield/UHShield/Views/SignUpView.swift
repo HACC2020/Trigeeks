@@ -144,7 +144,7 @@ struct SignUpView: View {
                     self.error = error.localizedDescription
                     showAlert = true
                 } else {
-                    profileViewModel.addProfile(profile: Profile(id: email ,email: email, firstName: "", lastName: "", role: "sponsor", building: ""))
+                    profileViewModel.addProfile(profile: Profile(id: email ,email: email, firstName: "Guest", lastName: "", role: "guest", building: ""))
                     self.email = ""
                     self.password = ""
                 }

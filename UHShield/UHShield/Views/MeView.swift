@@ -38,7 +38,7 @@ struct MeView: View {
                             Text("Hello, \(self.profile.firstName)!")
                                 .font(.system(size: 18, weight: .medium))
                             if self.profile.role == "guest" {
-                                Text("Dear HACC judges, please use provided accounts in our devpost website to explore the major functionalites.")
+                                Text("Dear HACC judges, please use provided accounts in our github project page (bottom of the page) to explore the major functionalites.")
                                     .font(.system(size: 18, weight: .medium))
                             }
                             

@@ -1,5 +1,6 @@
 # UHShield App
 
+UHShield is a project developed for HACC2020.
 
 [DevPost Page](https://devpost.com/software/uhshield)
 

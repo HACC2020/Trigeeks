@@ -23,6 +23,7 @@ struct EditProfileView: View {
         let db = Firestore.firestore()
         email = profile.email
         role = profile.role
+        profile.firstName = self.firstName
         db.collection("Profiles").document(profile.email).setData(["email": email, "firstName": firstName, "lastName": lastName, "role": role], merge: true)
     }
     

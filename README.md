@@ -52,18 +52,9 @@ If you do not have an ios platform mobile device, you can run the app in XCode b
 However, partial functionalities is not supported on XCode simulator(Scan QR Code and Sending Email).
 
 ### Note
-After install the APP, you can either log in with exist account or register a new one.
+After install the APP, you can either log in with exist account or register a new one. After sign up, you will become a sponsor.
 
-* If you want to try the full functionality, you can log in using account below and select your workplace building at Me Tab to start.
-
-
-  #### Account 0
-
-  ** username: reception@test.com  
-  
-  ** password: 123456
-  
-  ** role: reception
+* If you want to try the RECEPTION role functionality, you can log in using accounts below and select your workplace building at Me Tab to start.
   
   #### Account 1
   
@@ -81,26 +72,11 @@ After install the APP, you can either log in with exist account or register a ne
   
   ** role: reception
   
-  
   #### Account 3
-  ** username: hacc3@test.com
+
+  ** username: reception@test.com  
   
-  ** password: 333333
+  ** password: 123456
   
-  ** role: sponsor
+  ** role: reception
   
-  
-  #### Account 4
-  ** username: hacc4@test.com
-  
-  ** password: 444444
-  
-  ** role: sponsor
-  
-  
-  #### Account 5
-  ** username: hacc5@test.com
-  
-  ** password: 555555
-  
-  ** role: sponsor

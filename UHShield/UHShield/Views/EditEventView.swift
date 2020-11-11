@@ -114,6 +114,7 @@ struct EditEventView: View {
                             DatePicker("Start Time", selection: $startTime, in: tempTime...).padding(.horizontal).datePickerStyle(CompactDatePickerStyle()).onChange(of: startTime) { (value) in
                                 self.checkTimeConflict = false
                                 self.timeConflictEvent = []
+                                self.endTime = value
                                 for eachEvent in self.eventViewModel.events {
                                     if(eachEvent != event){
                                     if(eachEvent.location!.building == self.building && eachEvent.location!.roomID == roomID){

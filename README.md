@@ -53,8 +53,27 @@ However, partial functionalities is not supported on XCode simulator(Scan QR Cod
 ### Note
 After install the APP, you can either log in with exist account or register a new one.
 
-* After Register, you will be automatically set to be SPONSOR rule. 
 * If you want to try the functionality of RECEPTION, you can log in using account below and select your workplace building at Me Tab to start.
 
   ** username: reception@test.com  
   ** password: 123456
+  
+  ** username: hacc1@test.com
+  ** password: 111111
+  ** role: reception
+  
+  ** username: hacc2@test.com
+  ** password: 222222
+  ** role: reception
+  
+  ** username: hacc3@test.com
+  ** password: 333333
+  ** role: sponsor
+  
+  ** username: hacc4@test.com
+  ** password: 444444
+  ** role: sponsor
+  
+  ** username: hacc5@test.com
+  ** password: 555555
+  ** role: sponsor

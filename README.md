@@ -1,5 +1,31 @@
 # UHShield App
-## Installation Guide
+
+<div align="center">
+<a href="https://devpost.com/software/uhshield">DevPost</a>
+</div>
+
+# TABLE OF CONTENTS
+***
+* [OVERVIEW](#overview)
+* [DEVELOPER GUIDE](#developer-guide)
+
+<br/>
+
+# OverView
+***
+This is a powerful mobile iOS-platform app that allows users(sponsor and receptionists) to manage UH building access. 
+
+* Sponsors can create new events and manage their events. They can also invite guests via sending emails with our APP.
+
+* Guests will get the invitation email with a QR-Code, and they can use it to check-in.
+
+* Receptionists can scan the QR-Code guest provided, and the system will automatically finish check-in, and then they only need to assign the badge to the guest. The badge has an embedded magnetic strip used for entry control, and it is limited to operating the elevator. When guests leave, they should give back their badges to the receptionists, and they can remove the binding between the guest and the badge through our APP.
+
+* We also provide the conventional check-in workflow in case of that the guests do not bring valid QR-Codes.
+
+
+# DEVELOPER Guide
+***
 ### Precondition: 
 Users have to install XCode under MacOS envrionment since it is a iOS platform application. We strongly recommend running our app on the latest version of XCode. 
 

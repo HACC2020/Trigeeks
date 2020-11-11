@@ -1,8 +1,8 @@
 # UHShield App
 
-<div align="center">
-<a href="https://devpost.com/software/uhshield">DevPost</a>
-</div>
+
+[DevPost Page](https://devpost.com/software/uhshield)
+
 
 # TABLE OF CONTENTS
 ***

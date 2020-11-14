@@ -15,6 +15,7 @@ struct MyEventsView: View {
     @StateObject var eventVM = EventViewModel()
     @State var showWindow = false
     @State var tappedEvent = Event()
+    @State var showEndedEvents = false
     @State var datepicked = Date()
     
     var body: some View {
@@ -23,19 +24,15 @@ struct MyEventsView: View {
                 
                 // date picker
                 VStack {
-                    HStack {
-                        
-                        Text("Show events on").padding()
-                        Spacer()
-                        DatePicker("", selection: $datepicked, displayedComponents: .date).padding(.horizontal).datePickerStyle(DefaultDatePickerStyle())
-                    
-                    }.padding(.horizontal)
+                    Toggle(isOn: $showEndedEvents) {
+                        Text("Show ended events")
+                    }.padding()
                     
                     // events list
-                    if (self.eventVM.events.filter{$0.sponsor!.contains((Auth.auth().currentUser?.email) ?? "")}.filter{Calendar.current.isDate($0.startTime!, inSameDayAs:datepicked)}.count > 0) { // check if there is event for user
+                    if (self.eventVM.events.filter{$0.sponsor!.contains((Auth.auth().currentUser?.email) ?? "")}.filter{self.showEndedEvents ? true : $0.endTime! >= Date()}.count > 0) { // check if there is event for user
                         ScrollView {
                             LazyVStack(alignment: .leading) {
-                                ForEach(self.eventVM.events.filter{$0.sponsor!.contains((Auth.auth().currentUser?.email)!)}.filter{Calendar.current.isDate($0.startTime!, inSameDayAs:datepicked)}
+                                ForEach(self.eventVM.events.filter{$0.sponsor!.contains((Auth.auth().currentUser?.email)!)}.filter{self.showEndedEvents ? true : $0.endTime! >= Date()}
                                             .sorted {(lhs:Event, rhs:Event) in
                                                 return lhs.startTime! < rhs.startTime!
                                             } ) { event in
@@ -79,11 +76,20 @@ struct MyEventRow: View {
     var event: Event
     @Binding var showWindow: Bool
     @Binding var tappedEvent : Event
+    
+    func getDate() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.setLocalizedDateFormatFromTemplate("MMM d")
+        return dateFormatter.string(from: event.startTime!)
+    }
+
     var body: some View {
         HStack(alignment: .top) {
             // start time
-            Text("\(event.startTime!, style: .time)").fontWeight(.semibold).frame(width: 80)
-            
+            VStack{
+                Text("\(getDate())").fontWeight(.semibold).frame(width: 80).padding(.bottom, 10)
+                Text("\(event.startTime!, style: .time)").fontWeight(.semibold).frame(width: 80)
+            }
             // dot and line
             VStack {
                 if event.startTime! < Date() && event.endTime! > Date() {
